@@ -826,10 +826,16 @@ def handle_line(line, interactive=True):
                 if interactive:
                     print("Imported blueprint 'io'")
             else:
-                mod = importlib.import_module(name)
-                register_blueprint(name, mod)
-                if interactive:
-                    print(f"Imported module '{name}' as blueprint")
+                # If a blueprint with this name is already registered, don't try to
+                # import a Python module. Just acknowledge the existing blueprint.
+                if name in BLUEPRINTS:
+                    if interactive:
+                        print(f"Blueprint '{name}' is already available")
+                else:
+                    mod = importlib.import_module(name)
+                    register_blueprint(name, mod)
+                    if interactive:
+                        print(f"Imported module '{name}' as blueprint")
         except Exception as e:
             report_error(e, context=f"importing '{name}'")
         return True
@@ -1071,12 +1077,21 @@ def main():
                         register_blueprint('io', _io_instance)
                     print("Imported blueprint 'io'")
                 else:
-                    # try to import a python module and register it as a blueprint
-                    mod = importlib.import_module(name)
-                    register_blueprint(name, mod)
-                    print(f"Imported module '{name}' as blueprint")
+                    # If the blueprint name already exists, acknowledge it instead
+                    # of attempting to import a Python module (avoids ModuleNotFoundError
+                    # when using built-in blueprints like 'tm').
+                    if name in BLUEPRINTS:
+                        print(f"Blueprint '{name}' is already available")
+                    else:
+                        # try to import a python module and register it as a blueprint
+                        try:
+                            mod = importlib.import_module(name)
+                            register_blueprint(name, mod)
+                            print(f"Imported module '{name}' as blueprint")
+                        except Exception as e:
+                            report_error(e, context=f"importing '{name}'")
             except Exception as e:
-                print(f"Error importing '{name}': {e}")
+                report_error(e, context=f"importing '{name}'")
             continue
 
         # Blueprint definition: multi-line block starting with 'blueprint name [' and ending with ']'

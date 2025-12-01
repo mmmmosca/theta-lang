@@ -4,10 +4,7 @@ Create an `example.th` to try features quickly:
 
 ```
 # factorial example
-fact(n) -> {
-  if n == 0 return 1
-  return n * fact(n - 1)
-}
+fact(n) -> n * fact(n-1) when n > 1 else n
 
 io.out(fact(5))
 

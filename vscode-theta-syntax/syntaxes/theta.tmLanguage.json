@@ -1,0 +1,56 @@
+{
+  "scopeName": "source.theta",
+  "name": "Theta",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#functions" },
+    { "include": "#brackets" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.theta",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        { "name": "string.quoted.single.theta", "begin": "'", "end": "'" },
+        { "name": "string.quoted.double.theta", "begin": "\"", "end": "\"" }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        { "name": "constant.numeric.integer.theta", "match": "\\b\\d+\\b" },
+        { "name": "constant.numeric.float.theta", "match": "\\b\\d+\\.\\d+\\b" }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.theta",
+          "match": "\\b(let|def|return|when|else|blueprint|import)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.theta",
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\s*(?=\\()"
+        }
+      ]
+    },
+    "brackets": {
+      "patterns": [
+        { "name": "punctuation.section.brackets.begin.theta", "match": "[\\[\\]\\(\\)\\{\\}]" }
+      ]
+    }
+  },
+  "scopeName": "source.theta"
+}

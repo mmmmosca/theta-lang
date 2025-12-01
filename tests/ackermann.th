@@ -1,0 +1,5 @@
+ack(m,n) -> { return ack_case_0(m,n) }
+ack_case_0(m,n) -> { return n + 1 when m == 0 else ack_case_1(m,n) }
+ack_case_1(m,n) -> { return ack(m-1,1) when n == 0 else ack_case_2(m,n) }
+ack_case_2(m,n) -> { return ack(m-1, ack(m, n-1)) }
+io.out("ack(2,2):", ack(2,2))

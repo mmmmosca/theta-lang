@@ -1,0 +1,2 @@
+build_prefix(i,n,tape) -> { return [] when i >= n else [ tape[i] ] + build_prefix(i+1, n, tape) }
+io.out('ok')

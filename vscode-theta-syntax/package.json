@@ -1,0 +1,30 @@
+{
+  "name": "vscode-theta-syntax",
+  "displayName": "Theta Syntax Highlighting",
+  "description": "Basic syntax highlighting for Theta (.th) files.",
+  "version": "0.0.1",
+  "publisher": "mmmmosca",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "theta",
+        "aliases": ["Theta", "theta"],
+        "extensions": [".th"],
+        "configuration": "language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "theta",
+        "scopeName": "source.theta",
+        "path": "./syntaxes/theta.tmLanguage.json"
+      }
+    ]
+  }
+}

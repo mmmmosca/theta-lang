@@ -1,0 +1,14 @@
+# TM using Python-side `tm` blueprint with a multi-line transition table
+let trans = [
+  [ 'q0'; 1; 1; 1; 'q0' ];
+  [ 'q0'; 0; 1; 0; 'qa' ];
+]
+
+let tape = [[1;1;1;0;0;0]]
+let head = 0
+let state = 'q0'
+
+let result = tm.run(trans, tape, head, state, 100)
+io.out("tm binary tape:", result[0])
+io.out("tm binary head:", result[1])
+io.out("tm binary state:", result[2])

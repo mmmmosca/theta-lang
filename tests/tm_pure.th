@@ -1,0 +1,34 @@
+# Pure-Theta Turing Machine simulator (uses only Theta functions and arrays)
+# This example implements the unary-increment TM as a transition table and
+# runs the simulator purely in Theta.
+
+# build_prefix(i,n,tape)
+build_prefix(i,n,tape) -> { return [] when i >= n else [ tape[i] ] + build_prefix(i+1, n, tape) }
+
+# build_from(i,tape)
+build_from(i,tape) -> { return [] when i >= len(tape) else [ tape[i] ] + build_from(i+1, tape) }
+
+# write(tape,pos,val)
+write(tape,pos,val) -> { left = build_prefix(0,pos,tape); right = build_from(pos+1,tape); return left + [val] + right }
+
+# get_transition(trans, state, sym)
+get_transition(trans, state, sym) -> { return get_transition_i(trans, state, sym, 0) }
+get_transition_i(trans, state, sym, i) -> { return [] when i >= len(trans) else trans[i] when trans[i][0] == state and trans[i][1] == sym else get_transition_i(trans, state, sym, i+1) }
+
+# step(tape, head, state, trans)
+step(tape, head, state, trans) -> { tr = get_transition(trans, state, tape[head]); return (tape, head, state, 1) when tr == [] else ( write(tape, head, tr[2]), head + tr[3], tr[4], 0 ) }
+
+# simulate(tape, head, state, trans, steps)
+simulate(tape, head, state, trans, steps) -> { return (tape, head, state) when steps <= 0; s = step(tape, head, state, trans); halted = s[3]; return (s[0], s[1], s[2]) when halted == 1; return simulate(s[0], s[1], s[2], trans, steps - 1) }
+
+# Transition table (multi-line, uses bracket collector in run_file)
+let trans = [[ 'q0'; 1; 1; 1; 'q0' ]; [ 'q0'; 0; 1; 0; 'qa' ]]
+
+let tape = [[1;1;1;0;0;0]]
+let head = 0
+let state = 'q0'
+
+let res = simulate(tape, head, state, trans, 100)
+io.out("pure tm tape:", res[0])
+io.out("pure tm head:", res[1])
+io.out("pure tm state:", res[2])

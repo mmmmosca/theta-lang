@@ -37,6 +37,7 @@ python .\theta.py --debug tests\tm_pure.th
 Common workflows
 - Edit `.th` files in your editor and run them via `python theta.py file.th`.
 - Use the REPL for quick experiments and define `let` variables or `->` functions interactively.
+- Import blueprints from Theta files by name: `import foo` loads `foo.th` when it contains `blueprint foo [ ... ]`. The blueprint name must match the file name.
 
 Files and tests
 - `tests/run_tests.py` runs the example programs (factorial, fibonacci, ackermann, TMs).

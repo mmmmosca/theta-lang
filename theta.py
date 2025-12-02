@@ -115,6 +115,71 @@ def register_blueprint(name, obj):
     BLUEPRINTS[name] = obj
 
 
+def _import_blueprint_from_th(name: str, base_dir: str | None = None) -> bool:
+    """Attempt to import a blueprint definition from a Theta `.th` file.
+
+    Looks for `<name>.th` in `base_dir` (or current working directory if None),
+    scans for a `blueprint <name> [ ... ]` block, and registers the resulting
+    blueprint. Returns True on success, False otherwise.
+    """
+    import os
+    dir_to_use = base_dir or os.getcwd()
+    th_path = os.path.join(dir_to_use, f"{name}.th")
+    if not os.path.isfile(th_path):
+        return False
+    try:
+        with open(th_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+    except Exception:
+        return False
+
+    # find blueprint <name> [ ... ] and parse defs
+    found = False
+    i = 0
+    while i < len(lines):
+        raw = lines[i]; i += 1
+        line = strip_comments(raw).strip()
+        if not line or not line.startswith('blueprint '):
+            continue
+        rest = line[len('blueprint '):].strip()
+        if not rest.startswith(name):
+            # different blueprint block
+            continue
+        # expect '[' and collect until ']'
+        if '[' not in rest:
+            continue
+        parts = rest.split('[', 1)
+        after = parts[1]
+        body_lines = []
+        if ']' in after:
+            inner = after.split(']', 1)[0]
+            body_lines = inner.split('\n')
+        else:
+            if after.strip():
+                body_lines.append(after)
+            while i < len(lines):
+                more = lines[i]; i += 1
+                if ']' in more:
+                    body_lines.append(more.split(']', 1)[0])
+                    break
+                body_lines.append(more)
+        # parse defs
+        defs = []
+        for raw2 in body_lines:
+            line2 = strip_comments(raw2).strip()
+            if not line2:
+                continue
+            if line2.startswith('def '):
+                fn_def = line2[len('def '):].strip()
+                fname, fparams, fexpr = parseFunction(fn_def)
+                defs.append((fname, fparams, fexpr))
+        bp_obj = create_blueprint_from_defs(name, defs)
+        register_blueprint(name, bp_obj)
+        found = True
+        break
+    return found
+
+
 def create_blueprint_from_defs(name, defs):
     """Create a blueprint object from a list of function defs.
 
@@ -1151,10 +1216,17 @@ def handle_line(line, interactive=True):
                     if interactive:
                         print(f"Blueprint '{name}' is already available")
                 else:
-                    mod = importlib.import_module(name)
-                    register_blueprint(name, mod)
-                    if interactive:
-                        print(f"Imported module '{name}' as blueprint")
+                    # First, try to import from a local Theta file `<name>.th`.
+                    ok = _import_blueprint_from_th(name)
+                    if ok:
+                        if interactive:
+                            print(f"Imported Theta blueprint '{name}' from {name}.th")
+                    else:
+                        # Fallback: import a Python module and register as blueprint
+                        mod = importlib.import_module(name)
+                        register_blueprint(name, mod)
+                        if interactive:
+                            print(f"Imported module '{name}' as blueprint")
         except Exception as e:
             report_error(e, context=f"importing '{name}'")
         return True
@@ -1430,13 +1502,18 @@ def main():
                     if name in BLUEPRINTS:
                         print(f"Blueprint '{name}' is already available")
                     else:
-                        # try to import a python module and register it as a blueprint
-                        try:
-                            mod = importlib.import_module(name)
-                            register_blueprint(name, mod)
-                            print(f"Imported module '{name}' as blueprint")
-                        except Exception as e:
-                            report_error(e, context=f"importing '{name}'")
+                        # Try `.th` file first, then Python module.
+                        ok = _import_blueprint_from_th(name)
+                        if ok:
+                            print(f"Imported Theta blueprint '{name}' from {name}.th")
+                        else:
+                            # try to import a python module and register it as a blueprint
+                            try:
+                                mod = importlib.import_module(name)
+                                register_blueprint(name, mod)
+                                print(f"Imported module '{name}' as blueprint")
+                            except Exception as e:
+                                report_error(e, context=f"importing '{name}'")
             except Exception as e:
                 report_error(e, context=f"importing '{name}'")
             continue

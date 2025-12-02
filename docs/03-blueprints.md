@@ -12,6 +12,37 @@ Built-in blueprints
 
 Note: built-in blueprints such as `io`, `tm`, and `python` are available by default; you do not need to `import tm` in your `.th` scripts to use them. The `import` statement is used to register external Python modules as blueprints when needed.
 
+Importing blueprints from Theta files
+------------------------------------
+
+You can import a blueprint defined in another Theta file using:
+
+```
+import foo
+```
+
+Requirements:
+- File naming: the interpreter looks for a file named `foo.th` in the current working directory.
+- Blueprint name: inside `foo.th` there must be a block `blueprint foo [ ... ]` — the blueprint name must match the file name.
+- Methods: define methods with `def name(params) -> expr` inside the blueprint block.
+
+Example (`math_utils.th`):
+```
+blueprint math_utils [
+  def twice(x) -> x * 2
+]
+```
+
+Usage from another file:
+```
+import math_utils
+io.out(math_utils.twice(21))  # -> 42
+```
+
+Import resolution order:
+- First, Theta tries to load `foo.th` and register `blueprint foo` from it.
+- If no matching `.th` file is found, it falls back to importing a Python module named `foo` and registering it as a blueprint.
+
 Creating blueprints from `.th`
 - The file runner supports `blueprint name [ ... ]` blocks where each `def name(params) -> expr` is turned into a Python-callable method on the blueprint object.
 

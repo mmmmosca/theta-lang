@@ -2,6 +2,13 @@
 
 This is a minimal TextMate-based grammar for Theta `.th` files. It provides basic highlighting for comments, strings, numbers, keywords, and function names.
 
+What’s highlighted
+- Core keywords: `let`, `def`, `return`, `when`, `else`, `matches`, `blueprint`, `import`.
+- Operators: arrow `->`.
+- Numbers: integers and floats.
+- Blueprints used as qualifiers: `io.`, `tm.`, `python.`
+- Star-rest pattern identifiers like `*rest`.
+
 How to use during development
 
 - From this folder run `vsce package` to produce a `.vsix` (you must have `vsce` installed).
@@ -15,7 +22,7 @@ Publishing
 npm install -g vsce
 ```
 
-2. Update `package.json` with your `publisher` name and version.
+2. Update `package.json` with your `publisher` name and version (currently `0.0.2`).
 3. Create a Personal Access Token on the Visual Studio Marketplace and follow the `vsce` publish docs to login and publish.
 
 This grammar is intentionally small; contributions and PRs welcome to expand language features (semantic tokens, snippets, or a full LSP server).

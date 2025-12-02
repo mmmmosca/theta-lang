@@ -6,6 +6,9 @@
     { "include": "#strings" },
     { "include": "#numbers" },
     { "include": "#keywords" },
+    { "include": "#operators" },
+    { "include": "#blueprints" },
+    { "include": "#restPattern" },
     { "include": "#functions" },
     { "include": "#brackets" }
   ],
@@ -26,16 +29,31 @@
     },
     "numbers": {
       "patterns": [
-        { "name": "constant.numeric.integer.theta", "match": "\\b\\d+\\b" },
-        { "name": "constant.numeric.float.theta", "match": "\\b\\d+\\.\\d+\\b" }
+        { "name": "constant.numeric.float.theta", "match": "\\b\\d+\\.\\d+\\b" },
+        { "name": "constant.numeric.integer.theta", "match": "\\b\\d+\\b" }
       ]
     },
     "keywords": {
       "patterns": [
         {
           "name": "keyword.control.theta",
-          "match": "\\b(let|def|return|when|else|blueprint|import)\\b"
+          "match": "\\b(let|def|return|when|else|matches|blueprint|import)\\b"
         }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        { "name": "keyword.operator.arrow.theta", "match": "->" }
+      ]
+    },
+    "blueprints": {
+      "patterns": [
+        { "name": "support.namespace.blueprint.theta", "match": "\\b(io|tm|python)\\b(?=\\.)" }
+      ]
+    },
+    "restPattern": {
+      "patterns": [
+        { "name": "variable.parameter.rest.theta", "match": "\\*[A-Za-z_][A-Za-z0-9_]*" }
       ]
     },
     "functions": {

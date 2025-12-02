@@ -1081,7 +1081,38 @@ def evaluate_expression(expr, local_vars=None, visited=None):
 
     # Rewrite reserved attribute calls: allow `.<in>(` by mapping to `.__in__(`
     expr = expr.replace('.in(', '.__in__(')
-    # transform when/else and matches constructs before parsing
+    # transform boolean operators, matches, and when/else constructs before parsing
+    def transform_boolean_ops(s: str) -> str:
+        # Replace '||' with ' or ' and '&&' with ' and ' outside of quotes.
+        out = []
+        in_sq = False
+        in_dq = False
+        i = 0
+        while i < len(s):
+            ch = s[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '"' and not in_sq:
+                in_dq = not in_dq
+                out.append(ch)
+                i += 1
+                continue
+            if not in_sq and not in_dq:
+                if ch == '|' and i + 1 < len(s) and s[i+1] == '|':
+                    out.append(' or ')
+                    i += 2
+                    continue
+                if ch == '&' and i + 1 < len(s) and s[i+1] == '&':
+                    out.append(' and ')
+                    i += 2
+                    continue
+            out.append(ch)
+            i += 1
+        return ''.join(out)
+    expr = transform_boolean_ops(expr)
     expr = transform_matches(expr)
     expr2 = transform_when_else(expr)
     # (debug print removed for normal runs)

@@ -2,13 +2,13 @@
   "name": "vscode-theta-syntax",
   "displayName": "Theta Syntax Highlighting",
   "description": "Basic syntax highlighting for Theta (.th) files.",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "publisher": "mmmmosca",
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.80.0"
   },
   "categories": [
-    "Languages"
+    "Programming Languages"
   ],
   "contributes": {
     "languages": [

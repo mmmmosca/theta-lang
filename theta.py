@@ -1394,6 +1394,40 @@ def run_file(path):
                 print("Invalid blueprint definition in file; missing '['")
                 continue
 
+        # Support multi-line function bodies introduced with a trailing '->'
+        # Example:
+        #   foo(x) ->
+        #       x + 1
+        #   bar(y) ->
+        #       y * 2 when y > 1 else y
+        # We collect subsequent lines until we reach a blank line or a new
+        # top-level statement (let/import/blueprint/another function def).
+        if '->' in line:
+            lhs, rhs = line.split('->', 1)
+            if rhs.strip() == '':
+                body_lines = []
+                # consume following lines for body
+                start_i = i
+                while i < len(lines):
+                    nxt_raw = lines[i]
+                    nxt = strip_comments(nxt_raw).strip()
+                    # stop on empty line or a new top-level construct
+                    if nxt == '' or nxt.startswith('let ') or nxt.startswith('import ') or nxt.startswith('blueprint ') or '->' in nxt:
+                        break
+                    body_lines.append(nxt)
+                    i += 1
+                # join body lines with spaces to allow expressions like
+                # '... matches ... return ... else ...' split across lines
+                body_expr = ' '.join(body_lines).strip()
+                try:
+                    name, params, _ = parseFunction(line)
+                    # register the function using the collected expression
+                    register_function(name, params, body_expr)
+                    continue
+                except Exception as e:
+                    report_error(e, context=f"defining function from: {line}")
+                    # fall through to default handling
+
         # Non-blueprint lines: delegate to handle_line (non-interactive)
         try:
             handled = handle_line(line, interactive=False)

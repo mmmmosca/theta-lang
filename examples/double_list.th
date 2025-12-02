@@ -1,0 +1,6 @@
+import io
+
+doubleList(xs) -> xs matches [head; *rest] return [head * 2] + doubleList(rest) else []
+
+let xs = [1;2;3;4;5]
+io.out("doubleList:", doubleList(xs))

@@ -9,6 +9,10 @@ Goals
 - Provide a pleasant REPL and a `.th` script runner supporting multi-line constructs.
 - Allow side effects via pluggable "blueprints" implemented in Python.
 
+Highlights
+- Expression-oriented semantics (`when/else`, blocks return values).
+- Pattern matching with list patterns and star-rest (`matches`).
+
 Project layout
 - `theta.py` — main interpreter, REPL, and script runner.
 - `tests/` — example `.th` programs and a test runner.

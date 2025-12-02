@@ -13,6 +13,13 @@ let a = [1;2;3;4]
 io.out(a[2])  # -> 3
 ```
 
+Pattern matching: doubling a list
+```
+doubleList(xs) -> xs matches [head; *rest] return [head * 2] + doubleList(rest) else []
+
+io.out(doubleList([1;2;3;4;5]))  # -> [2;4;6;8;10]
+```
+
 Turing machine example (using `tm` blueprint)
 
 ```

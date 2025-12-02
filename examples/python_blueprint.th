@@ -1,0 +1,4 @@
+import io
+import python
+
+io.out("sqrt(16) =", python.call('math.sqrt', 16))

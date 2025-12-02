@@ -5,6 +5,7 @@ import ast
 import importlib
 import sys
 import traceback
+import theta_types as tt
 
 # Simple debug/verbose toggle. Set via command-line flags `--verbose` or `--debug`.
 DEBUG = False
@@ -242,6 +243,107 @@ class _TMBlueprint:
 register_blueprint('tm', _TMBlueprint())
 
 
+class MatchBlueprint:
+    """Runtime helper that performs pattern matching and evaluates branches.
+
+    The `matches(subject, pattern_str, success_expr_str, else_expr_str, globals_map)`
+    method parses `pattern_str` using Python's AST (after semicolon->comma
+    transform), attempts to match `subject` against the pattern and, on a
+    successful match, evaluates `success_expr_str` with the found bindings
+    merged into the provided `globals_map`.
+    """
+
+    def _pattern_from_ast(self, node):
+        # Literals
+        if isinstance(node, ast.Constant):
+            return ("lit", node.value)
+
+        # Backwards-compat: older Python versions used ast.Num / ast.Str
+        if node.__class__.__name__ == 'Num':
+            return ("lit", getattr(node, 'n'))
+        if node.__class__.__name__ == 'Str':
+            return ("lit", getattr(node, 's'))
+        if isinstance(node, ast.Name):
+            if node.id == '_':
+                return ("wild", None)
+            return ("var", node.id)
+        if isinstance(node, ast.List):
+            parts = []
+            for elt in node.elts:
+                if isinstance(elt, ast.Starred):
+                    if isinstance(elt.value, ast.Name):
+                        parts.append(("rest", elt.value.id))
+                    else:
+                        raise SyntaxError("Invalid rest pattern")
+                else:
+                    parts.append(self._pattern_from_ast(elt))
+            return ("list", parts)
+        # Fallback: try tuple as list
+        if isinstance(node, ast.Tuple):
+            return ("list", [self._pattern_from_ast(e) for e in node.elts])
+        raise SyntaxError(f"Unsupported pattern element: {type(node).__name__}")
+
+    def _match(self, value, pattern, bindings):
+        kind = pattern[0]
+        if kind == 'lit':
+            return value == pattern[1]
+        if kind == 'wild':
+            return True
+        if kind == 'var':
+            bindings[pattern[1]] = value
+            return True
+        if kind == 'list':
+            parts = pattern[1]
+            # handle rest pattern if present
+            if parts and parts[-1][0] == 'rest':
+                fixed = parts[:-1]
+                rest_name = parts[-1][1]
+                if not isinstance(value, (list, tuple, ThetaArray)):
+                    return False
+                vals = list(value)
+                if len(vals) < len(fixed):
+                    return False
+                for p, v in zip(fixed, vals[:len(fixed)]):
+                    if not self._match(v, p, bindings):
+                        return False
+                bindings[rest_name] = vals[len(fixed):]
+                return True
+            else:
+                if not isinstance(value, (list, tuple, ThetaArray)):
+                    return False
+                vals = list(value)
+                if len(vals) != len(parts):
+                    return False
+                for p, v in zip(parts, vals):
+                    if not self._match(v, p, bindings):
+                        return False
+                return True
+        return False
+
+    def matches(self, subj, pattern_str, success_expr_str, else_expr_str, globals_map):
+        # Pre-process pattern string to convert semicolons and then parse AST
+        pat_s = transform_semicolons_in_brackets(pattern_str)
+        try:
+            pat_ast = ast.parse(pat_s, mode='eval').body
+        except Exception as e:
+            raise SyntaxError(f"Invalid pattern: {e}")
+        pattern = self._pattern_from_ast(pat_ast)
+
+        bindings = {}
+        ok = self._match(subj, pattern, bindings)
+        if ok:
+            # Merge globals and bindings and evaluate the success expression string
+            local = dict(globals_map or {})
+            # copy bindings so ThetaArray and others are native
+            local.update(bindings)
+            return evaluate_expression(success_expr_str, local)
+        else:
+            return evaluate_expression(else_expr_str, globals_map or {})
+
+
+register_blueprint('match', MatchBlueprint())
+
+
 class PythonBlueprint:
     """Expose controlled access to Python modules/functions from Theta.
 
@@ -344,6 +446,66 @@ SAFE_FUNCS = {
 }
 
 
+def _value_to_type(value):
+    """Map a runtime Python/Theta value to a Hindley–Milner `Type`.
+
+    This is a heuristic runtime-based typer used for `typeof(expr)` until
+    a full AST-based HM inference is implemented.
+    """
+    # primitives
+    if isinstance(value, bool):
+        return tt.TypeConst('Bool')
+    if isinstance(value, int) and not isinstance(value, bool):
+        return tt.TypeConst('Int')
+    if isinstance(value, float):
+        return tt.TypeConst('Float')
+    if isinstance(value, str):
+        return tt.TypeConst('String')
+    if value is None:
+        return tt.TypeConst('None')
+    # lists / ThetaArray
+    if isinstance(value, (list, tuple, ThetaArray)):
+        items = list(value)
+        if not items:
+            return tt.TypeList(tt.fresh_type_var())
+        first_t = _value_to_type(items[0])
+        homogeneous = all(repr(_value_to_type(x)) == repr(first_t) for x in items)
+        if homogeneous:
+            return tt.TypeList(first_t)
+        return tt.TypeList(tt.TypeConst('Any'))
+    # fallback
+    return tt.TypeConst('Any')
+
+
+def typeof(expr_str: str):
+    """Infer a type for `expr_str` by evaluating it and mapping the result.
+
+    This is a pragmatic first step: it executes the expression and returns
+    a derived HM `Type`. It does not perform static HM inference yet.
+    """
+    if not isinstance(expr_str, str):
+        # if called with a non-string, treat it as a runtime value
+        t = _value_to_type(expr_str)
+        return repr(t)
+    # try to evaluate the expression first in the current globals
+    try:
+        val = evaluate_expression(expr_str, get_global_var_values())
+    except Exception as e:
+        # If evaluation fails due to an undefined name (e.g., user passed
+        # a raw string like "Hello" which becomes Hello), fall back to
+        # treating the original python string as a runtime value.
+        if isinstance(e, NameError):
+            val = expr_str
+        else:
+            raise RuntimeError(f"Cannot evaluate expression for typeof: {e}")
+    t = _value_to_type(val)
+    return repr(t)
+
+
+# expose typeof as a safe function callable from Theta expressions
+SAFE_FUNCS['typeof'] = typeof
+
+
 def strip_comments(s: str) -> str:
     """Remove inline comments starting with '#' unless inside quotes.
 
@@ -443,6 +605,137 @@ def transform_semicolons_in_brackets(s: str) -> str:
     return ''.join(out)
 
 
+def transform_matches(s: str) -> str:
+    """Transform `A matches P return X else Y` into a call to the match blueprint.
+
+    We keep this transformation simple and quote the pattern and branch expressions
+    so the runtime match handler can evaluate them under the appropriate
+    bindings.
+    """
+    out = s
+    while True:
+        idx_when = -1
+        depth = 0
+        in_sq = False
+        in_dq = False
+        i = 0
+        while i < len(out):
+            ch = out[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
+            elif not in_sq and not in_dq:
+                if ch in '([{':
+                    depth += 1
+                elif ch in ')]}':
+                    depth -= 1
+                if out.startswith(' matches ', i):
+                    idx_when = i
+                    break
+            i += 1
+        if idx_when == -1:
+            break
+
+        # find ' return ' and ' else ' after this ' matches '
+        j = idx_when + len(' matches ')
+        depth = 0
+        in_sq = False
+        in_dq = False
+        idx_return = -1
+        idx_else = -1
+        while j < len(out):
+            ch = out[j]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
+            elif not in_sq and not in_dq:
+                if ch in '([{':
+                    depth += 1
+                elif ch in ')]}':
+                    depth -= 1
+                if depth == 0 and out.startswith(' return ', j):
+                    idx_return = j
+                    break
+            j += 1
+
+        if idx_return == -1:
+            raise SyntaxError("Malformed 'matches' expression: missing 'return'")
+
+        k = idx_return + len(' return ')
+        depth = 0
+        in_sq = False
+        in_dq = False
+        while k < len(out):
+            ch = out[k]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
+            elif not in_sq and not in_dq:
+                if ch in '([{':
+                    depth += 1
+                elif ch in ')]}':
+                    depth -= 1
+                if depth == 0 and out.startswith(' else ', k):
+                    idx_else = k
+                    break
+            k += 1
+
+        # If there's no explicit 'else' arm, default to `None`.
+        if idx_else == -1:
+            left = out[:idx_when]
+            pattern = out[idx_when + len(' matches '):idx_return]
+            ret = out[idx_return + len(' return '):].strip()
+            # Emit a clear lint-style warning so the user knows the else-arm
+            # was omitted intentionally or accidentally. Show a compact
+            # snippet of the expression to help them locate the issue.
+            snippet = f"{left.strip()} matches {pattern.strip()} return {ret}"
+            print(f"Warning: 'matches' expression missing 'else' — defaulting to None. Expression: {snippet}")
+            other = 'None'
+        else:
+            left = out[:idx_when]
+            pattern = out[idx_when + len(' matches '):idx_return]
+            ret = out[idx_return + len(' return '):idx_else]
+            other = out[idx_else + len(' else '):]
+
+        # Allow a permissive ordering: users may write either
+        #   <subject> matches <pattern> return ...
+        # or
+        #   <pattern> matches <subject> return ...
+        # Detect the likely pattern side by parsing both fragments and
+        # checking for the presence of `Name` nodes (pattern variables).
+        subj_str = left.strip()
+        patt_str = pattern.strip()
+        try:
+            left_ast = ast.parse(subj_str, mode='eval').body
+            right_ast = ast.parse(patt_str, mode='eval').body
+        except Exception:
+            left_ast = right_ast = None
+
+        def _contains_name(node):
+            if node is None:
+                return False
+            if isinstance(node, ast.Name):
+                return True
+            for child in ast.iter_child_nodes(node):
+                if _contains_name(child):
+                    return True
+            return False
+
+        # If the left side contains names (pattern vars) and the right side
+        # does not, assume the user wrote pattern-first and swap.
+        if left_ast is not None and right_ast is not None and _contains_name(left_ast) and not _contains_name(right_ast):
+            subj_str, patt_str = patt_str, subj_str
+
+        # Quote the pattern and branch expressions so the runtime handler can
+        # parse and evaluate them under bindings.
+        new_expr = f"match.matches({subj_str}, {repr(patt_str)}, {repr(ret.strip())}, {repr(other.strip())}, __GLOBALS__)"
+        out = new_expr
+    return out
+
+
 def balance_brackets(s: str) -> int:
     """Return total unclosed bracket depth (round + square + curly).
 
@@ -540,6 +833,11 @@ def _eval_ast(node, local_vars, visited=None):
         # Only allow simple name calls or math.<name>
         if isinstance(node.func, ast.Name):
             fname = node.func.id
+            # special-case typeof to avoid relying on SAFE_FUNCS being populated
+            if fname == 'typeof':
+                args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
+                # typeof accepts either a string expression or a runtime value
+                return typeof(*args)
             # user-defined function
             if fname in FUNCTIONS:
                 args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
@@ -574,6 +872,8 @@ def _eval_ast(node, local_vars, visited=None):
             return local_vars[node.id]
         if node.id == 'math':
             return math
+        if node.id == 'typeof':
+            return typeof
         # If a variable exists in VARS, evaluate it lazily
         if node.id in VARS:
             return evaluate_variable(node.id, visited or set())
@@ -628,6 +928,23 @@ def evaluate_expression(expr, local_vars=None, visited=None):
     """
     if local_vars is None:
         local_vars = {}
+    else:
+        # copy to avoid mutating caller's mapping
+        local_vars = dict(local_vars)
+    # Ensure a `__GLOBALS__` mapping is available for runtime transforms
+    # (e.g., `matches` is transformed into a call that passes __GLOBALS__).
+    # Include BOTH evaluated globals and current local variables (e.g.,
+    # function parameters) so branch expressions can access them.
+    try:
+        global_snapshot = get_global_var_values()
+    except Exception:
+        global_snapshot = {}
+    merged_scope = dict(global_snapshot)
+    # merge current locals (excluding any pre-existing __GLOBALS__ to avoid cycles)
+    for k, v in list(local_vars.items()):
+        if k != '__GLOBALS__':
+            merged_scope[k] = v
+    local_vars['__GLOBALS__'] = merged_scope
     # Strip inline comments from the expression first
     expr = strip_comments(expr)
     # Transform OCaml-style semicolon-separated arrays into Python lists
@@ -700,6 +1017,8 @@ def evaluate_expression(expr, local_vars=None, visited=None):
 
     # Rewrite reserved attribute calls: allow `.<in>(` by mapping to `.__in__(`
     expr = expr.replace('.in(', '.__in__(')
+    # transform when/else and matches constructs before parsing
+    expr = transform_matches(expr)
     expr2 = transform_when_else(expr)
     # (debug print removed for normal runs)
     parsed = ast.parse(expr2, mode='eval')
@@ -856,6 +1175,21 @@ def handle_line(line, interactive=True):
         func_name = line.split('(', 1)[0].strip()
         args_raw = line.split('(', 1)[1][:-1]
         args = [arg.strip() for arg in args_raw.split(',')] if args_raw.strip() != '' else []
+        # Only treat this as a top-level function/blueprint call when the
+        # portion before '(' is a valid identifier or dotted identifier like
+        # `io.out` or `module.attr`. Otherwise fall through and evaluate the
+        # whole line as an expression (covers cases like `... else ()`).
+        import re
+        if not re.match(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$', func_name):
+            # Not a simple (possibly dotted) identifier: evaluate as expression
+            try:
+                result = evaluate_expression(line, get_global_var_values())
+                if result is not None:
+                    print(result)
+            except Exception as e:
+                report_error(e, context=f"evaluating expression: {line}")
+            return True
+
         try:
             if '.' in func_name:
                 # dotted call -> evaluate as expression (handles blueprints)
@@ -1032,6 +1366,9 @@ def call_function(name, arg_strs):
     # Evaluate arg expressions first, then call the user function
     base = get_global_var_values()
     evaluated_args = [evaluate_expression(a, base) for a in arg_strs]
+    # Allow calling safe builtin functions (e.g., typeof) as top-level names
+    if name in SAFE_FUNCS:
+        return SAFE_FUNCS[name](*evaluated_args)
     return call_user_function(name, evaluated_args)
 
 
@@ -1051,6 +1388,16 @@ def main():
         if line.lower() == 'exit':
             print("Exiting Theta. Goodbye!")
             break
+        # REPL: type query
+        if line.startswith(':type ') or line.startswith(':t '):
+            try:
+                expr = line.split(None, 1)[1]
+                t = typeof(expr)
+                print(t)
+            except Exception as e:
+                report_error(e, context='typeof')
+            continue
+
         # Function definition
         if line.startswith('let '):
             # variable definition: let name = expr
@@ -1176,15 +1523,21 @@ def main():
             args_raw = line.split('(', 1)[1][:-1]
             args = [arg.strip() for arg in args_raw.split(',')] if args_raw.strip() != '' else []
             try:
-                # If this is an attribute call (blueprint.method), evaluate as expression
-                if '.' in func_name:
-                    result = evaluate_expression(line, get_global_var_values())
-                    if result is not None:
-                        print(result)
-                else:
-                    result = call_function(func_name, args)
-                    if result is not None:
-                        print(result)
+                        # If this is an attribute call (blueprint.method), evaluate as expression
+                        import re
+                        if not re.match(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$', func_name):
+                            # not a simple identifier/dotted name -> evaluate as expression
+                            result = evaluate_expression(line, get_global_var_values())
+                            if result is not None:
+                                print(result)
+                        elif '.' in func_name:
+                            result = evaluate_expression(line, get_global_var_values())
+                            if result is not None:
+                                print(result)
+                        else:
+                            result = call_function(func_name, args)
+                            if result is not None:
+                                print(result)
             except Exception as e:
                 print(f"Error calling function: {e}")
             continue

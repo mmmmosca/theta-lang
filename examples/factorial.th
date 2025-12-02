@@ -1,0 +1,5 @@
+import io
+
+fact(n) -> n * fact(n - 1) when n > 1 else n
+
+io.out("fact(5) =", fact(5))

@@ -1,0 +1,9 @@
+import io
+
+let table = [
+  [ 'q0'; 1; 1; 1; 'q0' ];
+  [ 'q0'; 0; 1; 0; 'qa' ]
+]
+let tape = [1;1;1;0;0]
+let res = tm.run(table, tape, 0, 'q0', 100)
+io.out("tm:", res)

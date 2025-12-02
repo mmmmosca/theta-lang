@@ -10,6 +10,8 @@ Built-in blueprints
   - `io.in(prompt)` reads a line from stdin.
 - `tm` — a Python-side Turing Machine runner: `tm.run(transitions, tape, head, state, max_steps)`.
 
+Note: built-in blueprints such as `io`, `tm`, and `python` are available by default; you do not need to `import tm` in your `.th` scripts to use them. The `import` statement is used to register external Python modules as blueprints when needed.
+
 Creating blueprints from `.th`
 - The file runner supports `blueprint name [ ... ]` blocks where each `def name(params) -> expr` is turned into a Python-callable method on the blueprint object.
 

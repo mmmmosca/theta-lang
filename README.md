@@ -8,6 +8,7 @@ Theta is a functional-expression language implemented in Python. It is expressio
 - Immutable `let` variables with lazy evaluation and cycle detection.
 - Function definitions with both single-expression returns and block bodies.
 - `when ... else` conditional syntax (transformed into Python ternary expressions).
+- Pattern matching with `matches`, list patterns, and star-rest (e.g., `[head; *rest]`).
 - OCaml-style arrays using semicolons (e.g., `[1;2;3]`) and special double-bracket display semantics.
 - Blueprints: pluggable Python-backed modules accessible as `name.method(...)` from Theta.
   - Built-in `io` blueprint for simple input/output.
@@ -37,10 +38,18 @@ theta> inc(5)
 6
 ```
 
+Pattern matching (example)
+
+```
+doubleList(xs) -> xs matches [head; *rest] return [head * 2] + doubleList(rest) else []
+
+doubleList([1;2;3])  # -> [2;4;6]
+```
+
 Run a `.th` script
 
 ```powershell
-python theta.py tests/factorial.th
+python .\theta.py .\examples\double_list.th
 ```
 
 Enable verbose debugging
@@ -61,7 +70,19 @@ Built-in blueprints provide side-effectful behavior accessible from Theta expres
 
 Tests and examples
 
-There is a `tests` folder with small `.th` programs and a Python test runner that executes them and reports success. See `tests/run_tests.py` for how tests are invoked.
+There is an `examples/` folder with runnable programs (pattern matching, Python interop, TM demo) and a `tests/` folder with small `.th` programs plus a Python test runner.
+
+Run an example:
+
+```powershell
+python .\theta.py .\examples\python_blueprint.th
+```
+
+Run the test scripts:
+
+```powershell
+python .\tests\run_tests.py
+```
 
 Contributing and development notes
 

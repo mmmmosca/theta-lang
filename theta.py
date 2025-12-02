@@ -1,5 +1,4 @@
-print("Theta v1.1.0 - made by Mosca")
-print("Type 'exit' to leave the REPL.")
+print("Theta v1.1.1 - made by Mosca\n")
 import math
 import ast
 import importlib

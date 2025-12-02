@@ -860,6 +860,8 @@ def _eval_ast(node, local_vars, visited=None):
             return +operand
         if isinstance(node.op, ast.USub):
             return -operand
+        if isinstance(node.op, ast.Not):
+            return not operand
         raise ValueError(f"Unsupported unary operator {node.op}")
     if isinstance(node, ast.BoolOp):
         if isinstance(node.op, ast.And):
@@ -932,6 +934,11 @@ def _eval_ast(node, local_vars, visited=None):
                 return func(*args)
         raise ValueError("Unsupported function call")
     if isinstance(node, ast.Name):
+        # boolean literals (both lowercase Theta style and Python style)
+        if node.id in ("true", "True"):
+            return True
+        if node.id in ("false", "False"):
+            return False
         if node.id in local_vars:
             return local_vars[node.id]
         if node.id == 'math':
@@ -1112,6 +1119,39 @@ def evaluate_expression(expr, local_vars=None, visited=None):
             out.append(ch)
             i += 1
         return ''.join(out)
+
+    def transform_not_operator(s: str) -> str:
+        # Replace unary '!' with ' not ' outside of quotes, but keep '!=' intact.
+        out = []
+        in_sq = False
+        in_dq = False
+        i = 0
+        while i < len(s):
+            ch = s[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '"' and not in_sq:
+                in_dq = not in_dq
+                out.append(ch)
+                i += 1
+                continue
+            if not in_sq and not in_dq and ch == '!':
+                # if next char is '=' then it's '!='; leave as is
+                if i + 1 < len(s) and s[i+1] == '=':
+                    out.append('!')
+                    i += 1
+                    continue
+                # otherwise treat as unary not
+                out.append(' not ')
+                i += 1
+                continue
+            out.append(ch)
+            i += 1
+        return ''.join(out)
+    expr = transform_not_operator(expr)
     expr = transform_boolean_ops(expr)
     expr = transform_matches(expr)
     expr2 = transform_when_else(expr)

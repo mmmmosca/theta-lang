@@ -5,6 +5,7 @@
     { "include": "#comments" },
     { "include": "#strings" },
     { "include": "#numbers" },
+    { "include": "#booleans" },
     { "include": "#keywords" },
     { "include": "#operators" },
     { "include": "#blueprints" },
@@ -33,6 +34,12 @@
         { "name": "constant.numeric.integer.theta", "match": "\\b\\d+\\b" }
       ]
     },
+
+    "booleans": {
+      "patterns": [
+        { "name": "constant.language.boolean.theta", "match": "\\b(true|false)\\b" }
+      ]
+    },
     "keywords": {
       "patterns": [
         {
@@ -44,6 +51,8 @@
     "operators": {
       "patterns": [
         { "name": "keyword.operator.arrow.theta", "match": "->" }
+        { "name": "keyword.operator.matches.theta", "match": "\\bmatches\\b" },
+        { "name": "keyword.operator.logical.theta", "match": "\\b(and|or|not)\\b" }
       ]
     },
     "blueprints": {

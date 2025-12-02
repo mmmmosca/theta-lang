@@ -1,0 +1,12 @@
+import io
+
+let a = true
+let b = false
+
+io.out("a && !b =", a && !b)
+io.out("a || b =", a || b)
+io.out("not a =", not a)
+io.out("1 == 1 && 2 != 3 =", 1 == 1 && 2 != 3)
+io.out("typeof(true) =", typeof(true))
+io.out("typeof(false) =", typeof(false))
+

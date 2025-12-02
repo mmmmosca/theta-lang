@@ -3,6 +3,8 @@
 Basics
 - Expressions only: everything returns a value.
 - `let name = expr` — define an immutable variable lazily evaluated on first use.
+	- Returns no immediate value (internally `None`); the bound expression is evaluated only when the variable is first referenced later.
+	- Not allowed inside block bodies; inside `{ ... }` use plain assignment `name = expr` for local temporaries.
 - Function definition shorthand: `foo(x,y) -> x + y` or block form `bar(x) -> { expr1; expr2; return x }`.
 - `return <expr>` inside a block returns from that block. Guarded returns are supported: `return v when cond`.
 

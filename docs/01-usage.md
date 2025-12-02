@@ -9,6 +9,19 @@ Run the REPL
 python .\theta.py
 ```
 
+Defining variables with `let`
+
+```
+theta> let xs = [1;2;3]
+Defined variable 'xs'   # no value printed; definition returns None
+theta> xs
+[1;2;3]
+```
+
+Notes:
+- `let` stores the expression lazily; evaluation happens on first access.
+- Use plain assignment inside block bodies: `{ x = 1; return x }` (do not write `let x = 1` inside blocks).
+
 Run a `.th` script
 
 ```powershell

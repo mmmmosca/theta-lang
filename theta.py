@@ -6,6 +6,12 @@ import sys
 import traceback
 import theta_types as tt
 
+# Raise recursion limit to better support deep recursive Theta programs
+try:
+    sys.setrecursionlimit(1000000)
+except Exception:
+    pass
+
 # Simple debug/verbose toggle. Set via command-line flags `--verbose` or `--debug`.
 DEBUG = False
 
@@ -19,11 +25,12 @@ def log(*args, **kwargs):
 
 
 def report_error(exc: Exception, context: str | None = None):
-    """Print a concise error message with optional context and show a full
-    traceback only when `DEBUG` is True.
+    """Print a clearer error with actionable hints.
 
-    `context` should be a short string such as `"file.th:23"` or
-    `"while evaluating function foo"` to help the user locate the error.
+    - Always shows error class and message with optional `context`.
+    - For common Theta syntax issues (when/else, blocks, recursion), prints
+      an extra hint line.
+    - When DEBUG=True, also prints the full traceback.
     """
     ctx = f" ({context})" if context else ""
     # concise one-line message
@@ -32,6 +39,23 @@ def report_error(exc: Exception, context: str | None = None):
     except Exception:
         msg = repr(exc)
     print(f"Error{ctx}: {exc.__class__.__name__}: {msg}")
+
+    # Friendly hints for common errors
+    hint = None
+    if isinstance(exc, SyntaxError):
+        m = (msg or "").lower()
+        if "malformed 'when'" in m or " when " in m and " else " not in m:
+            hint = "Hint: Use 'A when B else C'. At top-level, you can omit 'return'; inside blocks, use 'return A when B else C'."
+        elif "invalid syntax" in m:
+            hint = "Hint: Check matching brackets and 'when ... else ...' pairs. Also ensure blocks use '{ ... }' and semicolons between statements."
+    elif isinstance(exc, NameError):
+        hint = "Hint: The referenced name may be undefined. Check function/variable names and imports."
+    elif isinstance(exc, RecursionError):
+        hint = "Hint: Recursion depth exceeded. Try processing input in smaller batches or rewrite deeply recursive functions iteratively."
+
+    if hint:
+        print(hint)
+
     if DEBUG:
         # full traceback for debugging
         traceback.print_exc()

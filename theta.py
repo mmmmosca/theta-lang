@@ -1019,6 +1019,10 @@ def _eval_ast(node, local_vars, visited=None):
         # Only allow simple name calls or math.<name>
         if isinstance(node.func, ast.Name):
             fname = node.func.id
+            # allow calling callables provided in local scope (e.g., __BLOCK__)
+            if fname in local_vars and callable(local_vars[fname]):
+                args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
+                return local_vars[fname](*args)
             # special-case typeof to avoid relying on SAFE_FUNCS being populated
             if fname == 'typeof':
                 args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
@@ -1138,6 +1142,98 @@ def evaluate_expression(expr, local_vars=None, visited=None):
     local_vars['__GLOBALS__'] = merged_scope
     # Strip inline comments from the expression first
     expr = strip_comments(expr)
+    expr_stripped = expr.strip()
+    # Support inline block bodies used as expressions: `{ ... }`
+    # Case 1: The whole expression is a single block -> execute directly.
+    if expr_stripped.startswith('{') and expr_stripped.endswith('}') and balance_brackets(expr_stripped) == 0:
+        body = expr_stripped[1:-1]
+        return process_block(body, dict(merged_scope))
+
+    # Case 2: Blocks nested inside a larger expression.
+    # Provide a callable in scope to execute block bodies captured as strings.
+    def __BLOCK__(body_str: str):
+        return process_block(body_str, dict(merged_scope))
+    local_vars['__BLOCK__'] = __BLOCK__
+
+    def transform_blocks(s: str) -> str:
+        # Replace any brace-delimited block `{ ... }` outside quotes with
+        # a call to __BLOCK__('...') so the AST can parse it as a function call.
+        out_parts = []
+        i = 0
+        in_sq = False
+        in_dq = False
+        depth = 0
+        start_block = -1
+        while i < len(s):
+            ch = s[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+                out_parts.append(ch)
+                i += 1
+                continue
+            if ch == '"' and not in_sq:
+                in_dq = not in_dq
+                out_parts.append(ch)
+                i += 1
+                continue
+            if not in_sq and not in_dq:
+                if ch == '{':
+                    if depth == 0:
+                        # flush content up to here (excluding '{')
+                        # We will capture the block body separately
+                        start_block = i
+                        # Move past '{' and capture body
+                        i += 1
+                        depth = 1
+                        # Capture until matching '}'
+                        body_buf = []
+                        in_sq2 = False
+                        in_dq2 = False
+                        while i < len(s):
+                            ch2 = s[i]
+                            if ch2 == "'" and not in_dq2:
+                                in_sq2 = not in_sq2
+                                body_buf.append(ch2)
+                                i += 1
+                                continue
+                            if ch2 == '"' and not in_sq2:
+                                in_dq2 = not in_dq2
+                                body_buf.append(ch2)
+                                i += 1
+                                continue
+                            if not in_sq2 and not in_dq2:
+                                if ch2 == '{':
+                                    depth += 1
+                                    body_buf.append(ch2)
+                                    i += 1
+                                    continue
+                                if ch2 == '}':
+                                    depth -= 1
+                                    if depth == 0:
+                                        i += 1
+                                        break
+                                    body_buf.append(ch2)
+                                    i += 1
+                                    continue
+                            body_buf.append(ch2)
+                            i += 1
+                        body_str = ''.join(body_buf)
+                        # Emit __BLOCK__('...')
+                        out_parts.append(f"__BLOCK__({repr(body_str)})")
+                        continue
+                    else:
+                        depth += 1
+                        out_parts.append(ch)
+                        i += 1
+                        continue
+                elif ch == '}':
+                    depth = max(0, depth - 1)
+                    out_parts.append(ch)
+                    i += 1
+                    continue
+            out_parts.append(ch)
+            i += 1
+        return ''.join(out_parts)
     # Transform OCaml-style semicolon-separated arrays into Python lists
     expr = transform_semicolons_in_brackets(expr)
     # Support Theta's 'when' conditional syntax: 'A when B else C' -> 'A if B else C'
@@ -1208,7 +1304,7 @@ def evaluate_expression(expr, local_vars=None, visited=None):
 
     # Rewrite reserved attribute calls: allow `.<in>(` by mapping to `.__in__(`
     expr = expr.replace('.in(', '.__in__(')
-    # transform boolean operators, matches, and when/else constructs before parsing
+    # transform blocks, boolean operators, matches, and when/else constructs before parsing
     def transform_boolean_ops(s: str) -> str:
         # Replace '||' with ' or ' and '&&' with ' and ' outside of quotes.
         out = []
@@ -1271,6 +1367,7 @@ def evaluate_expression(expr, local_vars=None, visited=None):
             out.append(ch)
             i += 1
         return ''.join(out)
+    expr = transform_blocks(expr)
     expr = transform_not_operator(expr)
     expr = transform_boolean_ops(expr)
     expr = transform_matches(expr)

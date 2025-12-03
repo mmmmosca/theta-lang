@@ -1,0 +1,10 @@
+import io
+
+# block as whole expression
+io.out({ x = 2; return x + 1 })  # 3
+
+# block nested inside an expression
+io.out(1 + { a = 5; return a })  # 6
+
+# block as matches arm (already supported)
+io.out("test" matches ["t"; *rest] return { t = 1; return rest } else 0)

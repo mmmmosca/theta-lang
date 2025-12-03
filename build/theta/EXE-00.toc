@@ -116,7 +116,7 @@
  [],
  False,
  False,
- 1764784937,
+ 1764785700,
  [('run.exe',
    'C:\\Users\\ccest\\Desktop\\Roba di computer bip bup '
    'bop\\Theta\\.venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',

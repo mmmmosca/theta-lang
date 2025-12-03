@@ -49,6 +49,16 @@ doubleList([1;2;3])  # -> [2;4;6]
 ```
 
 Run a `.th` script
+Language Cheatsheet
+
+- Arrays: `[1;2;3]`, indexing `a[0]`
+- Functions: `foo(x,y) -> x + y` or block `{ ...; return v }`
+- Conditionals: `A when B else C`
+- Pattern match: `xs matches [h; *t] return [h] + t else []`
+- Booleans: `true`, `false`; `and`, `or`, `not` (also `&&`, `||`, `!`)
+- Casting: `Int("123")`, `Float("3.14")`, `String([1;2])`, `Bool("true")`, `typeof(expr)`
+- Blueprints: `io.out(x)`, `tm.run(...)`, `python.call("math.sqrt", 9)`
+
 
 ```powershell
 python .\theta.py .\examples\double_list.th

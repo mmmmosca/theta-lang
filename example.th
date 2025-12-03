@@ -16,6 +16,11 @@ returnFirst(list) ->
     list matches [head; *rest] return head 
     else []
 
+foo(x,y) -> { # Using a block expression
+  z = x * 2;
+  return z + y
+}
+
 blueprint abs [
     def abs(x) -> python.call("builtins.abs", x)
 ]
@@ -23,6 +28,7 @@ blueprint abs [
 io.out(successor(9))
 io.out(returnFirst(array))
 io.out(abs.abs(-123))
+io.out(foo(3,4))
 
 let n = io.in("Enter a number: ")
 io.out("Factorial of", n, "is", fact(Int(n)))

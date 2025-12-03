@@ -1,4 +1,4 @@
-print("Theta v1.1.1 - made by Mosca\n")
+print("Theta v1.2.0 - made by Mosca\n")
 import math
 import ast
 import importlib

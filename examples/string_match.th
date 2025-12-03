@@ -1,0 +1,7 @@
+import io
+
+let test = "hello" matches ["hello "; *rest] return rest + " is greeted" else "hello to you too"
+
+io.out("R8" matches ["R"; *rest] return rest else 0)
+io.out("X8" matches ["R"; *rest] return rest else 0)
+io.out(test)

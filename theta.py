@@ -358,30 +358,38 @@ class MatchBlueprint:
             return True
         if kind == 'list':
             parts = pattern[1]
-            # handle rest pattern if present
-            if parts and parts[-1][0] == 'rest':
-                fixed = parts[:-1]
-                rest_name = parts[-1][1]
-                if not isinstance(value, (list, tuple, ThetaArray)):
-                    return False
-                vals = list(value)
-                if len(vals) < len(fixed):
-                    return False
-                for p, v in zip(fixed, vals[:len(fixed)]):
-                    if not self._match(v, p, bindings):
+            if not isinstance(value, (list, tuple, ThetaArray, str)):
+                return False
+            is_str = isinstance(value, str)
+            seq = value if is_str else list(value)
+            idx = 0
+            has_rest = bool(parts and parts[-1][0] == 'rest')
+            core_parts = parts[:-1] if has_rest else parts
+            # consume core parts sequentially
+            for p in core_parts:
+                # string chunk literal: consume multiple characters at once
+                if is_str and p[0] == 'lit' and isinstance(p[1], str):
+                    chunk = p[1]
+                    end = idx + len(chunk)
+                    if seq[idx:end] != chunk:
                         return False
-                bindings[rest_name] = vals[len(fixed):]
+                    idx = end
+                    continue
+                # otherwise consume a single element
+                if idx >= (len(seq)):
+                    return False
+                elem = seq[idx]
+                if not self._match(elem, p, bindings):
+                    return False
+                idx += 1
+            if has_rest:
+                rest_name = parts[-1][1]
+                tail = seq[idx:]
+                bindings[rest_name] = tail if not is_str else tail
                 return True
             else:
-                if not isinstance(value, (list, tuple, ThetaArray)):
-                    return False
-                vals = list(value)
-                if len(vals) != len(parts):
-                    return False
-                for p, v in zip(parts, vals):
-                    if not self._match(v, p, bindings):
-                        return False
-                return True
+                # must consume all input
+                return idx == len(seq)
         return False
 
     def matches(self, subj, pattern_str, success_expr_str, else_expr_str, globals_map):
@@ -802,22 +810,79 @@ def transform_matches(s: str) -> str:
                     break
             k += 1
 
-        # If there's no explicit 'else' arm, default to `None`.
+        # Extract pieces around the match: left (before 'matches'), pattern, return expr,
+        # else expr, and suffix (remaining text after else expr at same nesting level).
         if idx_else == -1:
             left = out[:idx_when]
             pattern = out[idx_when + len(' matches '):idx_return]
             ret = out[idx_return + len(' return '):].strip()
-            # Emit a clear lint-style warning so the user knows the else-arm
-            # was omitted intentionally or accidentally. Show a compact
-            # snippet of the expression to help them locate the issue.
+            # no explicit else: default and no suffix
+            else_expr = 'None'
+            suffix = ''
+            # Warn for visibility
             snippet = f"{left.strip()} matches {pattern.strip()} return {ret}"
             print(f"Warning: 'matches' expression missing 'else' — defaulting to None. Expression: {snippet}")
-            other = 'None'
         else:
             left = out[:idx_when]
             pattern = out[idx_when + len(' matches '):idx_return]
             ret = out[idx_return + len(' return '):idx_else]
-            other = out[idx_else + len(' else '):]
+            # Find else expression end at same nesting level to separate suffix
+            m = idx_else + len(' else ')
+            depth3 = 0
+            in_sq3 = False
+            in_dq3 = False
+            else_end = len(out)
+            while m < len(out):
+                ch3 = out[m]
+                if ch3 == "'" and not in_dq3:
+                    in_sq3 = not in_sq3
+                elif ch3 == '"' and not in_sq3:
+                    in_dq3 = not in_dq3
+                elif not in_sq3 and not in_dq3:
+                    if ch3 in '([{':
+                        depth3 += 1
+                    elif ch3 in ')]}':
+                        if depth3 == 0:
+                            else_end = m
+                            break
+                        depth3 -= 1
+                    elif depth3 == 0 and ch3 == ',':
+                        else_end = m
+                        break
+                m += 1
+            else_expr = out[idx_else + len(' else '):else_end]
+            suffix = out[else_end:]
+
+        # Determine the subject boundaries by scanning backward from idx_when
+        # to the nearest delimiter at the same nesting level (start, '(', ',').
+        k2 = idx_when - 1
+        depth2 = 0
+        in_sq2 = False
+        in_dq2 = False
+        subj_start = 0
+        while k2 >= 0:
+            ch2 = out[k2]
+            if ch2 == "'" and not in_dq2:
+                in_sq2 = not in_sq2
+            elif ch2 == '"' and not in_sq2:
+                in_dq2 = not in_dq2
+            elif not in_sq2 and not in_dq2:
+                if ch2 in ')]}':
+                    depth2 += 1
+                elif ch2 in '([{':
+                    if depth2 == 0:
+                        subj_start = k2 + 1
+                        break
+                    depth2 -= 1
+                elif depth2 == 0 and ch2 == ',':
+                    subj_start = k2 + 1
+                    break
+            k2 -= 1
+        else:
+            subj_start = 0
+
+        prefix = out[:subj_start]
+        subject_fragment = out[subj_start:idx_when]
 
         # Allow a permissive ordering: users may write either
         #   <subject> matches <pattern> return ...
@@ -825,7 +890,7 @@ def transform_matches(s: str) -> str:
         #   <pattern> matches <subject> return ...
         # Detect the likely pattern side by parsing both fragments and
         # checking for the presence of `Name` nodes (pattern variables).
-        subj_str = left.strip()
+        subj_str = subject_fragment.strip()
         patt_str = pattern.strip()
         try:
             left_ast = ast.parse(subj_str, mode='eval').body
@@ -850,8 +915,8 @@ def transform_matches(s: str) -> str:
 
         # Quote the pattern and branch expressions so the runtime handler can
         # parse and evaluate them under bindings.
-        new_expr = f"match.matches({subj_str}, {repr(patt_str)}, {repr(ret.strip())}, {repr(other.strip())}, __GLOBALS__)"
-        out = new_expr
+        new_expr = f"match.matches({subj_str}, {repr(patt_str)}, {repr(ret.strip())}, {repr(else_expr.strip())}, __GLOBALS__)"
+        out = prefix + new_expr + suffix
     return out
 
 
@@ -1210,7 +1275,8 @@ def evaluate_expression(expr, local_vars=None, visited=None):
     expr = transform_boolean_ops(expr)
     expr = transform_matches(expr)
     expr2 = transform_when_else(expr)
-    # (debug print removed for normal runs)
+    # Debug: show final expression string after transforms
+    log(f"[evaluate_expression] expr2= {expr2}")
     parsed = ast.parse(expr2, mode='eval')
     parsed_body = parsed.body
     double_brackets = False

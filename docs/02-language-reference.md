@@ -26,6 +26,7 @@ Pattern Matching
 	- Variables: `x` binds the matched value.
 	- Wildcard: `_` matches anything and binds nothing.
 	- Lists: `[a;b;c]` matches a list of length 3; `[head;*rest]` uses a star-rest to capture the tail.
+	- Strings as sequences: list patterns also work on strings; `[head;*rest]` over a string binds `head` to the first character and `rest` to the remaining substring.
 - Scope: In the success/else expressions you can reference
 	- bindings created by the pattern (e.g., `head`, `rest`), and
 	- names in the current scope (globals and function parameters).
@@ -42,6 +43,10 @@ doubleList([1;2;3])  # -> [2;4;6]
 
 # pick first two when present, else 0
 sum2(xs) -> xs matches [a; b; *_] return a + b else 0
+
+# string prefix example
+firstRest(s) -> s matches ["R"; *rest] return rest else 0
+firstRest("R8")  # -> "8"
 ```
 
 BluePrints

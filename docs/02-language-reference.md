@@ -56,6 +56,18 @@ Safety
 - Expressions are parsed into Python AST and evaluated by a restricted walker — no arbitrary `eval` of source.
 - Only safe builtins (`abs`, `min`, `max`, `pow`, `len`) and registered blueprints are permitted.
 
+Booleans
+- Literals: `true`, `false` evaluate to Bool values (also accept `True`/`False`).
+- Operators: `and`, `or`, `not` and their C-style aliases `&&`, `||`, `!`.
+
+Type Casting
+- Built-in casting functions:
+	- `Int(x)` — to integer. Accepts numbers and numeric strings (e.g., `"123"`).
+	- `Float(x)` — to float. Accepts numbers and decimal strings.
+	- `String(x)` — to string. Theta arrays render as `[a;b;c]`.
+	- `Bool(x)` — to boolean. Accepts `"true"/"false"`, `1/0`, `yes/no`, `on/off`.
+	- `typeof(expr)` — returns a Hindley–Milner type summary (e.g., `Bool`, `Int`, `[Int]`).
+
 Examples
 - Increment function:
 ```

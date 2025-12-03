@@ -31,3 +31,18 @@ let tape = [1;1;1;0;0]
 let res = tm.run(table, tape, 0, 'q0', 100)
 io.out(res)
 ```
+
+Booleans and casting
+
+```
+# booleans
+let a = true; let b = false
+io.out(a && !b)   # -> True
+io.out(not a)     # -> False
+
+# casting
+io.out(Int("123"))     # -> 123
+io.out(Float("3.14"))  # -> 3.14
+io.out(String([1;2]))  # -> [1;2]
+io.out(Bool("false"))  # -> False
+```

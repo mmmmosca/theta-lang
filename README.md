@@ -10,6 +10,8 @@ Theta is a functional-expression language implemented in Python. It is expressio
 - `when ... else` conditional syntax (transformed into Python ternary expressions).
 - Pattern matching with `matches`, list patterns, and star-rest (e.g., `[head; *rest]`).
 - OCaml-style arrays using semicolons (e.g., `[1;2;3]`) and special double-bracket display semantics.
+ - Booleans and logical operators: `true`/`false`, `and`/`or`/`not` (also `&&`, `||`, `!`).
+ - Type casting helpers: `Int(x)`, `Float(x)`, `String(x)`, `Bool(x)` and `typeof(expr)`.
 - Blueprints: pluggable Python-backed modules accessible as `name.method(...)` from Theta.
   - Built-in `io` blueprint for simple input/output.
   - A Python-side `tm` blueprint that runs Turing machines.
@@ -50,6 +52,15 @@ Run a `.th` script
 
 ```powershell
 python .\theta.py .\examples\double_list.th
+```
+
+Booleans and casting (quick examples)
+
+```
+import io
+io.out(true && !false)      # -> True
+io.out(Int("123") + 1)     # -> 124
+io.out(typeof([1;2;3]))     # -> [Int]
 ```
 
 Enable verbose debugging

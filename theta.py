@@ -228,6 +228,47 @@ class IoBlueprint:
         print(*args)
         return None
 
+    class FileHandle:
+        def __init__(self, path, mode):
+            self._path = path
+            self._mode = mode
+            self._f = open(path, mode, encoding='utf-8') if 'b' not in mode else open(path, mode)
+
+        def read(self):
+            return self._f.read()
+
+        def readLines(self):
+            # Return Theta-style array of lines without trailing newlines
+            lines = [ln.rstrip('\n') for ln in self._f.readlines()]
+            from_types = ThetaArray(lines)
+            return from_types
+
+        def close(self):
+            try:
+                self._f.close()
+            finally:
+                return None
+
+    def open(self, path, mode='r'):
+        if not isinstance(path, str):
+            raise TypeError('io.open path must be a string')
+        if not isinstance(mode, str):
+            raise TypeError('io.open mode must be a string')
+        return IoBlueprint.FileHandle(path, mode)
+
+    def read(self, path):
+        if not isinstance(path, str):
+            raise TypeError('io.read path must be a string')
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read()
+
+    def readLines(self, path):
+        if not isinstance(path, str):
+            raise TypeError('io.readLines path must be a string')
+        with open(path, 'r', encoding='utf-8') as f:
+            lines = [ln.rstrip('\n') for ln in f.readlines()]
+        return ThetaArray(lines)
+
 
 # Register a default `io` blueprint
 _io_instance = IoBlueprint()
@@ -1047,15 +1088,14 @@ def _eval_ast(node, local_vars, visited=None):
                     raise NameError(f"math has no function '{func_name}'")
                 args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
                 return func(*args)
-            # blueprint.method(), e.g., io.out(...)
-            if isinstance(val.value, ast.Name) and val.value.id in BLUEPRINTS:
-                bp = BLUEPRINTS[val.value.id]
-                func_name = val.attr
-                func = getattr(bp, func_name, None)
-                if func is None or not callable(func):
-                    raise NameError(f"Blueprint '{val.value.id}' has no callable '{func_name}'")
-                args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
-                return func(*args)
+            # General attribute call: evaluate the object, then call its attribute if callable.
+            target_obj = _eval_ast(val.value, local_vars, visited)
+            func_name = val.attr
+            func = getattr(target_obj, func_name, None)
+            if func is None or not callable(func):
+                raise ValueError("Unsupported function call")
+            args = [_eval_ast(arg, local_vars, visited) for arg in node.args]
+            return func(*args)
         raise ValueError("Unsupported function call")
     if isinstance(node, ast.Name):
         # boolean literals (both lowercase Theta style and Python style)
@@ -1088,6 +1128,12 @@ def _eval_ast(node, local_vars, visited=None):
         # ast.Index was removed in newer versions; handle common cases
         if isinstance(idx_node, ast.Constant):
             idx = idx_node.value
+        elif isinstance(idx_node, ast.Slice):
+            # compute slice indices if present
+            lower = _eval_ast(idx_node.lower, local_vars, visited) if idx_node.lower is not None else None
+            upper = _eval_ast(idx_node.upper, local_vars, visited) if idx_node.upper is not None else None
+            step = _eval_ast(idx_node.step, local_vars, visited) if idx_node.step is not None else None
+            return value[slice(lower, upper, step)]
         elif isinstance(idx_node, ast.Tuple):
             idx = tuple(_eval_ast(elt, local_vars, visited) for elt in idx_node.elts)
         else:

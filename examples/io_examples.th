@@ -4,3 +4,15 @@ let a = [1;2;3;4]
 io.out("a[2] =", a[2])
 # Concatenation uses Theta arrays semantics
 io.out([1;2] + [3;4])
+# Read entire file
+let content = io.read("README.md")
+io.out("README length:", len(content))
+
+# Read lines
+let lines = io.readLines("README.md")
+io.out("First line:", lines[0])
+
+# Using a handle
+let h = io.open("README.md", "r")
+io.out("Handle first 20 chars:", h.read()[0:20])
+h.close()

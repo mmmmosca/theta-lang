@@ -1,0 +1,8 @@
+import io
+
+io.out("Int(\"123\") =", Int("123"))
+io.out("Int(3.9) =", Int(3.9))
+io.out("Float(\"3.14\") =", Float("3.14"))
+io.out("String([1;2;3]) =", String([1;2;3]))
+io.out("Bool(\"true\") =", Bool("true"))
+io.out("Bool(0) =", Bool(0))

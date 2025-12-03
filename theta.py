@@ -569,6 +569,61 @@ def typeof(expr_str: str):
 # expose typeof as a safe function callable from Theta expressions
 SAFE_FUNCS['typeof'] = typeof
 
+# Casting helpers
+def _cast_int(x):
+    if isinstance(x, bool):
+        return int(x)
+    if isinstance(x, (int, float)):
+        return int(x)
+    if isinstance(x, str):
+        s = x.strip()
+        # allow underscores and leading +/-, reject non-digits
+        try:
+            return int(s.replace('_',''))
+        except Exception:
+            raise ValueError(f"Cannot cast to Int: {x}")
+    raise ValueError(f"Cannot cast to Int: {x}")
+
+def _cast_float(x):
+    if isinstance(x, (int, float, bool)):
+        return float(x)
+    if isinstance(x, str):
+        s = x.strip()
+        try:
+            return float(s.replace('_',''))
+        except Exception:
+            raise ValueError(f"Cannot cast to Float: {x}")
+    raise ValueError(f"Cannot cast to Float: {x}")
+
+def _cast_string(x):
+    # ThetaArray pretty repr
+    if isinstance(x, ThetaArray):
+        return x.__repr__()
+    return str(x)
+
+def _cast_bool(x):
+    if isinstance(x, bool):
+        return x
+    if isinstance(x, (int, float)):
+        return bool(x)
+    if isinstance(x, str):
+        s = x.strip().lower()
+        if s in ('true','1','yes','y','on'):
+            return True
+        if s in ('false','0','no','n','off'):
+            return False
+        raise ValueError(f"Cannot cast to Bool: {x}")
+    # non-empty lists/arrays are truthy
+    if isinstance(x, (list, tuple, ThetaArray)):
+        return len(list(x)) > 0
+    return bool(x)
+
+# Register casting functions as safe funcs
+SAFE_FUNCS['Int'] = _cast_int
+SAFE_FUNCS['Float'] = _cast_float
+SAFE_FUNCS['String'] = _cast_string
+SAFE_FUNCS['Bool'] = _cast_bool
+
 
 def strip_comments(s: str) -> str:
     """Remove inline comments starting with '#' unless inside quotes.

@@ -1,0 +1,28 @@
+import io
+import python
+
+let array = [1;2;3;4;5]
+
+successor(n) -> 
+    n + 1
+
+fact(n) -> 
+    n * fact(n - 1) when n > 1
+    else 
+        1 when n == 0 || n == 1 
+        else n
+
+returnFirst(list) -> 
+    list matches [head; *rest] return head 
+    else []
+
+blueprint abs [
+    def abs(x) -> python.call("builtins.abs", x)
+]
+
+io.out(successor(9))
+io.out(returnFirst(array))
+io.out(abs.abs(-123))
+
+let n = io.in("Enter a number: ")
+io.out("Factorial of", n, "is", fact(Int(n)))

@@ -8,6 +8,7 @@
     { "include": "#booleans" },
     { "include": "#keywords" },
     { "include": "#operators" },
+    { "include": "#types" },
     { "include": "#blueprints" },
     { "include": "#restPattern" },
     { "include": "#functions" },
@@ -53,6 +54,12 @@
         { "name": "keyword.operator.arrow.theta", "match": "->" }
         { "name": "keyword.operator.matches.theta", "match": "\\bmatches\\b" },
         { "name": "keyword.operator.logical.theta", "match": "\\b(and|or|not)\\b" }
+      ]
+    },
+
+    "types": {
+      "patterns": [
+        { "name": "support.type.cast.theta", "match": "\\b(Int|Float|String|Bool)\\s*(?=\\()" }
       ]
     },
     "blueprints": {

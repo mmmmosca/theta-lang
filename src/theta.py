@@ -580,9 +580,21 @@ class MatchBlueprint:
             local = dict(globals_map or {})
             # copy bindings so ThetaArray and others are native
             local.update(bindings)
+            # Ensure __GLOBALS__ is available for nested transforms inside success_expr
+            try:
+                from collections import ChainMap as _CM
+                local['__GLOBALS__'] = _CM(local, globals_map or {})
+            except Exception:
+                local['__GLOBALS__'] = local
             return evaluate_expression(success_expr_str, local)
         else:
-            return evaluate_expression(else_expr_str, globals_map or {})
+            local_else = dict(globals_map or {})
+            try:
+                from collections import ChainMap as _CM
+                local_else['__GLOBALS__'] = _CM(local_else, globals_map or {})
+            except Exception:
+                local_else['__GLOBALS__'] = local_else
+            return evaluate_expression(else_expr_str, local_else)
 
 
 register_blueprint('match', MatchBlueprint())
@@ -1910,6 +1922,8 @@ def process_block(body_str, local_vars):
     # Build layered scope once and update as we go
     base_globals = get_global_var_values()
     base = ChainMap(local_vars, base_globals)
+    # Ensure __GLOBALS__ is present for any nested transformed expressions in the block
+    base.maps[0]['__GLOBALS__'] = base
     for part in parts:
         if part.startswith('return '):
             expr = part[len('return '):].strip()
@@ -2251,6 +2265,13 @@ def call_user_function(name, evaluated_args):
     # Local variables for this function: parameters overlaid on globals
     local_vars = get_global_var_values()
     local_vars.update({p: v for p, v in zip(params, evaluated_args)})
+    # Provide __GLOBALS__ for transformed expressions inside function bodies
+    try:
+        from collections import ChainMap as _CM
+        _merged = _CM(local_vars, get_global_var_values())
+        local_vars['__GLOBALS__'] = _merged
+    except Exception:
+        local_vars['__GLOBALS__'] = local_vars
     # allow recursion by having FUNCTIONS available at module level
     if info['is_block']:
         # pass only the parameter locals into block execution
@@ -2285,7 +2306,15 @@ def call_user_function(name, evaluated_args):
 def call_function(name, arg_strs):
     # Evaluate arg expressions first, then call the user function
     base = get_global_var_values()
-    evaluated_args = [evaluate_expression(a, base) for a in arg_strs]
+    # Ensure __GLOBALS__ available while evaluating arg expressions
+    try:
+        from collections import ChainMap as _CM
+        base_with = _CM({}, base)
+        base_with['__GLOBALS__'] = base_with
+    except Exception:
+        base_with = base
+        base_with['__GLOBALS__'] = base_with
+    evaluated_args = [evaluate_expression(a, base_with) for a in arg_strs]
     # Allow calling safe builtin functions (e.g., typeof) as top-level names
     if name in SAFE_FUNCS:
         return SAFE_FUNCS[name](*evaluated_args)

@@ -1,6 +1,6 @@
 # Theta
 <div align="center">
-<img href="theta-logo.png" width="400" height="400">
+<img src="theta-logo.png" width="400" height="400">
 </div>
 
 

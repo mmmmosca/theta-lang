@@ -9,6 +9,9 @@ from functools import lru_cache
 import theta_types as tt
 from collections import ChainMap
 
+# Ensure a default __GLOBALS__ exists so transforms referencing it never NameError
+__GLOBALS__ = {}
+
 # Raise recursion limit to better support deep recursive Theta programs
 try:
     sys.setrecursionlimit(1000000)

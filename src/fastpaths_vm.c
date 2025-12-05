@@ -5,12 +5,12 @@
     "distutils": {
         "depends": [],
         "language": "c",
-        "name": "fastpaths_vm",
+        "name": "src.fastpaths_vm",
         "sources": [
-            "fastpaths_vm.pyx"
+            "C:\\Users\\ccest\\Desktop\\Roba di computer bip bup bop\\Theta\\src\\fastpaths_vm.pyx"
         ]
     },
-    "module_name": "fastpaths_vm"
+    "module_name": "src.fastpaths_vm"
 }
 END: Cython Metadata */
 
@@ -1128,8 +1128,8 @@ static int __Pyx_init_co_variables(void) {
   #endif
 #endif
 
-#define __PYX_HAVE__fastpaths_vm
-#define __PYX_HAVE_API__fastpaths_vm
+#define __PYX_HAVE__src__fastpaths_vm
+#define __PYX_HAVE_API__src__fastpaths_vm
 /* Early includes */
 #include <string.h>
 #include <stdio.h>
@@ -1340,7 +1340,7 @@ static const char *__pyx_filename;
 /* #### Code section: filename_table ### */
 
 static const char* const __pyx_f[] = {
-  "fastpaths_vm.pyx",
+  "src/fastpaths_vm.pyx",
   ".venv/Lib/site-packages/Cython/Includes/cpython/type.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
@@ -1519,7 +1519,7 @@ static const char* const __pyx_f[] = {
 
 /*--- Type declarations ---*/
 
-/* "fastpaths_vm.pyx":4
+/* "src/fastpaths_vm.pyx":4
  * # Cython VM for Theta fast path
  * 
  * cdef enum:             # <<<<<<<<<<<<<<
@@ -1527,33 +1527,33 @@ static const char* const __pyx_f[] = {
  *     OP_LOAD_NAME = 2
 */
 enum  {
-  __pyx_e_12fastpaths_vm_OP_PUSH_CONST = 1,
-  __pyx_e_12fastpaths_vm_OP_LOAD_NAME = 2,
-  __pyx_e_12fastpaths_vm_OP_STORE_NAME = 3,
-  __pyx_e_12fastpaths_vm_OP_ADD = 4,
-  __pyx_e_12fastpaths_vm_OP_SUB = 5,
-  __pyx_e_12fastpaths_vm_OP_MUL = 6,
-  __pyx_e_12fastpaths_vm_OP_DIV = 7,
-  __pyx_e_12fastpaths_vm_OP_EQ = 8,
-  __pyx_e_12fastpaths_vm_OP_NE = 9,
-  __pyx_e_12fastpaths_vm_OP_LT = 10,
-  __pyx_e_12fastpaths_vm_OP_LE = 11,
-  __pyx_e_12fastpaths_vm_OP_GT = 12,
-  __pyx_e_12fastpaths_vm_OP_GE = 13,
-  __pyx_e_12fastpaths_vm_OP_MAKE_LIST = 14,
-  __pyx_e_12fastpaths_vm_OP_NEG = 15,
-  __pyx_e_12fastpaths_vm_OP_POS = 16,
-  __pyx_e_12fastpaths_vm_OP_NOT = 17,
-  __pyx_e_12fastpaths_vm_OP_AND = 18,
-  __pyx_e_12fastpaths_vm_OP_OR = 19,
-  __pyx_e_12fastpaths_vm_OP_MAKE_TUPLE = 20,
-  __pyx_e_12fastpaths_vm_OP_INDEX_CONST = 21,
-  __pyx_e_12fastpaths_vm_OP_INDEX_STACK = 22,
-  __pyx_e_12fastpaths_vm_OP_CALL_NAME = 23,
-  __pyx_e_12fastpaths_vm_OP_CALL_ATTR = 24,
-  __pyx_e_12fastpaths_vm_OP_JMP_IF_FALSE = 25,
-  __pyx_e_12fastpaths_vm_OP_SLICE = 26,
-  __pyx_e_12fastpaths_vm_OP_JMP = 27
+  __pyx_e_3src_12fastpaths_vm_OP_PUSH_CONST = 1,
+  __pyx_e_3src_12fastpaths_vm_OP_LOAD_NAME = 2,
+  __pyx_e_3src_12fastpaths_vm_OP_STORE_NAME = 3,
+  __pyx_e_3src_12fastpaths_vm_OP_ADD = 4,
+  __pyx_e_3src_12fastpaths_vm_OP_SUB = 5,
+  __pyx_e_3src_12fastpaths_vm_OP_MUL = 6,
+  __pyx_e_3src_12fastpaths_vm_OP_DIV = 7,
+  __pyx_e_3src_12fastpaths_vm_OP_EQ = 8,
+  __pyx_e_3src_12fastpaths_vm_OP_NE = 9,
+  __pyx_e_3src_12fastpaths_vm_OP_LT = 10,
+  __pyx_e_3src_12fastpaths_vm_OP_LE = 11,
+  __pyx_e_3src_12fastpaths_vm_OP_GT = 12,
+  __pyx_e_3src_12fastpaths_vm_OP_GE = 13,
+  __pyx_e_3src_12fastpaths_vm_OP_MAKE_LIST = 14,
+  __pyx_e_3src_12fastpaths_vm_OP_NEG = 15,
+  __pyx_e_3src_12fastpaths_vm_OP_POS = 16,
+  __pyx_e_3src_12fastpaths_vm_OP_NOT = 17,
+  __pyx_e_3src_12fastpaths_vm_OP_AND = 18,
+  __pyx_e_3src_12fastpaths_vm_OP_OR = 19,
+  __pyx_e_3src_12fastpaths_vm_OP_MAKE_TUPLE = 20,
+  __pyx_e_3src_12fastpaths_vm_OP_INDEX_CONST = 21,
+  __pyx_e_3src_12fastpaths_vm_OP_INDEX_STACK = 22,
+  __pyx_e_3src_12fastpaths_vm_OP_CALL_NAME = 23,
+  __pyx_e_3src_12fastpaths_vm_OP_CALL_ATTR = 24,
+  __pyx_e_3src_12fastpaths_vm_OP_JMP_IF_FALSE = 25,
+  __pyx_e_3src_12fastpaths_vm_OP_SLICE = 26,
+  __pyx_e_3src_12fastpaths_vm_OP_JMP = 27
 };
 /* #### Code section: utility_code_proto ### */
 
@@ -2349,19 +2349,19 @@ static int __Pyx_State_RemoveModule(void*);
 
 /* Module declarations from "cpython.long" */
 
-/* Module declarations from "fastpaths_vm" */
-static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *, PyObject *, PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
+/* Module declarations from "src.fastpaths_vm" */
+static PyObject *__pyx_f_3src_12fastpaths_vm_vm_exec(PyObject *, PyObject *, PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "fastpaths_vm"
-extern int __pyx_module_is_main_fastpaths_vm;
-int __pyx_module_is_main_fastpaths_vm = 0;
+#define __Pyx_MODULE_NAME "src.fastpaths_vm"
+extern int __pyx_module_is_main_src__fastpaths_vm;
+int __pyx_module_is_main_src__fastpaths_vm = 0;
 
-/* Implementation of "fastpaths_vm" */
+/* Implementation of "src.fastpaths_vm" */
 /* #### Code section: global_var ### */
 /* #### Code section: string_decls ### */
 /* #### Code section: decls ### */
-static PyObject *__pyx_pf_12fastpaths_vm_vm_exec(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_opcodes, PyObject *__pyx_v_consts, PyObject *__pyx_v_names, PyObject *__pyx_v_scope); /* proto */
+static PyObject *__pyx_pf_3src_12fastpaths_vm_vm_exec(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_opcodes, PyObject *__pyx_v_consts, PyObject *__pyx_v_names, PyObject *__pyx_v_scope); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 /* SmallCodeConfig */
@@ -2431,26 +2431,26 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 /* #### Code section: constant_name_defines ### */
 #define __pyx_kp_u_ __pyx_string_tab[0]
 #define __pyx_kp_u_Unknown_opcode __pyx_string_tab[1]
-#define __pyx_kp_u_fastpaths_vm_pyx __pyx_string_tab[2]
+#define __pyx_kp_u_src_fastpaths_vm_pyx __pyx_string_tab[2]
 #define __pyx_n_u_Pyx_PyDict_NextRef __pyx_string_tab[3]
 #define __pyx_n_u_asyncio_coroutines __pyx_string_tab[4]
 #define __pyx_n_u_class_getitem __pyx_string_tab[5]
 #define __pyx_n_u_cline_in_traceback __pyx_string_tab[6]
 #define __pyx_n_u_consts __pyx_string_tab[7]
-#define __pyx_n_u_fastpaths_vm __pyx_string_tab[8]
-#define __pyx_n_u_func __pyx_string_tab[9]
-#define __pyx_n_u_is_coroutine __pyx_string_tab[10]
-#define __pyx_n_u_items __pyx_string_tab[11]
-#define __pyx_n_u_main __pyx_string_tab[12]
-#define __pyx_n_u_module __pyx_string_tab[13]
-#define __pyx_n_u_name __pyx_string_tab[14]
-#define __pyx_n_u_names __pyx_string_tab[15]
-#define __pyx_n_u_opcodes __pyx_string_tab[16]
-#define __pyx_n_u_pop __pyx_string_tab[17]
-#define __pyx_n_u_qualname __pyx_string_tab[18]
-#define __pyx_n_u_scope __pyx_string_tab[19]
-#define __pyx_n_u_set_name __pyx_string_tab[20]
-#define __pyx_n_u_setdefault __pyx_string_tab[21]
+#define __pyx_n_u_func __pyx_string_tab[8]
+#define __pyx_n_u_is_coroutine __pyx_string_tab[9]
+#define __pyx_n_u_items __pyx_string_tab[10]
+#define __pyx_n_u_main __pyx_string_tab[11]
+#define __pyx_n_u_module __pyx_string_tab[12]
+#define __pyx_n_u_name __pyx_string_tab[13]
+#define __pyx_n_u_names __pyx_string_tab[14]
+#define __pyx_n_u_opcodes __pyx_string_tab[15]
+#define __pyx_n_u_pop __pyx_string_tab[16]
+#define __pyx_n_u_qualname __pyx_string_tab[17]
+#define __pyx_n_u_scope __pyx_string_tab[18]
+#define __pyx_n_u_set_name __pyx_string_tab[19]
+#define __pyx_n_u_setdefault __pyx_string_tab[20]
+#define __pyx_n_u_src_fastpaths_vm __pyx_string_tab[21]
 #define __pyx_n_u_test __pyx_string_tab[22]
 #define __pyx_n_u_values __pyx_string_tab[23]
 #define __pyx_n_u_vm_exec __pyx_string_tab[24]
@@ -2512,7 +2512,7 @@ return 0;
 #endif
 /* #### Code section: module_code ### */
 
-/* "fastpaths_vm.pyx":38
+/* "src/fastpaths_vm.pyx":38
  * 
  * # We expose a cpdef so Python can call it
  * cpdef object vm_exec(object opcodes, object consts, object names, object scope):             # <<<<<<<<<<<<<<
@@ -2520,14 +2520,14 @@ return 0;
  *     cdef Py_ssize_t L = len(opcodes)
 */
 
-static PyObject *__pyx_pw_12fastpaths_vm_1vm_exec(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_3src_12fastpaths_vm_1vm_exec(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObject *__pyx_v_consts, PyObject *__pyx_v_names, PyObject *__pyx_v_scope, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_f_3src_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObject *__pyx_v_consts, PyObject *__pyx_v_names, PyObject *__pyx_v_scope, CYTHON_UNUSED int __pyx_skip_dispatch) {
   Py_ssize_t __pyx_v_i;
   Py_ssize_t __pyx_v_L;
   Py_ssize_t __pyx_v_cap;
@@ -2570,7 +2570,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("vm_exec", 0);
 
-  /* "fastpaths_vm.pyx":39
+  /* "src/fastpaths_vm.pyx":39
  * # We expose a cpdef so Python can call it
  * cpdef object vm_exec(object opcodes, object consts, object names, object scope):
  *     cdef Py_ssize_t i = 0             # <<<<<<<<<<<<<<
@@ -2579,7 +2579,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
   __pyx_v_i = 0;
 
-  /* "fastpaths_vm.pyx":40
+  /* "src/fastpaths_vm.pyx":40
  * cpdef object vm_exec(object opcodes, object consts, object names, object scope):
  *     cdef Py_ssize_t i = 0
  *     cdef Py_ssize_t L = len(opcodes)             # <<<<<<<<<<<<<<
@@ -2589,7 +2589,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __pyx_t_1 = PyObject_Length(__pyx_v_opcodes); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 40, __pyx_L1_error)
   __pyx_v_L = __pyx_t_1;
 
-  /* "fastpaths_vm.pyx":42
+  /* "src/fastpaths_vm.pyx":42
  *     cdef Py_ssize_t L = len(opcodes)
  *     # Manual stack with preallocation and pointer
  *     cdef Py_ssize_t cap = 64             # <<<<<<<<<<<<<<
@@ -2598,7 +2598,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
   __pyx_v_cap = 64;
 
-  /* "fastpaths_vm.pyx":43
+  /* "src/fastpaths_vm.pyx":43
  *     # Manual stack with preallocation and pointer
  *     cdef Py_ssize_t cap = 64
  *     cdef list stack = [None] * cap             # <<<<<<<<<<<<<<
@@ -2617,7 +2617,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __pyx_v_stack = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "fastpaths_vm.pyx":44
+  /* "src/fastpaths_vm.pyx":44
  *     cdef Py_ssize_t cap = 64
  *     cdef list stack = [None] * cap
  *     cdef Py_ssize_t sp = 0             # <<<<<<<<<<<<<<
@@ -2626,7 +2626,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
   __pyx_v_sp = 0;
 
-  /* "fastpaths_vm.pyx":49
+  /* "src/fastpaths_vm.pyx":49
  *     cdef Py_ssize_t count, count2
  *     # simple hot name cache: last name index -> resolved object
  *     cdef Py_ssize_t last_name_idx = -1             # <<<<<<<<<<<<<<
@@ -2635,7 +2635,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
   __pyx_v_last_name_idx = -1L;
 
-  /* "fastpaths_vm.pyx":50
+  /* "src/fastpaths_vm.pyx":50
  *     # simple hot name cache: last name index -> resolved object
  *     cdef Py_ssize_t last_name_idx = -1
  *     cdef object last_name_obj = None             # <<<<<<<<<<<<<<
@@ -2645,7 +2645,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __Pyx_INCREF(Py_None);
   __pyx_v_last_name_obj = Py_None;
 
-  /* "fastpaths_vm.pyx":52
+  /* "src/fastpaths_vm.pyx":52
  *     cdef object last_name_obj = None
  *     # micro cache for CALL_ATTR: last object + attr idx -> bound method
  *     cdef Py_ssize_t last_attr_idx = -1             # <<<<<<<<<<<<<<
@@ -2654,7 +2654,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
   __pyx_v_last_attr_idx = -1L;
 
-  /* "fastpaths_vm.pyx":53
+  /* "src/fastpaths_vm.pyx":53
  *     # micro cache for CALL_ATTR: last object + attr idx -> bound method
  *     cdef Py_ssize_t last_attr_idx = -1
  *     cdef object last_attr_obj = None             # <<<<<<<<<<<<<<
@@ -2664,7 +2664,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __Pyx_INCREF(Py_None);
   __pyx_v_last_attr_obj = Py_None;
 
-  /* "fastpaths_vm.pyx":54
+  /* "src/fastpaths_vm.pyx":54
  *     cdef Py_ssize_t last_attr_idx = -1
  *     cdef object last_attr_obj = None
  *     cdef object last_attr_bound = None             # <<<<<<<<<<<<<<
@@ -2674,7 +2674,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __Pyx_INCREF(Py_None);
   __pyx_v_last_attr_bound = Py_None;
 
-  /* "fastpaths_vm.pyx":56
+  /* "src/fastpaths_vm.pyx":56
  *     cdef object last_attr_bound = None
  *     # Note: avoid Python closures; inline push/pop logic below
  *     while i < L:             # <<<<<<<<<<<<<<
@@ -2685,7 +2685,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
     __pyx_t_3 = (__pyx_v_i < __pyx_v_L);
     if (!__pyx_t_3) break;
 
-    /* "fastpaths_vm.pyx":57
+    /* "src/fastpaths_vm.pyx":57
  *     # Note: avoid Python closures; inline push/pop logic below
  *     while i < L:
  *         op = <int>PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1             # <<<<<<<<<<<<<<
@@ -2697,7 +2697,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
     __pyx_v_op = ((int)__pyx_t_1);
     __pyx_v_i = (__pyx_v_i + 1);
 
-    /* "fastpaths_vm.pyx":58
+    /* "src/fastpaths_vm.pyx":58
  *     while i < L:
  *         op = <int>PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *         if op == OP_PUSH_CONST:             # <<<<<<<<<<<<<<
@@ -2705,9 +2705,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             if sp >= cap:
 */
     switch (__pyx_v_op) {
-      case __pyx_e_12fastpaths_vm_OP_PUSH_CONST:
+      case __pyx_e_3src_12fastpaths_vm_OP_PUSH_CONST:
 
-      /* "fastpaths_vm.pyx":59
+      /* "src/fastpaths_vm.pyx":59
  *         op = <int>PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *         if op == OP_PUSH_CONST:
  *             val = <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))); i += 1             # <<<<<<<<<<<<<<
@@ -2723,7 +2723,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_2 = 0;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":60
+      /* "src/fastpaths_vm.pyx":60
  *         if op == OP_PUSH_CONST:
  *             val = <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))); i += 1
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -2733,7 +2733,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":61
+        /* "src/fastpaths_vm.pyx":61
  *             val = <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))); i += 1
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -2742,7 +2742,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":62
+        /* "src/fastpaths_vm.pyx":62
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -2763,7 +2763,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 62, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":60
+        /* "src/fastpaths_vm.pyx":60
  *         if op == OP_PUSH_CONST:
  *             val = <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))); i += 1
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -2772,7 +2772,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":63
+      /* "src/fastpaths_vm.pyx":63
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val             # <<<<<<<<<<<<<<
@@ -2781,7 +2781,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 63, __pyx_L1_error)
 
-      /* "fastpaths_vm.pyx":64
+      /* "src/fastpaths_vm.pyx":64
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val
  *             sp += 1             # <<<<<<<<<<<<<<
@@ -2790,7 +2790,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":58
+      /* "src/fastpaths_vm.pyx":58
  *     while i < L:
  *         op = <int>PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *         if op == OP_PUSH_CONST:             # <<<<<<<<<<<<<<
@@ -2798,9 +2798,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             if sp >= cap:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_LOAD_NAME:
+      case __pyx_e_3src_12fastpaths_vm_OP_LOAD_NAME:
 
-      /* "fastpaths_vm.pyx":66
+      /* "src/fastpaths_vm.pyx":66
  *             sp += 1
  *         elif op == OP_LOAD_NAME:
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1             # <<<<<<<<<<<<<<
@@ -2812,7 +2812,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_5;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":67
+      /* "src/fastpaths_vm.pyx":67
  *         elif op == OP_LOAD_NAME:
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             if count == last_name_idx and last_name_obj is not None:             # <<<<<<<<<<<<<<
@@ -2830,7 +2830,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_L7_bool_binop_done:;
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":68
+        /* "src/fastpaths_vm.pyx":68
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             if count == last_name_idx and last_name_obj is not None:
  *                 val = last_name_obj             # <<<<<<<<<<<<<<
@@ -2840,7 +2840,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_INCREF(__pyx_v_last_name_obj);
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_v_last_name_obj);
 
-        /* "fastpaths_vm.pyx":67
+        /* "src/fastpaths_vm.pyx":67
  *         elif op == OP_LOAD_NAME:
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             if count == last_name_idx and last_name_obj is not None:             # <<<<<<<<<<<<<<
@@ -2850,7 +2850,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         goto __pyx_L6;
       }
 
-      /* "fastpaths_vm.pyx":70
+      /* "src/fastpaths_vm.pyx":70
  *                 val = last_name_obj
  *             else:
  *                 val = scope[ <object>PyList_GET_ITEM(names, count) ]             # <<<<<<<<<<<<<<
@@ -2864,7 +2864,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":71
+        /* "src/fastpaths_vm.pyx":71
  *             else:
  *                 val = scope[ <object>PyList_GET_ITEM(names, count) ]
  *                 last_name_idx = count             # <<<<<<<<<<<<<<
@@ -2873,7 +2873,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_last_name_idx = __pyx_v_count;
 
-        /* "fastpaths_vm.pyx":72
+        /* "src/fastpaths_vm.pyx":72
  *                 val = scope[ <object>PyList_GET_ITEM(names, count) ]
  *                 last_name_idx = count
  *                 last_name_obj = val             # <<<<<<<<<<<<<<
@@ -2885,7 +2885,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       }
       __pyx_L6:;
 
-      /* "fastpaths_vm.pyx":73
+      /* "src/fastpaths_vm.pyx":73
  *                 last_name_idx = count
  *                 last_name_obj = val
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -2895,7 +2895,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":74
+        /* "src/fastpaths_vm.pyx":74
  *                 last_name_obj = val
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -2904,7 +2904,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":75
+        /* "src/fastpaths_vm.pyx":75
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -2925,7 +2925,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 75, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":73
+        /* "src/fastpaths_vm.pyx":73
  *                 last_name_idx = count
  *                 last_name_obj = val
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -2934,7 +2934,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":76
+      /* "src/fastpaths_vm.pyx":76
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val             # <<<<<<<<<<<<<<
@@ -2943,7 +2943,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 76, __pyx_L1_error)
 
-      /* "fastpaths_vm.pyx":77
+      /* "src/fastpaths_vm.pyx":77
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val
  *             sp += 1             # <<<<<<<<<<<<<<
@@ -2952,7 +2952,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":65
+      /* "src/fastpaths_vm.pyx":65
  *             stack[sp] = val
  *             sp += 1
  *         elif op == OP_LOAD_NAME:             # <<<<<<<<<<<<<<
@@ -2960,9 +2960,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             if count == last_name_idx and last_name_obj is not None:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_STORE_NAME:
+      case __pyx_e_3src_12fastpaths_vm_OP_STORE_NAME:
 
-      /* "fastpaths_vm.pyx":79
+      /* "src/fastpaths_vm.pyx":79
  *             sp += 1
  *         elif op == OP_STORE_NAME:
  *             sp -= 1             # <<<<<<<<<<<<<<
@@ -2971,7 +2971,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp - 1);
 
-      /* "fastpaths_vm.pyx":80
+      /* "src/fastpaths_vm.pyx":80
  *         elif op == OP_STORE_NAME:
  *             sp -= 1
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1             # <<<<<<<<<<<<<<
@@ -2983,7 +2983,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":81
+      /* "src/fastpaths_vm.pyx":81
  *             sp -= 1
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             scope[ <object>PyList_GET_ITEM(names, count) ] = stack[sp]             # <<<<<<<<<<<<<<
@@ -2996,7 +2996,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       if (unlikely((PyObject_SetItem(__pyx_v_scope, ((PyObject *)__pyx_t_4), __pyx_t_2) < 0))) __PYX_ERR(0, 81, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":82
+      /* "src/fastpaths_vm.pyx":82
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             scope[ <object>PyList_GET_ITEM(names, count) ] = stack[sp]
  *             if count == last_name_idx:             # <<<<<<<<<<<<<<
@@ -3006,7 +3006,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_count == __pyx_v_last_name_idx);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":83
+        /* "src/fastpaths_vm.pyx":83
  *             scope[ <object>PyList_GET_ITEM(names, count) ] = stack[sp]
  *             if count == last_name_idx:
  *                 last_name_obj = stack[sp]             # <<<<<<<<<<<<<<
@@ -3018,7 +3018,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_DECREF_SET(__pyx_v_last_name_obj, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":82
+        /* "src/fastpaths_vm.pyx":82
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             scope[ <object>PyList_GET_ITEM(names, count) ] = stack[sp]
  *             if count == last_name_idx:             # <<<<<<<<<<<<<<
@@ -3027,7 +3027,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":78
+      /* "src/fastpaths_vm.pyx":78
  *             stack[sp] = val
  *             sp += 1
  *         elif op == OP_STORE_NAME:             # <<<<<<<<<<<<<<
@@ -3035,9 +3035,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_ADD:
+      case __pyx_e_3src_12fastpaths_vm_OP_ADD:
 
-      /* "fastpaths_vm.pyx":85
+      /* "src/fastpaths_vm.pyx":85
  *                 last_name_obj = stack[sp]
  *         elif op == OP_ADD:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3050,7 +3050,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":86
+      /* "src/fastpaths_vm.pyx":86
  *         elif op == OP_ADD:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3063,7 +3063,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":87
+      /* "src/fastpaths_vm.pyx":87
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             val = a + b             # <<<<<<<<<<<<<<
@@ -3075,7 +3075,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":88
+      /* "src/fastpaths_vm.pyx":88
  *             sp -= 1; a = stack[sp]
  *             val = a + b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3085,7 +3085,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":89
+        /* "src/fastpaths_vm.pyx":89
  *             val = a + b
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -3094,7 +3094,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":90
+        /* "src/fastpaths_vm.pyx":90
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -3115,7 +3115,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 90, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":88
+        /* "src/fastpaths_vm.pyx":88
  *             sp -= 1; a = stack[sp]
  *             val = a + b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3124,7 +3124,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":91
+      /* "src/fastpaths_vm.pyx":91
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val             # <<<<<<<<<<<<<<
@@ -3133,7 +3133,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 91, __pyx_L1_error)
 
-      /* "fastpaths_vm.pyx":92
+      /* "src/fastpaths_vm.pyx":92
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val
  *             sp += 1             # <<<<<<<<<<<<<<
@@ -3142,7 +3142,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":84
+      /* "src/fastpaths_vm.pyx":84
  *             if count == last_name_idx:
  *                 last_name_obj = stack[sp]
  *         elif op == OP_ADD:             # <<<<<<<<<<<<<<
@@ -3150,9 +3150,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_SUB:
+      case __pyx_e_3src_12fastpaths_vm_OP_SUB:
 
-      /* "fastpaths_vm.pyx":94
+      /* "src/fastpaths_vm.pyx":94
  *             sp += 1
  *         elif op == OP_SUB:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3165,7 +3165,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":95
+      /* "src/fastpaths_vm.pyx":95
  *         elif op == OP_SUB:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3178,7 +3178,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":96
+      /* "src/fastpaths_vm.pyx":96
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             val = a - b             # <<<<<<<<<<<<<<
@@ -3190,7 +3190,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":97
+      /* "src/fastpaths_vm.pyx":97
  *             sp -= 1; a = stack[sp]
  *             val = a - b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3200,7 +3200,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":98
+        /* "src/fastpaths_vm.pyx":98
  *             val = a - b
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -3209,7 +3209,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":99
+        /* "src/fastpaths_vm.pyx":99
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -3230,7 +3230,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 99, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":97
+        /* "src/fastpaths_vm.pyx":97
  *             sp -= 1; a = stack[sp]
  *             val = a - b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3239,7 +3239,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":100
+      /* "src/fastpaths_vm.pyx":100
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val             # <<<<<<<<<<<<<<
@@ -3248,7 +3248,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 100, __pyx_L1_error)
 
-      /* "fastpaths_vm.pyx":101
+      /* "src/fastpaths_vm.pyx":101
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val
  *             sp += 1             # <<<<<<<<<<<<<<
@@ -3257,7 +3257,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":93
+      /* "src/fastpaths_vm.pyx":93
  *             stack[sp] = val
  *             sp += 1
  *         elif op == OP_SUB:             # <<<<<<<<<<<<<<
@@ -3265,9 +3265,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_MUL:
+      case __pyx_e_3src_12fastpaths_vm_OP_MUL:
 
-      /* "fastpaths_vm.pyx":103
+      /* "src/fastpaths_vm.pyx":103
  *             sp += 1
  *         elif op == OP_MUL:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3280,7 +3280,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":104
+      /* "src/fastpaths_vm.pyx":104
  *         elif op == OP_MUL:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3293,7 +3293,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":105
+      /* "src/fastpaths_vm.pyx":105
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             val = a * b             # <<<<<<<<<<<<<<
@@ -3305,7 +3305,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":106
+      /* "src/fastpaths_vm.pyx":106
  *             sp -= 1; a = stack[sp]
  *             val = a * b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3315,7 +3315,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":107
+        /* "src/fastpaths_vm.pyx":107
  *             val = a * b
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -3324,7 +3324,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":108
+        /* "src/fastpaths_vm.pyx":108
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -3345,7 +3345,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 108, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":106
+        /* "src/fastpaths_vm.pyx":106
  *             sp -= 1; a = stack[sp]
  *             val = a * b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3354,7 +3354,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":109
+      /* "src/fastpaths_vm.pyx":109
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val             # <<<<<<<<<<<<<<
@@ -3363,7 +3363,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 109, __pyx_L1_error)
 
-      /* "fastpaths_vm.pyx":110
+      /* "src/fastpaths_vm.pyx":110
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val
  *             sp += 1             # <<<<<<<<<<<<<<
@@ -3372,7 +3372,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":102
+      /* "src/fastpaths_vm.pyx":102
  *             stack[sp] = val
  *             sp += 1
  *         elif op == OP_MUL:             # <<<<<<<<<<<<<<
@@ -3380,9 +3380,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_DIV:
+      case __pyx_e_3src_12fastpaths_vm_OP_DIV:
 
-      /* "fastpaths_vm.pyx":112
+      /* "src/fastpaths_vm.pyx":112
  *             sp += 1
  *         elif op == OP_DIV:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3395,7 +3395,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":113
+      /* "src/fastpaths_vm.pyx":113
  *         elif op == OP_DIV:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3408,7 +3408,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":114
+      /* "src/fastpaths_vm.pyx":114
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             val = a / b             # <<<<<<<<<<<<<<
@@ -3420,7 +3420,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":115
+      /* "src/fastpaths_vm.pyx":115
  *             sp -= 1; a = stack[sp]
  *             val = a / b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3430,7 +3430,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":116
+        /* "src/fastpaths_vm.pyx":116
  *             val = a / b
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -3439,7 +3439,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":117
+        /* "src/fastpaths_vm.pyx":117
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -3460,7 +3460,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 117, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":115
+        /* "src/fastpaths_vm.pyx":115
  *             sp -= 1; a = stack[sp]
  *             val = a / b
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3469,7 +3469,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":118
+      /* "src/fastpaths_vm.pyx":118
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val             # <<<<<<<<<<<<<<
@@ -3478,7 +3478,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 118, __pyx_L1_error)
 
-      /* "fastpaths_vm.pyx":119
+      /* "src/fastpaths_vm.pyx":119
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val
  *             sp += 1             # <<<<<<<<<<<<<<
@@ -3487,7 +3487,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":111
+      /* "src/fastpaths_vm.pyx":111
  *             stack[sp] = val
  *             sp += 1
  *         elif op == OP_DIV:             # <<<<<<<<<<<<<<
@@ -3495,9 +3495,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_EQ:
+      case __pyx_e_3src_12fastpaths_vm_OP_EQ:
 
-      /* "fastpaths_vm.pyx":121
+      /* "src/fastpaths_vm.pyx":121
  *             sp += 1
  *         elif op == OP_EQ:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3510,7 +3510,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":122
+      /* "src/fastpaths_vm.pyx":122
  *         elif op == OP_EQ:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3523,7 +3523,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":123
+      /* "src/fastpaths_vm.pyx":123
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a == b); sp += 1             # <<<<<<<<<<<<<<
@@ -3535,7 +3535,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":120
+      /* "src/fastpaths_vm.pyx":120
  *             stack[sp] = val
  *             sp += 1
  *         elif op == OP_EQ:             # <<<<<<<<<<<<<<
@@ -3543,9 +3543,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_NE:
+      case __pyx_e_3src_12fastpaths_vm_OP_NE:
 
-      /* "fastpaths_vm.pyx":125
+      /* "src/fastpaths_vm.pyx":125
  *             stack[sp] = (a == b); sp += 1
  *         elif op == OP_NE:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3558,7 +3558,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":126
+      /* "src/fastpaths_vm.pyx":126
  *         elif op == OP_NE:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3571,7 +3571,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":127
+      /* "src/fastpaths_vm.pyx":127
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a != b); sp += 1             # <<<<<<<<<<<<<<
@@ -3583,7 +3583,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":124
+      /* "src/fastpaths_vm.pyx":124
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a == b); sp += 1
  *         elif op == OP_NE:             # <<<<<<<<<<<<<<
@@ -3591,9 +3591,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_LT:
+      case __pyx_e_3src_12fastpaths_vm_OP_LT:
 
-      /* "fastpaths_vm.pyx":129
+      /* "src/fastpaths_vm.pyx":129
  *             stack[sp] = (a != b); sp += 1
  *         elif op == OP_LT:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3606,7 +3606,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":130
+      /* "src/fastpaths_vm.pyx":130
  *         elif op == OP_LT:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3619,7 +3619,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":131
+      /* "src/fastpaths_vm.pyx":131
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a < b); sp += 1             # <<<<<<<<<<<<<<
@@ -3631,7 +3631,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":128
+      /* "src/fastpaths_vm.pyx":128
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a != b); sp += 1
  *         elif op == OP_LT:             # <<<<<<<<<<<<<<
@@ -3639,9 +3639,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_LE:
+      case __pyx_e_3src_12fastpaths_vm_OP_LE:
 
-      /* "fastpaths_vm.pyx":133
+      /* "src/fastpaths_vm.pyx":133
  *             stack[sp] = (a < b); sp += 1
  *         elif op == OP_LE:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3654,7 +3654,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":134
+      /* "src/fastpaths_vm.pyx":134
  *         elif op == OP_LE:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3667,7 +3667,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":135
+      /* "src/fastpaths_vm.pyx":135
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a <= b); sp += 1             # <<<<<<<<<<<<<<
@@ -3679,7 +3679,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":132
+      /* "src/fastpaths_vm.pyx":132
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a < b); sp += 1
  *         elif op == OP_LE:             # <<<<<<<<<<<<<<
@@ -3687,9 +3687,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_GT:
+      case __pyx_e_3src_12fastpaths_vm_OP_GT:
 
-      /* "fastpaths_vm.pyx":137
+      /* "src/fastpaths_vm.pyx":137
  *             stack[sp] = (a <= b); sp += 1
  *         elif op == OP_GT:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3702,7 +3702,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":138
+      /* "src/fastpaths_vm.pyx":138
  *         elif op == OP_GT:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3715,7 +3715,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":139
+      /* "src/fastpaths_vm.pyx":139
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a > b); sp += 1             # <<<<<<<<<<<<<<
@@ -3727,7 +3727,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":136
+      /* "src/fastpaths_vm.pyx":136
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a <= b); sp += 1
  *         elif op == OP_GT:             # <<<<<<<<<<<<<<
@@ -3735,9 +3735,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_GE:
+      case __pyx_e_3src_12fastpaths_vm_OP_GE:
 
-      /* "fastpaths_vm.pyx":141
+      /* "src/fastpaths_vm.pyx":141
  *             stack[sp] = (a > b); sp += 1
  *         elif op == OP_GE:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -3750,7 +3750,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":142
+      /* "src/fastpaths_vm.pyx":142
  *         elif op == OP_GE:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -3763,7 +3763,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":143
+      /* "src/fastpaths_vm.pyx":143
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a >= b); sp += 1             # <<<<<<<<<<<<<<
@@ -3775,7 +3775,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":140
+      /* "src/fastpaths_vm.pyx":140
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a > b); sp += 1
  *         elif op == OP_GE:             # <<<<<<<<<<<<<<
@@ -3783,9 +3783,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_MAKE_LIST:
+      case __pyx_e_3src_12fastpaths_vm_OP_MAKE_LIST:
 
-      /* "fastpaths_vm.pyx":145
+      /* "src/fastpaths_vm.pyx":145
  *             stack[sp] = (a >= b); sp += 1
  *         elif op == OP_MAKE_LIST:
  *             count = opcodes[i]; i += 1             # <<<<<<<<<<<<<<
@@ -3799,7 +3799,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":146
+      /* "src/fastpaths_vm.pyx":146
  *         elif op == OP_MAKE_LIST:
  *             count = opcodes[i]; i += 1
  *             if count:             # <<<<<<<<<<<<<<
@@ -3809,7 +3809,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_count != 0);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":148
+        /* "src/fastpaths_vm.pyx":148
  *             if count:
  *                 # Build list from top count items without slicing
  *                 val = [None] * count             # <<<<<<<<<<<<<<
@@ -3828,7 +3828,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":149
+        /* "src/fastpaths_vm.pyx":149
  *                 # Build list from top count items without slicing
  *                 val = [None] * count
  *                 for idx in range(count-1, -1, -1):             # <<<<<<<<<<<<<<
@@ -3838,7 +3838,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         for (__pyx_t_1 = (__pyx_v_count - 1); __pyx_t_1 > -1L; __pyx_t_1-=1) {
           __pyx_v_idx = __pyx_t_1;
 
-          /* "fastpaths_vm.pyx":150
+          /* "src/fastpaths_vm.pyx":150
  *                 val = [None] * count
  *                 for idx in range(count-1, -1, -1):
  *                     sp -= 1             # <<<<<<<<<<<<<<
@@ -3847,7 +3847,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_sp = (__pyx_v_sp - 1);
 
-          /* "fastpaths_vm.pyx":151
+          /* "src/fastpaths_vm.pyx":151
  *                 for idx in range(count-1, -1, -1):
  *                     sp -= 1
  *                     val[idx] = stack[sp]             # <<<<<<<<<<<<<<
@@ -3860,7 +3860,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
 
-        /* "fastpaths_vm.pyx":152
+        /* "src/fastpaths_vm.pyx":152
  *                     sp -= 1
  *                     val[idx] = stack[sp]
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3870,7 +3870,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
         if (__pyx_t_3) {
 
-          /* "fastpaths_vm.pyx":153
+          /* "src/fastpaths_vm.pyx":153
  *                     val[idx] = stack[sp]
  *                 if sp >= cap:
  *                     cap = cap * 2             # <<<<<<<<<<<<<<
@@ -3879,7 +3879,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_cap = (__pyx_v_cap * 2);
 
-          /* "fastpaths_vm.pyx":154
+          /* "src/fastpaths_vm.pyx":154
  *                 if sp >= cap:
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -3900,7 +3900,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 154, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":152
+          /* "src/fastpaths_vm.pyx":152
  *                     sp -= 1
  *                     val[idx] = stack[sp]
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3909,7 +3909,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":155
+        /* "src/fastpaths_vm.pyx":155
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = val             # <<<<<<<<<<<<<<
@@ -3918,7 +3918,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_v_val, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 155, __pyx_L1_error)
 
-        /* "fastpaths_vm.pyx":156
+        /* "src/fastpaths_vm.pyx":156
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = val
  *                 sp += 1             # <<<<<<<<<<<<<<
@@ -3927,7 +3927,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_sp = (__pyx_v_sp + 1);
 
-        /* "fastpaths_vm.pyx":146
+        /* "src/fastpaths_vm.pyx":146
  *         elif op == OP_MAKE_LIST:
  *             count = opcodes[i]; i += 1
  *             if count:             # <<<<<<<<<<<<<<
@@ -3937,7 +3937,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         goto __pyx_L15;
       }
 
-      /* "fastpaths_vm.pyx":158
+      /* "src/fastpaths_vm.pyx":158
  *                 sp += 1
  *             else:
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3948,7 +3948,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
         if (__pyx_t_3) {
 
-          /* "fastpaths_vm.pyx":159
+          /* "src/fastpaths_vm.pyx":159
  *             else:
  *                 if sp >= cap:
  *                     cap = cap * 2             # <<<<<<<<<<<<<<
@@ -3957,7 +3957,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_cap = (__pyx_v_cap * 2);
 
-          /* "fastpaths_vm.pyx":160
+          /* "src/fastpaths_vm.pyx":160
  *                 if sp >= cap:
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -3978,7 +3978,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 160, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":158
+          /* "src/fastpaths_vm.pyx":158
  *                 sp += 1
  *             else:
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -3987,7 +3987,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":161
+        /* "src/fastpaths_vm.pyx":161
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = []             # <<<<<<<<<<<<<<
@@ -3999,7 +3999,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_t_2, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 161, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":162
+        /* "src/fastpaths_vm.pyx":162
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = []
  *                 sp += 1             # <<<<<<<<<<<<<<
@@ -4010,7 +4010,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       }
       __pyx_L15:;
 
-      /* "fastpaths_vm.pyx":144
+      /* "src/fastpaths_vm.pyx":144
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = (a >= b); sp += 1
  *         elif op == OP_MAKE_LIST:             # <<<<<<<<<<<<<<
@@ -4018,9 +4018,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             if count:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_MAKE_TUPLE:
+      case __pyx_e_3src_12fastpaths_vm_OP_MAKE_TUPLE:
 
-      /* "fastpaths_vm.pyx":164
+      /* "src/fastpaths_vm.pyx":164
  *                 sp += 1
  *         elif op == OP_MAKE_TUPLE:
  *             count2 = opcodes[i]; i += 1             # <<<<<<<<<<<<<<
@@ -4034,7 +4034,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count2 = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":165
+      /* "src/fastpaths_vm.pyx":165
  *         elif op == OP_MAKE_TUPLE:
  *             count2 = opcodes[i]; i += 1
  *             if count2:             # <<<<<<<<<<<<<<
@@ -4044,7 +4044,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_count2 != 0);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":166
+        /* "src/fastpaths_vm.pyx":166
  *             count2 = opcodes[i]; i += 1
  *             if count2:
  *                 val = [None] * count2             # <<<<<<<<<<<<<<
@@ -4063,7 +4063,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":167
+        /* "src/fastpaths_vm.pyx":167
  *             if count2:
  *                 val = [None] * count2
  *                 for idx2 in range(count2-1, -1, -1):             # <<<<<<<<<<<<<<
@@ -4073,7 +4073,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         for (__pyx_t_1 = (__pyx_v_count2 - 1); __pyx_t_1 > -1L; __pyx_t_1-=1) {
           __pyx_v_idx2 = __pyx_t_1;
 
-          /* "fastpaths_vm.pyx":168
+          /* "src/fastpaths_vm.pyx":168
  *                 val = [None] * count2
  *                 for idx2 in range(count2-1, -1, -1):
  *                     sp -= 1             # <<<<<<<<<<<<<<
@@ -4082,7 +4082,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_sp = (__pyx_v_sp - 1);
 
-          /* "fastpaths_vm.pyx":169
+          /* "src/fastpaths_vm.pyx":169
  *                 for idx2 in range(count2-1, -1, -1):
  *                     sp -= 1
  *                     val[idx2] = stack[sp]             # <<<<<<<<<<<<<<
@@ -4095,7 +4095,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
 
-        /* "fastpaths_vm.pyx":170
+        /* "src/fastpaths_vm.pyx":170
  *                     sp -= 1
  *                     val[idx2] = stack[sp]
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -4105,7 +4105,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
         if (__pyx_t_3) {
 
-          /* "fastpaths_vm.pyx":171
+          /* "src/fastpaths_vm.pyx":171
  *                     val[idx2] = stack[sp]
  *                 if sp >= cap:
  *                     cap = cap * 2             # <<<<<<<<<<<<<<
@@ -4114,7 +4114,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_cap = (__pyx_v_cap * 2);
 
-          /* "fastpaths_vm.pyx":172
+          /* "src/fastpaths_vm.pyx":172
  *                 if sp >= cap:
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -4135,7 +4135,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 172, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":170
+          /* "src/fastpaths_vm.pyx":170
  *                     sp -= 1
  *                     val[idx2] = stack[sp]
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -4144,7 +4144,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":173
+        /* "src/fastpaths_vm.pyx":173
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = tuple(val)             # <<<<<<<<<<<<<<
@@ -4156,7 +4156,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_t_2, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 173, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":174
+        /* "src/fastpaths_vm.pyx":174
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = tuple(val)
  *                 sp += 1             # <<<<<<<<<<<<<<
@@ -4165,7 +4165,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_sp = (__pyx_v_sp + 1);
 
-        /* "fastpaths_vm.pyx":165
+        /* "src/fastpaths_vm.pyx":165
  *         elif op == OP_MAKE_TUPLE:
  *             count2 = opcodes[i]; i += 1
  *             if count2:             # <<<<<<<<<<<<<<
@@ -4175,7 +4175,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         goto __pyx_L20;
       }
 
-      /* "fastpaths_vm.pyx":176
+      /* "src/fastpaths_vm.pyx":176
  *                 sp += 1
  *             else:
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -4186,7 +4186,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
         if (__pyx_t_3) {
 
-          /* "fastpaths_vm.pyx":177
+          /* "src/fastpaths_vm.pyx":177
  *             else:
  *                 if sp >= cap:
  *                     cap = cap * 2             # <<<<<<<<<<<<<<
@@ -4195,7 +4195,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_cap = (__pyx_v_cap * 2);
 
-          /* "fastpaths_vm.pyx":178
+          /* "src/fastpaths_vm.pyx":178
  *                 if sp >= cap:
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -4216,7 +4216,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 178, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":176
+          /* "src/fastpaths_vm.pyx":176
  *                 sp += 1
  *             else:
  *                 if sp >= cap:             # <<<<<<<<<<<<<<
@@ -4225,7 +4225,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":179
+        /* "src/fastpaths_vm.pyx":179
  *                     cap = cap * 2
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = ()             # <<<<<<<<<<<<<<
@@ -4234,7 +4234,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         if (unlikely((__Pyx_SetItemInt(__pyx_v_stack, __pyx_v_sp, __pyx_mstate_global->__pyx_empty_tuple, Py_ssize_t, 1, PyLong_FromSsize_t, 1, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference) < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
 
-        /* "fastpaths_vm.pyx":180
+        /* "src/fastpaths_vm.pyx":180
  *                     stack.extend([None] * (cap - len(stack)))
  *                 stack[sp] = ()
  *                 sp += 1             # <<<<<<<<<<<<<<
@@ -4245,7 +4245,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       }
       __pyx_L20:;
 
-      /* "fastpaths_vm.pyx":163
+      /* "src/fastpaths_vm.pyx":163
  *                 stack[sp] = []
  *                 sp += 1
  *         elif op == OP_MAKE_TUPLE:             # <<<<<<<<<<<<<<
@@ -4253,9 +4253,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             if count2:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_NEG:
+      case __pyx_e_3src_12fastpaths_vm_OP_NEG:
 
-      /* "fastpaths_vm.pyx":182
+      /* "src/fastpaths_vm.pyx":182
  *                 sp += 1
  *         elif op == OP_NEG:
  *             sp -= 1; a = stack[sp]; stack[sp] = -a; sp += 1             # <<<<<<<<<<<<<<
@@ -4273,7 +4273,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":181
+      /* "src/fastpaths_vm.pyx":181
  *                 stack[sp] = ()
  *                 sp += 1
  *         elif op == OP_NEG:             # <<<<<<<<<<<<<<
@@ -4281,9 +4281,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *         elif op == OP_POS:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_POS:
+      case __pyx_e_3src_12fastpaths_vm_OP_POS:
 
-      /* "fastpaths_vm.pyx":184
+      /* "src/fastpaths_vm.pyx":184
  *             sp -= 1; a = stack[sp]; stack[sp] = -a; sp += 1
  *         elif op == OP_POS:
  *             sp -= 1; a = stack[sp]; stack[sp] = +a; sp += 1             # <<<<<<<<<<<<<<
@@ -4301,7 +4301,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":183
+      /* "src/fastpaths_vm.pyx":183
  *         elif op == OP_NEG:
  *             sp -= 1; a = stack[sp]; stack[sp] = -a; sp += 1
  *         elif op == OP_POS:             # <<<<<<<<<<<<<<
@@ -4309,9 +4309,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *         elif op == OP_NOT:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_NOT:
+      case __pyx_e_3src_12fastpaths_vm_OP_NOT:
 
-      /* "fastpaths_vm.pyx":186
+      /* "src/fastpaths_vm.pyx":186
  *             sp -= 1; a = stack[sp]; stack[sp] = +a; sp += 1
  *         elif op == OP_NOT:
  *             sp -= 1; a = stack[sp]; stack[sp] = (not a); sp += 1             # <<<<<<<<<<<<<<
@@ -4330,7 +4330,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":185
+      /* "src/fastpaths_vm.pyx":185
  *         elif op == OP_POS:
  *             sp -= 1; a = stack[sp]; stack[sp] = +a; sp += 1
  *         elif op == OP_NOT:             # <<<<<<<<<<<<<<
@@ -4338,9 +4338,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *         elif op == OP_AND:
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_AND:
+      case __pyx_e_3src_12fastpaths_vm_OP_AND:
 
-      /* "fastpaths_vm.pyx":188
+      /* "src/fastpaths_vm.pyx":188
  *             sp -= 1; a = stack[sp]; stack[sp] = (not a); sp += 1
  *         elif op == OP_AND:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -4353,7 +4353,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":189
+      /* "src/fastpaths_vm.pyx":189
  *         elif op == OP_AND:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -4366,7 +4366,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":190
+      /* "src/fastpaths_vm.pyx":190
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = True if (PyObject_IsTrue(a) and PyObject_IsTrue(b)) else False; sp += 1             # <<<<<<<<<<<<<<
@@ -4393,7 +4393,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":187
+      /* "src/fastpaths_vm.pyx":187
  *         elif op == OP_NOT:
  *             sp -= 1; a = stack[sp]; stack[sp] = (not a); sp += 1
  *         elif op == OP_AND:             # <<<<<<<<<<<<<<
@@ -4401,9 +4401,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_OR:
+      case __pyx_e_3src_12fastpaths_vm_OP_OR:
 
-      /* "fastpaths_vm.pyx":192
+      /* "src/fastpaths_vm.pyx":192
  *             stack[sp] = True if (PyObject_IsTrue(a) and PyObject_IsTrue(b)) else False; sp += 1
  *         elif op == OP_OR:
  *             sp -= 1; b = stack[sp]             # <<<<<<<<<<<<<<
@@ -4416,7 +4416,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":193
+      /* "src/fastpaths_vm.pyx":193
  *         elif op == OP_OR:
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -4429,7 +4429,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":194
+      /* "src/fastpaths_vm.pyx":194
  *             sp -= 1; b = stack[sp]
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = True if (PyObject_IsTrue(a) or PyObject_IsTrue(b)) else False; sp += 1             # <<<<<<<<<<<<<<
@@ -4456,7 +4456,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":191
+      /* "src/fastpaths_vm.pyx":191
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = True if (PyObject_IsTrue(a) and PyObject_IsTrue(b)) else False; sp += 1
  *         elif op == OP_OR:             # <<<<<<<<<<<<<<
@@ -4464,9 +4464,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; a = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_INDEX_CONST:
+      case __pyx_e_3src_12fastpaths_vm_OP_INDEX_CONST:
 
-      /* "fastpaths_vm.pyx":196
+      /* "src/fastpaths_vm.pyx":196
  *             stack[sp] = True if (PyObject_IsTrue(a) or PyObject_IsTrue(b)) else False; sp += 1
  *         elif op == OP_INDEX_CONST:
  *             sp -= 1; val = stack[sp]             # <<<<<<<<<<<<<<
@@ -4479,7 +4479,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":197
+      /* "src/fastpaths_vm.pyx":197
  *         elif op == OP_INDEX_CONST:
  *             sp -= 1; val = stack[sp]
  *             stack[sp] = val[ <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))) ]; sp += 1; i += 1             # <<<<<<<<<<<<<<
@@ -4496,7 +4496,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_sp = (__pyx_v_sp + 1);
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":195
+      /* "src/fastpaths_vm.pyx":195
  *             sp -= 1; a = stack[sp]
  *             stack[sp] = True if (PyObject_IsTrue(a) or PyObject_IsTrue(b)) else False; sp += 1
  *         elif op == OP_INDEX_CONST:             # <<<<<<<<<<<<<<
@@ -4504,9 +4504,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             stack[sp] = val[ <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))) ]; sp += 1; i += 1
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_INDEX_STACK:
+      case __pyx_e_3src_12fastpaths_vm_OP_INDEX_STACK:
 
-      /* "fastpaths_vm.pyx":199
+      /* "src/fastpaths_vm.pyx":199
  *             stack[sp] = val[ <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))) ]; sp += 1; i += 1
  *         elif op == OP_INDEX_STACK:
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -4519,7 +4519,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":200
+      /* "src/fastpaths_vm.pyx":200
  *         elif op == OP_INDEX_STACK:
  *             sp -= 1; a = stack[sp]
  *             sp -= 1; val = stack[sp]             # <<<<<<<<<<<<<<
@@ -4532,7 +4532,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":201
+      /* "src/fastpaths_vm.pyx":201
  *             sp -= 1; a = stack[sp]
  *             sp -= 1; val = stack[sp]
  *             stack[sp] = val[a]; sp += 1             # <<<<<<<<<<<<<<
@@ -4545,7 +4545,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":198
+      /* "src/fastpaths_vm.pyx":198
  *             sp -= 1; val = stack[sp]
  *             stack[sp] = val[ <object>PyList_GET_ITEM(consts, PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i))) ]; sp += 1; i += 1
  *         elif op == OP_INDEX_STACK:             # <<<<<<<<<<<<<<
@@ -4553,9 +4553,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             sp -= 1; val = stack[sp]
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_CALL_NAME:
+      case __pyx_e_3src_12fastpaths_vm_OP_CALL_NAME:
 
-      /* "fastpaths_vm.pyx":204
+      /* "src/fastpaths_vm.pyx":204
  *         elif op == OP_CALL_NAME:
  *             # name index, argc inline
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # name_idx             # <<<<<<<<<<<<<<
@@ -4567,7 +4567,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":205
+      /* "src/fastpaths_vm.pyx":205
  *             # name index, argc inline
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # name_idx
  *             count2 = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # argc             # <<<<<<<<<<<<<<
@@ -4579,7 +4579,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count2 = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":207
+      /* "src/fastpaths_vm.pyx":207
  *             count2 = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # argc
  *             # collect args
  *             val = []             # <<<<<<<<<<<<<<
@@ -4591,7 +4591,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":208
+      /* "src/fastpaths_vm.pyx":208
  *             # collect args
  *             val = []
  *             if count2:             # <<<<<<<<<<<<<<
@@ -4601,7 +4601,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_count2 != 0);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":209
+        /* "src/fastpaths_vm.pyx":209
  *             val = []
  *             if count2:
  *                 val = [None] * count2             # <<<<<<<<<<<<<<
@@ -4620,7 +4620,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_DECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":210
+        /* "src/fastpaths_vm.pyx":210
  *             if count2:
  *                 val = [None] * count2
  *                 for idx3 in range(count2-1, -1, -1):             # <<<<<<<<<<<<<<
@@ -4630,7 +4630,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         for (__pyx_t_1 = (__pyx_v_count2 - 1); __pyx_t_1 > -1L; __pyx_t_1-=1) {
           __pyx_v_idx3 = __pyx_t_1;
 
-          /* "fastpaths_vm.pyx":211
+          /* "src/fastpaths_vm.pyx":211
  *                 val = [None] * count2
  *                 for idx3 in range(count2-1, -1, -1):
  *                     sp -= 1             # <<<<<<<<<<<<<<
@@ -4639,7 +4639,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_sp = (__pyx_v_sp - 1);
 
-          /* "fastpaths_vm.pyx":212
+          /* "src/fastpaths_vm.pyx":212
  *                 for idx3 in range(count2-1, -1, -1):
  *                     sp -= 1
  *                     val[idx3] = stack[sp]             # <<<<<<<<<<<<<<
@@ -4652,7 +4652,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
 
-        /* "fastpaths_vm.pyx":208
+        /* "src/fastpaths_vm.pyx":208
  *             # collect args
  *             val = []
  *             if count2:             # <<<<<<<<<<<<<<
@@ -4661,7 +4661,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":214
+      /* "src/fastpaths_vm.pyx":214
  *                     val[idx3] = stack[sp]
  *             # resolve function and call
  *             if count == last_name_idx and last_name_obj is not None:             # <<<<<<<<<<<<<<
@@ -4679,7 +4679,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_L33_bool_binop_done:;
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":215
+        /* "src/fastpaths_vm.pyx":215
  *             # resolve function and call
  *             if count == last_name_idx and last_name_obj is not None:
  *                 a = last_name_obj             # <<<<<<<<<<<<<<
@@ -4689,7 +4689,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_INCREF(__pyx_v_last_name_obj);
         __Pyx_XDECREF_SET(__pyx_v_a, __pyx_v_last_name_obj);
 
-        /* "fastpaths_vm.pyx":214
+        /* "src/fastpaths_vm.pyx":214
  *                     val[idx3] = stack[sp]
  *             # resolve function and call
  *             if count == last_name_idx and last_name_obj is not None:             # <<<<<<<<<<<<<<
@@ -4699,7 +4699,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         goto __pyx_L32;
       }
 
-      /* "fastpaths_vm.pyx":217
+      /* "src/fastpaths_vm.pyx":217
  *                 a = last_name_obj
  *             else:
  *                 a = scope[ <object>PyList_GET_ITEM(names, count) ]             # <<<<<<<<<<<<<<
@@ -4713,7 +4713,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":218
+        /* "src/fastpaths_vm.pyx":218
  *             else:
  *                 a = scope[ <object>PyList_GET_ITEM(names, count) ]
  *                 last_name_idx = count             # <<<<<<<<<<<<<<
@@ -4722,7 +4722,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_last_name_idx = __pyx_v_count;
 
-        /* "fastpaths_vm.pyx":219
+        /* "src/fastpaths_vm.pyx":219
  *                 a = scope[ <object>PyList_GET_ITEM(names, count) ]
  *                 last_name_idx = count
  *                 last_name_obj = a             # <<<<<<<<<<<<<<
@@ -4734,7 +4734,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       }
       __pyx_L32:;
 
-      /* "fastpaths_vm.pyx":221
+      /* "src/fastpaths_vm.pyx":221
  *                 last_name_obj = a
  *             # call function
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -4744,7 +4744,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":222
+        /* "src/fastpaths_vm.pyx":222
  *             # call function
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -4753,7 +4753,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":223
+        /* "src/fastpaths_vm.pyx":223
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -4774,7 +4774,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_2); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 223, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":221
+        /* "src/fastpaths_vm.pyx":221
  *                 last_name_obj = a
  *             # call function
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -4783,7 +4783,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":224
+      /* "src/fastpaths_vm.pyx":224
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = a(*val); sp += 1             # <<<<<<<<<<<<<<
@@ -4799,7 +4799,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":202
+      /* "src/fastpaths_vm.pyx":202
  *             sp -= 1; val = stack[sp]
  *             stack[sp] = val[a]; sp += 1
  *         elif op == OP_CALL_NAME:             # <<<<<<<<<<<<<<
@@ -4807,9 +4807,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # name_idx
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_CALL_ATTR:
+      case __pyx_e_3src_12fastpaths_vm_OP_CALL_ATTR:
 
-      /* "fastpaths_vm.pyx":227
+      /* "src/fastpaths_vm.pyx":227
  *         elif op == OP_CALL_ATTR:
  *             # attr name index, argc inline; object then args are on stack
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # attr idx             # <<<<<<<<<<<<<<
@@ -4821,7 +4821,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_5;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":228
+      /* "src/fastpaths_vm.pyx":228
  *             # attr name index, argc inline; object then args are on stack
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # attr idx
  *             count2 = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # argc             # <<<<<<<<<<<<<<
@@ -4833,7 +4833,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count2 = __pyx_t_5;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":229
+      /* "src/fastpaths_vm.pyx":229
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # attr idx
  *             count2 = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # argc
  *             val = []             # <<<<<<<<<<<<<<
@@ -4845,7 +4845,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "fastpaths_vm.pyx":230
+      /* "src/fastpaths_vm.pyx":230
  *             count2 = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # argc
  *             val = []
  *             if count2:             # <<<<<<<<<<<<<<
@@ -4855,7 +4855,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_count2 != 0);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":231
+        /* "src/fastpaths_vm.pyx":231
  *             val = []
  *             if count2:
  *                 val = [None] * count2             # <<<<<<<<<<<<<<
@@ -4874,7 +4874,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_DECREF_SET(__pyx_v_val, __pyx_t_8);
         __pyx_t_8 = 0;
 
-        /* "fastpaths_vm.pyx":232
+        /* "src/fastpaths_vm.pyx":232
  *             if count2:
  *                 val = [None] * count2
  *                 for idx4 in range(count2-1, -1, -1):             # <<<<<<<<<<<<<<
@@ -4884,7 +4884,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         for (__pyx_t_5 = (__pyx_v_count2 - 1); __pyx_t_5 > -1L; __pyx_t_5-=1) {
           __pyx_v_idx4 = __pyx_t_5;
 
-          /* "fastpaths_vm.pyx":233
+          /* "src/fastpaths_vm.pyx":233
  *                 val = [None] * count2
  *                 for idx4 in range(count2-1, -1, -1):
  *                     sp -= 1             # <<<<<<<<<<<<<<
@@ -4893,7 +4893,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
           __pyx_v_sp = (__pyx_v_sp - 1);
 
-          /* "fastpaths_vm.pyx":234
+          /* "src/fastpaths_vm.pyx":234
  *                 for idx4 in range(count2-1, -1, -1):
  *                     sp -= 1
  *                     val[idx4] = stack[sp]             # <<<<<<<<<<<<<<
@@ -4906,7 +4906,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         }
 
-        /* "fastpaths_vm.pyx":230
+        /* "src/fastpaths_vm.pyx":230
  *             count2 = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # argc
  *             val = []
  *             if count2:             # <<<<<<<<<<<<<<
@@ -4915,7 +4915,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":236
+      /* "src/fastpaths_vm.pyx":236
  *                     val[idx4] = stack[sp]
  *             # object
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -4928,7 +4928,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "fastpaths_vm.pyx":237
+      /* "src/fastpaths_vm.pyx":237
  *             # object
  *             sp -= 1; a = stack[sp]
  *             b = <object>PyList_GET_ITEM(names, count)             # <<<<<<<<<<<<<<
@@ -4941,7 +4941,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "fastpaths_vm.pyx":238
+      /* "src/fastpaths_vm.pyx":238
  *             sp -= 1; a = stack[sp]
  *             b = <object>PyList_GET_ITEM(names, count)
  *             if last_attr_idx == count and last_attr_obj is a and last_attr_bound is not None:             # <<<<<<<<<<<<<<
@@ -4965,7 +4965,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_L40_bool_binop_done:;
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":240
+        /* "src/fastpaths_vm.pyx":240
  *             if last_attr_idx == count and last_attr_obj is a and last_attr_bound is not None:
  *                 # reuse cached bound method
  *                 val2 = last_attr_bound             # <<<<<<<<<<<<<<
@@ -4975,7 +4975,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_INCREF(__pyx_v_last_attr_bound);
         __Pyx_XDECREF_SET(__pyx_v_val2, __pyx_v_last_attr_bound);
 
-        /* "fastpaths_vm.pyx":238
+        /* "src/fastpaths_vm.pyx":238
  *             sp -= 1; a = stack[sp]
  *             b = <object>PyList_GET_ITEM(names, count)
  *             if last_attr_idx == count and last_attr_obj is a and last_attr_bound is not None:             # <<<<<<<<<<<<<<
@@ -4985,7 +4985,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         goto __pyx_L39;
       }
 
-      /* "fastpaths_vm.pyx":242
+      /* "src/fastpaths_vm.pyx":242
  *                 val2 = last_attr_bound
  *             else:
  *                 val2 = getattr(a, b)             # <<<<<<<<<<<<<<
@@ -4998,7 +4998,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val2, __pyx_t_8);
         __pyx_t_8 = 0;
 
-        /* "fastpaths_vm.pyx":243
+        /* "src/fastpaths_vm.pyx":243
  *             else:
  *                 val2 = getattr(a, b)
  *                 last_attr_idx = count             # <<<<<<<<<<<<<<
@@ -5007,7 +5007,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_last_attr_idx = __pyx_v_count;
 
-        /* "fastpaths_vm.pyx":244
+        /* "src/fastpaths_vm.pyx":244
  *                 val2 = getattr(a, b)
  *                 last_attr_idx = count
  *                 last_attr_obj = a             # <<<<<<<<<<<<<<
@@ -5017,7 +5017,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_INCREF(__pyx_v_a);
         __Pyx_DECREF_SET(__pyx_v_last_attr_obj, __pyx_v_a);
 
-        /* "fastpaths_vm.pyx":245
+        /* "src/fastpaths_vm.pyx":245
  *                 last_attr_idx = count
  *                 last_attr_obj = a
  *                 last_attr_bound = val2             # <<<<<<<<<<<<<<
@@ -5029,7 +5029,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       }
       __pyx_L39:;
 
-      /* "fastpaths_vm.pyx":246
+      /* "src/fastpaths_vm.pyx":246
  *                 last_attr_obj = a
  *                 last_attr_bound = val2
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -5039,7 +5039,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_3 = (__pyx_v_sp >= __pyx_v_cap);
       if (__pyx_t_3) {
 
-        /* "fastpaths_vm.pyx":247
+        /* "src/fastpaths_vm.pyx":247
  *                 last_attr_bound = val2
  *             if sp >= cap:
  *                 cap = cap * 2             # <<<<<<<<<<<<<<
@@ -5048,7 +5048,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_cap = (__pyx_v_cap * 2);
 
-        /* "fastpaths_vm.pyx":248
+        /* "src/fastpaths_vm.pyx":248
  *             if sp >= cap:
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))             # <<<<<<<<<<<<<<
@@ -5069,7 +5069,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_6 = __Pyx_PyList_Extend(__pyx_v_stack, __pyx_t_8); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 248, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-        /* "fastpaths_vm.pyx":246
+        /* "src/fastpaths_vm.pyx":246
  *                 last_attr_obj = a
  *                 last_attr_bound = val2
  *             if sp >= cap:             # <<<<<<<<<<<<<<
@@ -5078,7 +5078,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":249
+      /* "src/fastpaths_vm.pyx":249
  *                 cap = cap * 2
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val2(*val); sp += 1             # <<<<<<<<<<<<<<
@@ -5094,7 +5094,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_sp = (__pyx_v_sp + 1);
 
-      /* "fastpaths_vm.pyx":225
+      /* "src/fastpaths_vm.pyx":225
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = a(*val); sp += 1
  *         elif op == OP_CALL_ATTR:             # <<<<<<<<<<<<<<
@@ -5102,9 +5102,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # attr idx
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_JMP_IF_FALSE:
+      case __pyx_e_3src_12fastpaths_vm_OP_JMP_IF_FALSE:
 
-      /* "fastpaths_vm.pyx":252
+      /* "src/fastpaths_vm.pyx":252
  *         elif op == OP_JMP_IF_FALSE:
  *             # conditional forward jump; offset is relative to next index
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1             # <<<<<<<<<<<<<<
@@ -5116,7 +5116,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":253
+      /* "src/fastpaths_vm.pyx":253
  *             # conditional forward jump; offset is relative to next index
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             sp -= 1; a = stack[sp]             # <<<<<<<<<<<<<<
@@ -5129,7 +5129,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __Pyx_XDECREF_SET(__pyx_v_a, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fastpaths_vm.pyx":254
+      /* "src/fastpaths_vm.pyx":254
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             sp -= 1; a = stack[sp]
  *             if not PyObject_IsTrue(a):             # <<<<<<<<<<<<<<
@@ -5140,7 +5140,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_t_7 = (!__pyx_t_3);
       if (__pyx_t_7) {
 
-        /* "fastpaths_vm.pyx":255
+        /* "src/fastpaths_vm.pyx":255
  *             sp -= 1; a = stack[sp]
  *             if not PyObject_IsTrue(a):
  *                 i += count             # <<<<<<<<<<<<<<
@@ -5149,7 +5149,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         __pyx_v_i = (__pyx_v_i + __pyx_v_count);
 
-        /* "fastpaths_vm.pyx":254
+        /* "src/fastpaths_vm.pyx":254
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
  *             sp -= 1; a = stack[sp]
  *             if not PyObject_IsTrue(a):             # <<<<<<<<<<<<<<
@@ -5158,7 +5158,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       }
 
-      /* "fastpaths_vm.pyx":250
+      /* "src/fastpaths_vm.pyx":250
  *                 stack.extend([None] * (cap - len(stack)))
  *             stack[sp] = val2(*val); sp += 1
  *         elif op == OP_JMP_IF_FALSE:             # <<<<<<<<<<<<<<
@@ -5166,9 +5166,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_JMP:
+      case __pyx_e_3src_12fastpaths_vm_OP_JMP:
 
-      /* "fastpaths_vm.pyx":257
+      /* "src/fastpaths_vm.pyx":257
  *                 i += count
  *         elif op == OP_JMP:
  *             count = <Py_ssize_t>PyList_GET_ITEM(opcodes, i); i += 1             # <<<<<<<<<<<<<<
@@ -5178,7 +5178,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = ((Py_ssize_t)PyList_GET_ITEM(__pyx_v_opcodes, __pyx_v_i));
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":258
+      /* "src/fastpaths_vm.pyx":258
  *         elif op == OP_JMP:
  *             count = <Py_ssize_t>PyList_GET_ITEM(opcodes, i); i += 1
  *             i += count             # <<<<<<<<<<<<<<
@@ -5187,7 +5187,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
       __pyx_v_i = (__pyx_v_i + __pyx_v_count);
 
-      /* "fastpaths_vm.pyx":256
+      /* "src/fastpaths_vm.pyx":256
  *             if not PyObject_IsTrue(a):
  *                 i += count
  *         elif op == OP_JMP:             # <<<<<<<<<<<<<<
@@ -5195,9 +5195,9 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
  *             i += count
 */
       break;
-      case __pyx_e_12fastpaths_vm_OP_SLICE:
+      case __pyx_e_3src_12fastpaths_vm_OP_SLICE:
 
-      /* "fastpaths_vm.pyx":260
+      /* "src/fastpaths_vm.pyx":260
  *             i += count
  *         elif op == OP_SLICE:
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # flags             # <<<<<<<<<<<<<<
@@ -5209,7 +5209,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       __pyx_v_count = __pyx_t_1;
       __pyx_v_i = (__pyx_v_i + 1);
 
-      /* "fastpaths_vm.pyx":262
+      /* "src/fastpaths_vm.pyx":262
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # flags
  *             # fast paths:
  *             if count == 0:             # <<<<<<<<<<<<<<
@@ -5219,7 +5219,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       switch (__pyx_v_count) {
         case 0:
 
-        /* "fastpaths_vm.pyx":263
+        /* "src/fastpaths_vm.pyx":263
  *             # fast paths:
  *             if count == 0:
  *                 sp -= 1; val = stack[sp]             # <<<<<<<<<<<<<<
@@ -5232,7 +5232,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":264
+        /* "src/fastpaths_vm.pyx":264
  *             if count == 0:
  *                 sp -= 1; val = stack[sp]
  *                 stack[sp] = val[:]; sp += 1             # <<<<<<<<<<<<<<
@@ -5245,7 +5245,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_v_sp = (__pyx_v_sp + 1);
 
-        /* "fastpaths_vm.pyx":262
+        /* "src/fastpaths_vm.pyx":262
  *             count = PyLong_AsSsize_t(<object>PyList_GET_ITEM(opcodes, i)); i += 1  # flags
  *             # fast paths:
  *             if count == 0:             # <<<<<<<<<<<<<<
@@ -5255,7 +5255,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         break;
         case 3:
 
-        /* "fastpaths_vm.pyx":267
+        /* "src/fastpaths_vm.pyx":267
  *             elif count == 3:
  *                 # only lower and upper (1|2)
  *                 sp -= 1; upper = stack[sp]             # <<<<<<<<<<<<<<
@@ -5268,7 +5268,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_upper, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":268
+        /* "src/fastpaths_vm.pyx":268
  *                 # only lower and upper (1|2)
  *                 sp -= 1; upper = stack[sp]
  *                 sp -= 1; lower = stack[sp]             # <<<<<<<<<<<<<<
@@ -5281,7 +5281,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_lower, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":269
+        /* "src/fastpaths_vm.pyx":269
  *                 sp -= 1; upper = stack[sp]
  *                 sp -= 1; lower = stack[sp]
  *                 sp -= 1; val = stack[sp]             # <<<<<<<<<<<<<<
@@ -5294,7 +5294,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":270
+        /* "src/fastpaths_vm.pyx":270
  *                 sp -= 1; lower = stack[sp]
  *                 sp -= 1; val = stack[sp]
  *                 stack[sp] = val[lower:upper]; sp += 1             # <<<<<<<<<<<<<<
@@ -5307,7 +5307,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_v_sp = (__pyx_v_sp + 1);
 
-        /* "fastpaths_vm.pyx":265
+        /* "src/fastpaths_vm.pyx":265
  *                 sp -= 1; val = stack[sp]
  *                 stack[sp] = val[:]; sp += 1
  *             elif count == 3:             # <<<<<<<<<<<<<<
@@ -5317,7 +5317,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         break;
         default:
 
-        /* "fastpaths_vm.pyx":273
+        /* "src/fastpaths_vm.pyx":273
  *             else:
  *                 # generic slow path
  *                 step = upper = lower = None             # <<<<<<<<<<<<<<
@@ -5331,7 +5331,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_INCREF(Py_None);
         __Pyx_XDECREF_SET(__pyx_v_lower, Py_None);
 
-        /* "fastpaths_vm.pyx":274
+        /* "src/fastpaths_vm.pyx":274
  *                 # generic slow path
  *                 step = upper = lower = None
  *                 if count & 4:             # <<<<<<<<<<<<<<
@@ -5341,7 +5341,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_7 = ((__pyx_v_count & 4) != 0);
         if (__pyx_t_7) {
 
-          /* "fastpaths_vm.pyx":275
+          /* "src/fastpaths_vm.pyx":275
  *                 step = upper = lower = None
  *                 if count & 4:
  *                     sp -= 1; step = stack[sp]             # <<<<<<<<<<<<<<
@@ -5354,7 +5354,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF_SET(__pyx_v_step, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":274
+          /* "src/fastpaths_vm.pyx":274
  *                 # generic slow path
  *                 step = upper = lower = None
  *                 if count & 4:             # <<<<<<<<<<<<<<
@@ -5363,7 +5363,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":276
+        /* "src/fastpaths_vm.pyx":276
  *                 if count & 4:
  *                     sp -= 1; step = stack[sp]
  *                 if count & 2:             # <<<<<<<<<<<<<<
@@ -5373,7 +5373,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_7 = ((__pyx_v_count & 2) != 0);
         if (__pyx_t_7) {
 
-          /* "fastpaths_vm.pyx":277
+          /* "src/fastpaths_vm.pyx":277
  *                     sp -= 1; step = stack[sp]
  *                 if count & 2:
  *                     sp -= 1; upper = stack[sp]             # <<<<<<<<<<<<<<
@@ -5386,7 +5386,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF_SET(__pyx_v_upper, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":276
+          /* "src/fastpaths_vm.pyx":276
  *                 if count & 4:
  *                     sp -= 1; step = stack[sp]
  *                 if count & 2:             # <<<<<<<<<<<<<<
@@ -5395,7 +5395,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":278
+        /* "src/fastpaths_vm.pyx":278
  *                 if count & 2:
  *                     sp -= 1; upper = stack[sp]
  *                 if count & 1:             # <<<<<<<<<<<<<<
@@ -5405,7 +5405,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __pyx_t_7 = ((__pyx_v_count & 1) != 0);
         if (__pyx_t_7) {
 
-          /* "fastpaths_vm.pyx":279
+          /* "src/fastpaths_vm.pyx":279
  *                     sp -= 1; upper = stack[sp]
  *                 if count & 1:
  *                     sp -= 1; lower = stack[sp]             # <<<<<<<<<<<<<<
@@ -5418,7 +5418,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
           __Pyx_DECREF_SET(__pyx_v_lower, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "fastpaths_vm.pyx":278
+          /* "src/fastpaths_vm.pyx":278
  *                 if count & 2:
  *                     sp -= 1; upper = stack[sp]
  *                 if count & 1:             # <<<<<<<<<<<<<<
@@ -5427,7 +5427,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 */
         }
 
-        /* "fastpaths_vm.pyx":280
+        /* "src/fastpaths_vm.pyx":280
  *                 if count & 1:
  *                     sp -= 1; lower = stack[sp]
  *                 sp -= 1; val = stack[sp]             # <<<<<<<<<<<<<<
@@ -5440,7 +5440,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "fastpaths_vm.pyx":281
+        /* "src/fastpaths_vm.pyx":281
  *                     sp -= 1; lower = stack[sp]
  *                 sp -= 1; val = stack[sp]
  *                 stack[sp] = val[slice(lower, upper, step)]; sp += 1             # <<<<<<<<<<<<<<
@@ -5458,7 +5458,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
         break;
       }
 
-      /* "fastpaths_vm.pyx":259
+      /* "src/fastpaths_vm.pyx":259
  *             count = <Py_ssize_t>PyList_GET_ITEM(opcodes, i); i += 1
  *             i += count
  *         elif op == OP_SLICE:             # <<<<<<<<<<<<<<
@@ -5468,7 +5468,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
       break;
       default:
 
-      /* "fastpaths_vm.pyx":283
+      /* "src/fastpaths_vm.pyx":283
  *                 stack[sp] = val[slice(lower, upper, step)]; sp += 1
  *         else:
  *             raise RuntimeError(f"Unknown opcode {op}")             # <<<<<<<<<<<<<<
@@ -5496,7 +5496,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
     }
   }
 
-  /* "fastpaths_vm.pyx":284
+  /* "src/fastpaths_vm.pyx":284
  *         else:
  *             raise RuntimeError(f"Unknown opcode {op}")
  *     return stack[sp-1] if sp > 0 else None             # <<<<<<<<<<<<<<
@@ -5517,7 +5517,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __pyx_t_8 = 0;
   goto __pyx_L0;
 
-  /* "fastpaths_vm.pyx":38
+  /* "src/fastpaths_vm.pyx":38
  * 
  * # We expose a cpdef so Python can call it
  * cpdef object vm_exec(object opcodes, object consts, object names, object scope):             # <<<<<<<<<<<<<<
@@ -5531,7 +5531,7 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("fastpaths_vm.vm_exec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.fastpaths_vm.vm_exec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_stack);
@@ -5551,15 +5551,15 @@ static PyObject *__pyx_f_12fastpaths_vm_vm_exec(PyObject *__pyx_v_opcodes, PyObj
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12fastpaths_vm_1vm_exec(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_3src_12fastpaths_vm_1vm_exec(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12fastpaths_vm_1vm_exec = {"vm_exec", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12fastpaths_vm_1vm_exec, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12fastpaths_vm_1vm_exec(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_3src_12fastpaths_vm_1vm_exec = {"vm_exec", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_3src_12fastpaths_vm_1vm_exec, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_3src_12fastpaths_vm_1vm_exec(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5645,11 +5645,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("fastpaths_vm.vm_exec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.fastpaths_vm.vm_exec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12fastpaths_vm_vm_exec(__pyx_self, __pyx_v_opcodes, __pyx_v_consts, __pyx_v_names, __pyx_v_scope);
+  __pyx_r = __pyx_pf_3src_12fastpaths_vm_vm_exec(__pyx_self, __pyx_v_opcodes, __pyx_v_consts, __pyx_v_names, __pyx_v_scope);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -5659,7 +5659,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12fastpaths_vm_vm_exec(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_opcodes, PyObject *__pyx_v_consts, PyObject *__pyx_v_names, PyObject *__pyx_v_scope) {
+static PyObject *__pyx_pf_3src_12fastpaths_vm_vm_exec(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_opcodes, PyObject *__pyx_v_consts, PyObject *__pyx_v_names, PyObject *__pyx_v_scope) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5668,7 +5668,7 @@ static PyObject *__pyx_pf_12fastpaths_vm_vm_exec(CYTHON_UNUSED PyObject *__pyx_s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("vm_exec", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12fastpaths_vm_vm_exec(__pyx_v_opcodes, __pyx_v_consts, __pyx_v_names, __pyx_v_scope, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_3src_12fastpaths_vm_vm_exec(__pyx_v_opcodes, __pyx_v_consts, __pyx_v_names, __pyx_v_scope, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5677,7 +5677,7 @@ static PyObject *__pyx_pf_12fastpaths_vm_vm_exec(CYTHON_UNUSED PyObject *__pyx_s
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("fastpaths_vm.vm_exec", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("src.fastpaths_vm.vm_exec", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6029,13 +6029,13 @@ __Pyx_RefNannySetupContext("PyInit_fastpaths_vm", 0);
   if (__Pyx_InitConstants(__pyx_mstate) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
   stringtab_initialized = 1;
   if (__Pyx_InitGlobals() < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__pyx_module_is_main_fastpaths_vm) {
+  if (__pyx_module_is_main_src__fastpaths_vm) {
     if (PyObject_SetAttr(__pyx_m, __pyx_mstate_global->__pyx_n_u_name, __pyx_mstate_global->__pyx_n_u_main) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "fastpaths_vm")) {
-      if (unlikely((PyDict_SetItemString(modules, "fastpaths_vm", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "src.fastpaths_vm")) {
+      if (unlikely((PyDict_SetItemString(modules, "src.fastpaths_vm", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   /*--- Builtin init code ---*/
@@ -6053,14 +6053,14 @@ __Pyx_RefNannySetupContext("PyInit_fastpaths_vm", 0);
   (void)__Pyx_modinit_function_import_code(__pyx_mstate);
   /*--- Execution code ---*/
 
-  /* "fastpaths_vm.pyx":38
+  /* "src/fastpaths_vm.pyx":38
  * 
  * # We expose a cpdef so Python can call it
  * cpdef object vm_exec(object opcodes, object consts, object names, object scope):             # <<<<<<<<<<<<<<
  *     cdef Py_ssize_t i = 0
  *     cdef Py_ssize_t L = len(opcodes)
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_12fastpaths_vm_1vm_exec, 0, __pyx_mstate_global->__pyx_n_u_vm_exec, NULL, __pyx_mstate_global->__pyx_n_u_fastpaths_vm, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_3src_12fastpaths_vm_1vm_exec, 0, __pyx_mstate_global->__pyx_n_u_vm_exec, NULL, __pyx_mstate_global->__pyx_n_u_src_fastpaths_vm, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030E0000
   PyUnstable_Object_EnableDeferredRefcount(__pyx_t_2);
@@ -6068,7 +6068,7 @@ __Pyx_RefNannySetupContext("PyInit_fastpaths_vm", 0);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_vm_exec, __pyx_t_2) < (0)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "fastpaths_vm.pyx":1
+  /* "src/fastpaths_vm.pyx":1
  * # distutils: language=c             # <<<<<<<<<<<<<<
  * # Cython VM for Theta fast path
  * 
@@ -6085,7 +6085,7 @@ __Pyx_RefNannySetupContext("PyInit_fastpaths_vm", 0);
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_mstate->__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init fastpaths_vm", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init src.fastpaths_vm", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -6099,7 +6099,7 @@ __Pyx_RefNannySetupContext("PyInit_fastpaths_vm", 0);
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init fastpaths_vm");
+    PyErr_SetString(PyExc_ImportError, "init src.fastpaths_vm");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -6131,7 +6131,7 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "fastpaths_vm.pyx":264
+  /* "src/fastpaths_vm.pyx":264
  *             if count == 0:
  *                 sp -= 1; val = stack[sp]
  *                 stack[sp] = val[:]; sp += 1             # <<<<<<<<<<<<<<
@@ -6164,25 +6164,25 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
 static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   {
-    const struct { const unsigned int length: 12; } index[] = {{1},{15},{16},{20},{18},{17},{18},{6},{12},{8},{13},{5},{8},{10},{8},{5},{7},{3},{12},{5},{12},{10},{8},{6},{7},{2640}};
-    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1182 bytes) */
-const char* const cstring = "BZh91AY&SY\343\242\032\013\000\001\326\377\377\377\377\377\360\377\355\377\342\277\307\177\373\277\377\377\343\300@@@@@@@@@@@@\000@\000P\004x\364\235\232\356)\315B\233\220\222H\224\037\252<\024\332\200\3620\246i\352\237\224\332\023SF\2154\r\r\000\032\032\003\324h\311\243OS\312z\207\212h\022\212z#I\3514\247\223h\324\232oJ<\240\320\001\352\000\000\000\000\000\001\240\0002\032\002E\001\023H\231\000\320\r\017H\000\000\r\001\240\000\000\000\320\000\006#M\016\000\000\000\000\000\000\310\000\000\000\000\000\000\000\014\200\002H\246\212\237\251\351O\322Ci6\243!\351\032\0314\006\214\t\223\0104\304\300\023#\324\032\0324\310\364F\324cM\005u\221;c\372\376\177_\264\263\026j\026d\2441H\034\023ir\362\272\020\205\202\024\326v\206\202\033N8V\243\025\250\335R\245\222F\027\372\315>3\250_`6\332Hm\t\264\222l\032bJ55\202\007~\352\024\023`\206\3016\003&\003\250!H\364\\\0218\203\230\005\024Q\001\306\210e2,H\222D\210\244c\2450-H((\224`\354S\277\021L\230\004*$\255\014H\222\r\023H&\246\253\200%\262s\010P\200\344\r\244[S/z9P\314@\235OB\301C\234I\023\212\003H@\211\343\010\243{\022\003\201we4\000D\000\242.\341\010\002\272\231*\004Bfg\t\342\255Z55\364n\254\335$\035\005r2fH\014\005\333\257\007\003\220i\023\000\216I\035C4'\204\3722\313,-\306\310\262\210(\"\341^\024R\033\2667\340\021\312jY\360!(\005C\016\371\177mI\225.\224\221\027\330\332\341\244\306\021J\340,J\302\366\010\257\022)\013\311\247\000\"\257*=\304\001\351\000\342I\323\251&\323\262\034\245<\2432\te\226\204d\002\301J\361h\275t=\217-\307\335\24313\340\2330d|\263\261\311\302Y\215XH\224\341\t8}\205\301g\311\345\001o;\025\3501\344\2001\341SF\244\212)%\304Y\256\253M\371@\312(*_xZ\320U\276D\375\324\336\017\324\364E\003o\232\266+\001H\\O\316\225U\227W3>\317\254\326\337H\2639\263\2524\360}\257g\t\245\334\232\262\230L\211\203#\335\206\221R\317\236'\346\312V\322B\320\0332\335Sa\\\013\031\027\034\352E\203v\355Mp\327%!\225\351\247\260\310\326\314K\216\225'\2501\tA\352FHx\264F\\8]\225P2\352AY\341\314!S|\031\301\ns\303\232X\31683\352\301O\360\245!)\211T""\277$\224\001E\315\0146Q\002\331E\242\301\317\034\261\274\201\251>I\353\250\270\006\022)\030\205\320|\272\266f\326\227\007\016\313\005\305\034\231(\361\333g\351\225r\3707}\242\017\326ZB\314\020L\336v\314B\244\003\000\016 e\254!l\244\367y\326`\333\314/`\033@`\203\000\016\202\252-\001\221h\014%\334K\336(A\232\356\3330\261\216r\220\030x\331\345\006\325\365\272*?\274\202JE 1\367GW\310\007\312$\267jm5D_;\206i\007?\272\310;\000b+\253\256N\033\022\366\001\\+\356=ty1\nB\3502\301x\"\010\342\003\026\274i\013\324\r\275e9J\037\225d4\226\300\275\240\312E\262Z\321\307d-\013\2365\265r\361\362\256t\3569\312\3400_4<\201PV\034\243m\320\217\002\324{@6\306\023\021\306\020\337d\330\0079\215h\226|G\244\006\226\225j\241\372\252\266\212}l\266`\314Y\207i\006\020z\227\340zV\335\270\252\253k\372\350\257\340\002\261L\247\321A\337[`\341\235O\375K<>%\207\004\221\007%\215]\305\247\245:]bg~l\321K\355\335*b\237<R\022S9\332\315:a\217\375\276,\353e\272\326\374\242\261\250o\351\345N\343\211\342\r\213Uu\305\363\230A\233\243W\204g`\303\207\245\310\222\376y\327\342\343\312Yx\222\264p\314\301\242\347\367e\220\230A@sv_\001\036\016PF\000n\215Q\222!\274\235\023\213j\334\327\003\026u\215\263\205a'\010\333\004I(n\200\212d\234\n\312\023\0022\231\000ha*\252&\022\234\312V\347:\250\022\301\315\262h\237\351c\377\027rE8P\220\343\242\032\013";
-    PyObject *data = __Pyx_DecompressString(cstring, 1182, 2);
+    const struct { const unsigned int length: 12; } index[] = {{1},{15},{20},{20},{18},{17},{18},{6},{8},{13},{5},{8},{10},{8},{5},{7},{3},{12},{5},{12},{10},{16},{8},{6},{7},{2640}};
+    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1175 bytes) */
+const char* const cstring = "BZh91AY&SY\023\346k\252\000\001\327\377\377\377\377\377\360\377\355\377\342\277\307\177\373\277\377\377\343\300@@@@@@@@@@@@\000@\000P\004~\001\241\254\322\032\006\300\222H\242i\350\323D\362\217(\3646\204Ld\304\323\024h\323@\304\364\233SA\243OP\304='\250\323i0\215\222h\022\221\221\nz\236\247\252m'\264\322M\210j\007\250\032\032\000h4\000\0000\203\020\000h\032\032hp\000\000\000\000\000\006@\000\000\000\000\000\000\000d\0008\000\000\000\000\000\003 \000\000\000\000\000\000\0002\000\t\021\t\241\t\251\036\240\320\r2x\247\250\3202\006\200\r\000\000\006\206\206\215\000\323M\212d\375Sb\316\362|C\376z\277\347Y.\005\302\205\301J\014T\007\t\264\275/_\237\021q\n\253\213f\3046\234\351\305\034f\247<\014\013\321\032\177\353\366\274w\200h`6\332Hm\t\264\222l\032bJp;\241\003\321\235\213\t\260C`\233\001\246\007v!Z5@#H\203\0005#P\0209\032\311\033,\222E\tH\344%P1H,),\301\335WD\212\245@#\001%\210k\222\201\264\322\n\252\254<\000\247%\324\"\304\016\200\332F8\037\307J\267Ce\r+N{\014\365\226\230\025\007b\204\305Bk\033,\020\006\3669P\004P\rB\337)@\\\254\222\314\2216\3404\317S\363\352YF|\313B\327\010\210Bg2*m\336\n\005\213\020\006\006A^\226\204d{P\253,\322\315\355\214m|{\215\333\331\005\204f,\205)\r\343: '\236\325;\020E 0\rZ\r\033\366\251\201\235(\211\177\007\203\251&0\224\263\002\351\\\313rW\324\213FI\247\000O\r\321\320(\021\266\004\t(P\255\227\311\211\006\336\233\215\240\275\357\235J\005\305L\214E\370\330\374\237I\317O\2625\366!6n\356\367\274\\\207WN\006\251z\225\230s\356\037au\031\363\024\214.\027]\342\205{\242\020^\346Q\006\306D\224\222\301Y.\227)\373\340l`\326\335Ch\317y\275\263A\376\366\223\364\361e\247B\016_\035\367\216@\332\rk\255\301U\263\025\330\327.\353\311D1\007H\313\221d\330\253\355c O\326\256=\262\231dD\265~\r]#\222\367\322\3641\342[W\313\204\006\002\212\244\255\326\235;\335~g\023\250q\033g,ZbK\233\004\330\335nV\202\006\233fc\321\230\313#=\214tf\341I\031u`tX\003\036\010S^\034\302\024\247\301\234\030\021\3522\306y\314\"\001q\254\325\037\351\210\221#U\345qe\357\240\n6\330+\303\220""\240\303\230\2704\006u\331\361\2206V\374\326\352)\002\262t\236p\305\010Gp\252\271%#\rW\001\245`\315\233\205V?\247h\335\327\345\341\262 \342\327H[\002\010M\252\333\010Q\200`\001\302\006[b\027\305'f\372\"\003\\al\201h\016\3500\000\344\033\250\212\014\210\240\302U\322\336\026`3|\355\263\n\360\347* \303\305\231\001k\215p\nO\363\240I_\253\360c\360\214\212\240}\036J\344\026\232\004h9\301`}\307\357m\007$\016r\345ta@\370\227@\r\300\334\351\317D\224\315\344\205\3455\325\376\203|<-\360.\327\236\220\276\000\327)'+\341\373\352AYX\026\3402\242\275\346~\205\352A\236*\243SU?F\377l\357\324s\225@`\3443\275A\000\2509On\000\237\312\264\236\316\013c\t\211\363\3033\221\223r\216s\032\223\226\\\343l\006\206\224\311ajZ\372\222\274X\354\301\220\262\rT\034\300\350+\001\254\255\311\026\342\217[\235\034\364\200\343$\022;\010(\253`\340\261\"\354m\220\336(8(\316\010\354i\333Z5\261!\3140\366\"D\024=m\342\013\270\270\242\242Q\224f\3526&\031{\375\322,\252e9\224\375b\241\244t\350\305\304\353\211\342\026\326|\272\342\337\303!d\350K\3002\2719\277\034\272\270Z\373\303\243\316\313\315.\330\037Z0\252\241\354hy\"\362A\007\000\313\340\204\242@(\301H\003vj\314\241\036-l\234\266\261\341pq\253\204\343X\302(\342q\204Q(\345\201)\224paH\250\023J\220\r\014)\202\262aJ\324\266\031\272\340\240\265\351;\263\231\262\331\377\342\356H\247\n\022\002|\315u@";
+    PyObject *data = __Pyx_DecompressString(cstring, 1175, 2);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1036 bytes) */
-const char* const cstring = "x\332\355V\315S\333F\024\307\340\004HHm\201mH/A\2208\351\264CkS\022z\350xD\260\223C\323A`b\247\231\260\243\310rpb[\026\222?84\355\321\307=\356q\217:\352\250\243\217>\356QG\375\t\374\t}+\023\307\204\322\306\320\316\364P\035\236\366\353\375\336o\367}\354f\366\353\357\352z\273\276\2547T\275\244-\227\025\323j(\326\241\211Z\265\265\306q\007\241\035\020;\307\333\025\325B?k\035kW\203%\307u\265\242\257\251\372\221\336\264*u\315DH\255*\246\211\336hV\305\322j\274\013\303\250RG\326\221\242j\257\025\365\235\252\327M\313\034\205G\250\334\254\253\010\241\212\211\206P\\\035\340j\n\350\302W\323K\315\252\306[u\245\246\r\2449\240j6\364\006BFS\251\016\246LUo\360\237f\235\256\205V\t\3106\253\026B\226f\202l)\325\246f\202e\255\243\251\277\207\274\360\022\t\304\024I\021\311\017\177ID/\234\300\n\356\020\303\013\337&\302\311\215\211kI*{\341e\032\362\303\367N[^x\205\212~\370Fw\245\273\325U\274\231[\335}6\017Ct\323\316\270\242\373C/\333\217\367a\374fw\275\253b\301\233\233\307\017\310\267\266`?`\351\255\236\330\333\354g\330//\331\313\022+\275eou\2467\274\271H\327\304\253X\366\242\t\\\"+D\362\242q\\ \022\221I\205Zv\332\336sB\016 \tX\300I\340\014\220\242w+\212\247p\312\233\213\261\330]*\321\242\215\\\311}\321\323\372\033lG\346\220-\274G\276\240%{\315\235v\r\016\255\370 4\222&E\212\034\311)\270`\207o(\020W\342\300\333\027\021\021\360<\336$\031[\264\0379_\273\373p\002\251\017\354\002\323\327\250L\225\021\244U\234'q\242\200\017>\355\254\340-\254\\\225\350\377\360\227\200\347\313\357\223y\262NJ4i\207\376U\2154\311\323\0045\376\3436b\370\tT\215m\036\275\374\320\r\236Z\nn\221]P\212\362\311\r\032\242q\252\300\241\177o\033^\214\027\227\330\"6\3104iB\222\200\203\026\360:V\211\300\247\356\222\327\220\201\261\333d\021\224\004\372\025\250\0349\013\220\2422w\237\214\313\334\217A\376^BiHy\020\010y\316*\240\354\235\245\374\224d\001\006\366h\307\354\274#\214P\2369\315\321\361\254s4\361\037\240\375\321\035M\232\2052\232\204\010^pr\256x\205\025\367\235\230\223w\023\356\347F@\222\314\322;\001\352\266\033\351\031""\375Y&\027Y\361\200\035\240\261\001\036;\277\365\224\3361\333)\260\302+\366\352\340\014\300\363 l\206\37195\254\325E\366\343\263\276\334?d\3175\246\225Y\031\256\2156k\377z21\361>$M\302O\232\314\361_n\362\311\344\305\224\316\301\363\010\276>\254\276\376E%<\316\342p\373\321C[we\267\322k\366\263L\336\365\007U\377\022\201\344\237\277\234bX\362Ad!\3236i\306\021\235G\340\275\341\345\344\217Y\326\000\345\341H~\217\267/\357\n\373:s\342Q<C\"\324\260\247!\377\001\356=\331\203\263\346;\236r\323n\236Ir\020D/\374(@p\321\0065\223\216l\333\213\302\263b\314\222\036&[\244Ls\266\370w{?C5\322\265p\006\2360\251 \007G\212\334O4b\033\316\254\033\343\027w`\343\257\337\035\376\307\233=\001\031\237\370P\354\006\231\375\030\272\234\232\260\210M\"\372\301\222\245\240J\032\336\371\3169e\003\316\357\320.;\322\311\365\ta\t\236i\035\276t\001?\004\177\247\270;VI!Ho\361\223\321\"\335\207\347G\352\242\321?5\326\002\217\276\261\013\316S7\327\023\271g\277!\n\273\363]p\326\341\233\335\r\034\202wM\n\347\000h\227\264\251\362\007\261P|>";
-    PyObject *data = __Pyx_DecompressString(cstring, 1036, 1);
+    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1043 bytes) */
+const char* const cstring = "x\332\355V\315S\333F\024\307\340\004HHm\201mH/A\2208\351\264CjS\022z\350xD\260\223C\333A`b\247\231\260\243\310rpb[\026\222?84\355\321\307=\356q\217:\352\250\243\217>\356QG\375\t\374\t}+\023\307\204\322\324\320\316\364P\035V\373\361\336o\177o\337\307nf\277\376\256\256\267\353\313zC\325K\332\262y\244>,+\246\325P\254C\023\265jk\215\343\016B;\320\354\034oWT\013\375\254u\254]\rD\216\353jE_S\365#\275iU\352\232\211\220ZUL\023\275\321\254\212\245\325\370\020\246Q\245\216\254#E\325^+\352;U\257\233\026\010\226\233u\025!T1\321P\235\253\300JM\001y\370jz\251Y\325x\257\256\324\264Ak\016(\232\r\275\201\220\321T\252\203%S\325\033\374\247Y\247\262\320+\001\301f\325\002c\326F\215A\310\322L\013\241\226Rmj&\214\265\216\246\376\036\362\302K$h\246H\212H~\370K\"z\341\004Vp\207\030^\3706\021NnL\\KR\331\013/\323\220\037\276w\332\363\302+T\364\3037\272+\335\255\256\342\315\334\352\356\263y\230\242\233v\306\025\335\357{\331~\274\017\3637\273\353]\025\013\336\334<~@\036\332\202\375\200\245\267zbo\263\237a\277\274d/K\254\364\226\275\325\231\336\360\346\"]\023\257b\331\213&p\211\254\020\311\213\306q\201HD&\025j\331i{\317\t9\200$`\001'\2013@\212\336\255(\236\302)o.\306bw\251D\2136r%\367EO\353o\260\035\231C\266\360\036\371\202\226\3545w\33258\264\342C\243\2214)R\344HN\301\205}\270AAs%\016\274\177\021\021\001\317\343M\222\261E\373\261\363\265\273\017'\220\372\300.\330\372\032\225\2512\202\264\212\363$N\024\360\301\247\203\025\274\205\225\253\022\375\037\376\022\360\\\374>\231'\353\244D\223v\350_\325H\223<MP\343?\276G\014?\205\252\261\315\243\227\037\272\301SK\301-\262\013JQ\276\270AC4N\0258\364\357l\303\213\361\342\022[\304\006\231&MH\022p\320\002^\307*\021\370\322]\362\03220v\233,\202\222@\277\002\225#g\001RT\346\356\223q\231\3731\310\337K(\r)\017\002!\317Y\005\224\275\263\224\237\221,\300\200\215v\314\316;\302\010\345\231\323\034\035ow\216&\376\003\264?\272\243I\263PF\223\020\301\013N\316\025\257 q\337\2119y7\341\376\335\010H\222Yz'@\335v#=\243?\313\344\"+\036\260\00346\300\023\347\267\236\322;f;""\005Vx\305^\035\234\001x\036\204\3150?\247\206\265\272\310~\370\251/\367\017\331s\215ieV\206k\243\315\332\277\236LL\274\017I\223\360\223&s\374\227\233|:y1\245s\360<\202\257\017\253\257\177Q\t\217\2638\334~\364\320\326]\331\255\364\232\375,\223w\375A\325\277D \371\347/\247\030\226|h\262\220i\2334\343\210\316c\360\336\360r\362\307,k\200\362h$\277\307\263\313\273\202]gN<\212gH\204\032\3664\344?\300\275'{p\326\334\342)7\355\346\231$\007A\364\302\217\002\004o\332\240f\322\021\263\275(<+\306,\351a\262E\3124g\213\237\263\375\014\325H\327\302\031x\302\244\202\034\034)r?\322\210m8\263n\214_\334\301\036\177\375\356\360?\336\354\t\310\370\304\207b7\310\354'0\344\324\204El\022\321\017D\226\202*ix\347\007\347\224\r8\277C\273\354H'\327'\204%x\246u\270\350\002~\004\376Nqw\254\222B\220\336\342'\263E\272\017\317\217\324E\263\177\272Y\013<\372\306.8\317\334\\O\344\236\375\206(\354\316\267\301Y\207ov7p\010\3365)\234\003\240]\322\246\312\037\330,\177+";
+    PyObject *data = __Pyx_DecompressString(cstring, 1043, 1);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #else /* compression: none (2890 bytes) */
-const char* const bytes = "?Unknown opcode fastpaths_vm.pyx__Pyx_PyDict_NextRefasyncio.coroutines__class_getitem__cline_in_tracebackconstsfastpaths_vm__func___is_coroutineitems__main____module____name__namesopcodespop__qualname__scope__set_name__setdefault__test__valuesvm_exec\200\001\330\004\030\230\001\330\004\030\230\003\2301\230A\340\004\032\230!\330\004\026\220a\220x\230q\330\004\031\230\021\360\n\000\005&\240Q\330\004 \240\001\340\004%\240Q\330\004 \240\001\330\004\"\240!\340\004\n\210\"\210B\210a\330\010\r\210U\320\022\"\240!\2408\250?\270!\2709\300E\310\025\310a\330\010\013\2103\210c\220\021\330\014\022\220(\230/\250\021\250(\3202B\300!\3008\310?\320Z[\320[d\320dj\320jo\320op\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\017\210v\220S\230\016\240d\250.\270\007\270q\330\020\026\220a\340\020\026\220e\2302\230X\240_\260A\260W\270A\330\020 \240\001\330\020 \240\001\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220!\330\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\021\220\022\2208\230?\250!\2507\260+\270U\300!\3001\330\014\017\210v\220S\230\001\330\020 \240\005\240Q\240a\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001""\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2302\230T\240\026\240q\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2302\230T\240\026\240q\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\024\220G\2301\230D\240\005\240Q\330\014\017\210q\340\020\026\220a\220v\230R\230q\330\020\024\220G\2305\240\001\240\025\240a\240t\2504\250q\330\024\032\230!\330\024\027\220q\230\007\230u\240A\240Q\330\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230A\330""\020\026\220a\340\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230A\330\020\026\220a\330\r\020\220\003\2201\330\014\025\220W\230A\230T\240\025\240a\330\014\017\210q\330\020\026\220a\220v\230R\230q\330\020\024\220H\230E\240\021\240&\250\001\250\024\250T\260\021\330\024\032\230!\330\024\027\220q\230\010\240\005\240Q\240a\330\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230E\240\021\240!\330\020\026\220a\340\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230A\330\020\026\220a\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230u\240E\250\021\250&\260\001\260\023\260F\270!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230u\240E\250\021\250&\260\001\260\023\260F\270!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230u\240E\250\021\250'\260\024\260T\270\026\270q\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220&\230\t\240\037\260\001\260\023\260D\270\017\300q\310\t\320QX\320X^\320^_\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220&\230\t\240\037\260\001\260\023\260C\260\177\300a\300y\320PW\320W]\320]^\330\r\020\220\003\2201\330\014\022\220#\220V\2305\240\001\240\021\330\014\021\220\021\220&\230\003\2302\230X\240_\260A\260X\320=M\310Q\310h\320Ve\320ef\320fo\320ow\320w}\360\000\000~\001A\002\360\000\000A\002F\002\360\000\000F\002G\002\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220V\2305\240\001\240\021\330\014\021\220\021\220&\230\003\2301\230D\240\006\240a\330\r\020\220\003\2201\340\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\025""\320\025%\240Q\240h\250o\270Q\270i\300u\310E\320QR\340\014\022\220!\330\014\017\210q\330\020\026\220a\220v\230R\230q\330\020\024\220H\230E\240\021\240&\250\001\250\024\250T\260\021\330\024\032\230!\330\024\027\220q\230\010\240\005\240Q\240a\340\014\017\210v\220S\230\016\240d\250.\270\007\270q\330\020\024\220A\340\020\024\220E\230\022\2308\240?\260!\2607\270!\330\020 \240\001\330\020 \240\001\340\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\230\022\2306\240\026\240q\330\r\020\220\003\2201\340\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\025\320\025%\240Q\240h\250o\270Q\270i\300u\310E\320QR\330\014\022\220!\330\014\017\210q\330\020\026\220a\220v\230R\230q\330\020\024\220H\230E\240\021\240&\250\001\250\024\250T\260\021\330\024\032\230!\330\024\027\220q\230\010\240\005\240Q\240a\340\014\022\220#\220T\230\025\230a\230q\330\014\020\220\010\230\017\240q\250\007\250q\330\014\017\210~\230S\240\006\240d\250.\270\003\2702\270T\320AQ\320QX\320XY\340\020\027\220q\340\020\027\220w\230a\230s\240!\330\020 \240\001\330\020 \240\001\330\020\"\240!\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\004\230B\230f\240F\250!\330\r\020\220\003\2201\340\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\022\220#\220T\230\025\230a\230q\330\014\017\210t\220?\240!\2401\330\020\025\220Q\330\r\020\220\003\2201\330\014\024\220L\240\017\250q\260\t\270\024\270U\300!\330\014\021\220\021\330\r\020\220\003\2201\330\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\340\014\017\210v\220S\230\001\330\020\026\220c\230\026\230u\240A\240Q\330\020\025\220Q\220f\230C\230u\240F\250!\330\021\027\220s\230!\340\020\026\220c\230\030\240\025\240a\240q\330\020\026\220c\230\030\240\025\240a\240q\330\020\026\220c\230\026\230u\240A\240Q\330\020\025\220Q\220f\230C\230q\240\006\240h""\250f\260A\360\006\000\021\030\220x\230x\240q\330\020\023\2206\230\022\2301\330\024\032\230#\230W\240E\250\021\250!\330\020\023\2206\230\022\2301\330\024\032\230#\230X\240U\250!\2501\330\020\023\2206\230\022\2301\330\024\032\230#\230X\240U\250!\2501\330\020\026\220c\230\026\230u\240A\240Q\330\020\025\220Q\220f\230C\230v\240Q\240g\250W\260H\270F\300!\340\014\022\220,\230a\320\0370\260\001\260\021\330\004\013\2105\220\001\220\022\2201\220F\230#\230R\230w\240a";
+    #else /* compression: none (2898 bytes) */
+const char* const bytes = "?Unknown opcode src/fastpaths_vm.pyx__Pyx_PyDict_NextRefasyncio.coroutines__class_getitem__cline_in_tracebackconsts__func___is_coroutineitems__main____module____name__namesopcodespop__qualname__scope__set_name__setdefaultsrc.fastpaths_vm__test__valuesvm_exec\200\001\330\004\030\230\001\330\004\030\230\003\2301\230A\340\004\032\230!\330\004\026\220a\220x\230q\330\004\031\230\021\360\n\000\005&\240Q\330\004 \240\001\340\004%\240Q\330\004 \240\001\330\004\"\240!\340\004\n\210\"\210B\210a\330\010\r\210U\320\022\"\240!\2408\250?\270!\2709\300E\310\025\310a\330\010\013\2103\210c\220\021\330\014\022\220(\230/\250\021\250(\3202B\300!\3008\310?\320Z[\320[d\320dj\320jo\320op\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\017\210v\220S\230\016\240d\250.\270\007\270q\330\020\026\220a\340\020\026\220e\2302\230X\240_\260A\260W\270A\330\020 \240\001\330\020 \240\001\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220!\330\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\021\220\022\2208\230?\250!\2507\260+\270U\300!\3001\330\014\017\210v\220S\230\001\330\020 \240\005\240Q\240a\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S""\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220\"\220B\220a\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\330\014\022\220!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2302\230T\240\026\240q\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2302\230T\240\026\240q\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220'\230\022\2303\230d\240&\250\001\330\r\020\220\003\2201\330\014\024\220G\2301\230D\240\005\240Q\330\014\017\210q\340\020\026\220a\220v\230R\230q\330\020\024\220G\2305\240\001\240\025\240a\240t\2504\250q\330\024\032\230!\330\024\027\220q\230\007\230u\240A\240Q\330\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f""\230A\330\020\026\220a\340\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230A\330\020\026\220a\330\r\020\220\003\2201\330\014\025\220W\230A\230T\240\025\240a\330\014\017\210q\330\020\026\220a\220v\230R\230q\330\020\024\220H\230E\240\021\240&\250\001\250\024\250T\260\021\330\024\032\230!\330\024\027\220q\230\010\240\005\240Q\240a\330\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230E\240\021\240!\330\020\026\220a\340\020\023\2203\220c\230\021\330\024\032\230$\230b\240\001\330\024\031\230\027\240\001\240\021\240)\2504\250r\260\023\260A\260Q\330\020\025\220Q\220f\230A\330\020\026\220a\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230u\240E\250\021\250&\260\001\260\023\260F\270!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230u\240E\250\021\250&\260\001\260\023\260F\270!\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230u\240E\250\021\250'\260\024\260T\270\026\270q\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220&\230\t\240\037\260\001\260\023\260D\270\017\300q\310\t\320QX\320X^\320^_\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220T\230\025\230a\230q\330\014\021\220\021\220&\230\t\240\037\260\001\260\023\260C\260\177\300a\300y\320PW\320W]\320]^\330\r\020\220\003\2201\330\014\022\220#\220V\2305\240\001\240\021\330\014\021\220\021\220&\230\003\2302\230X\240_\260A\260X\320=M\310Q\310h\320Ve\320ef\320fo\320ow\320w}\360\000\000~\001A\002\360\000\000A\002F\002\360\000\000F\002G\002\330\r\020\220\003\2201\330\014\022\220#\220T\230\025\230a\230q\330\014\022\220#\220V\2305\240\001\240\021\330\014\021\220\021\220&\230\003\2301\230D\240\006\240a\330\r\020\220\003\2201\340\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330""\014\025\320\025%\240Q\240h\250o\270Q\270i\300u\310E\320QR\340\014\022\220!\330\014\017\210q\330\020\026\220a\220v\230R\230q\330\020\024\220H\230E\240\021\240&\250\001\250\024\250T\260\021\330\024\032\230!\330\024\027\220q\230\010\240\005\240Q\240a\340\014\017\210v\220S\230\016\240d\250.\270\007\270q\330\020\024\220A\340\020\024\220E\230\022\2308\240?\260!\2607\270!\330\020 \240\001\330\020 \240\001\340\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\001\230\022\2306\240\026\240q\330\r\020\220\003\2201\340\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\025\320\025%\240Q\240h\250o\270Q\270i\300u\310E\320QR\330\014\022\220!\330\014\017\210q\330\020\026\220a\220v\230R\230q\330\020\024\220H\230E\240\021\240&\250\001\250\024\250T\260\021\330\024\032\230!\330\024\027\220q\230\010\240\005\240Q\240a\340\014\022\220#\220T\230\025\230a\230q\330\014\020\220\010\230\017\240q\250\007\250q\330\014\017\210~\230S\240\006\240d\250.\270\003\2702\270T\320AQ\320QX\320XY\340\020\027\220q\340\020\027\220w\230a\230s\240!\330\020 \240\001\330\020 \240\001\330\020\"\240!\330\014\017\210s\220#\220Q\330\020\026\220d\230\"\230A\330\020\025\220W\230A\230Q\230i\240t\2502\250S\260\001\260\021\330\014\021\220\021\220&\230\004\230B\230f\240F\250!\330\r\020\220\003\2201\340\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\330\014\022\220#\220T\230\025\230a\230q\330\014\017\210t\220?\240!\2401\330\020\025\220Q\330\r\020\220\003\2201\330\014\024\220L\240\017\250q\260\t\270\024\270U\300!\330\014\021\220\021\330\r\020\220\003\2201\330\014\024\320\024$\240A\240X\250_\270A\270Y\300e\3105\320PQ\340\014\017\210v\220S\230\001\330\020\026\220c\230\026\230u\240A\240Q\330\020\025\220Q\220f\230C\230u\240F\250!\330\021\027\220s\230!\340\020\026\220c\230\030\240\025\240a\240q\330\020\026\220c\230\030\240\025\240a\240q\330\020\026\220c\230\026\230u\240A\240Q\330\020\025\220Q\220f\230C\230q\240""\006\240h\250f\260A\360\006\000\021\030\220x\230x\240q\330\020\023\2206\230\022\2301\330\024\032\230#\230W\240E\250\021\250!\330\020\023\2206\230\022\2301\330\024\032\230#\230X\240U\250!\2501\330\020\023\2206\230\022\2301\330\024\032\230#\230X\240U\250!\2501\330\020\026\220c\230\026\230u\240A\240Q\330\020\025\220Q\220f\230C\230v\240Q\240g\250W\260H\270F\300!\340\014\022\220,\230a\320\0370\260\001\260\021\330\004\013\2105\220\001\220\022\2201\220F\230#\230R\230w\240a";
     PyObject *data = NULL;
     CYTHON_UNUSED_VAR(__Pyx_DecompressString);
     #endif
@@ -6258,7 +6258,7 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
   {
     const __Pyx_PyCode_New_function_description descr = {4, 0, 0, 4, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 38};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_opcodes, __pyx_mstate->__pyx_n_u_consts, __pyx_mstate->__pyx_n_u_names, __pyx_mstate->__pyx_n_u_scope};
-    __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_fastpaths_vm_pyx, __pyx_mstate->__pyx_n_u_vm_exec, __pyx_mstate->__pyx_kp_b_iso88591_1A_axq_Q_Q_Ba_U_8_9E_a_3c_2B_8, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_fastpaths_vm_pyx, __pyx_mstate->__pyx_n_u_vm_exec, __pyx_mstate->__pyx_kp_b_iso88591_1A_axq_Q_Q_Ba_U_8_9E_a_3c_2B_8, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
   }
   Py_DECREF(tuple_dedup_map);
   return 0;

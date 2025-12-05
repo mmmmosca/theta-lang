@@ -11,7 +11,12 @@ if [[ "${REBUILD_CYTHON:-}" == "1" ]]; then
   python3 src/setup.py build_ext --inplace
 fi
 
-# Build one-folder
-pyinstaller --onedir -y src/pyinstaller.spec
+# Clean previous outputs
+rm -rf dist build || true
+
+# Build one-folder from src to ensure correct resolution
+pushd src >/dev/null
+pyinstaller -y --clean --distpath ../dist --workpath ../build pyinstaller.spec
+popd >/dev/null
 
 echo "Done. Output in ./dist/theta/"

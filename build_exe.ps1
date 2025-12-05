@@ -12,7 +12,13 @@ if ($RebuildCython) {
     python .\src\setup.py build_ext --inplace
 }
 
-Write-Host "Building one-folder executable with PyInstaller";
-pyinstaller --onedir -y .\src\pyinstaller.spec
+Write-Host "Cleaning previous build outputs";
+if (Test-Path .\dist) { Remove-Item .\dist -Recurse -Force }
+if (Test-Path .\build) { Remove-Item .\build -Recurse -Force }
 
-Write-Host "Done. Output in .\dist\theta\";
+Write-Host "Building one-folder executable with PyInstaller";
+Push-Location .\src
+pyinstaller -y --clean --distpath ..\dist --workpath ..\build pyinstaller.spec
+Pop-Location
+ 
+Write-Host "Done. Output in .\\dist\\theta";

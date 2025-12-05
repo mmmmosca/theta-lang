@@ -12,6 +12,7 @@ from PyInstaller.utils.hooks import collect_submodules
 hiddenimports = [
     'fastpaths',
     'fastpaths_vm',
+    'theta_types',
 ]
 
 # Explicitly include compiled extensions (Windows example names)
@@ -26,7 +27,7 @@ entry_script = 'theta.py'
 # Build the Analysis
 a = Analysis(
     [entry_script],
-    pathex=[],
+    pathex=['.'],
     binaries=[],
     datas=datas,
     hiddenimports=hiddenimports,

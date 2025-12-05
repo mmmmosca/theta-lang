@@ -4,6 +4,8 @@ import ast
 import importlib
 import sys
 import traceback
+import re
+from functools import lru_cache
 import theta_types as tt
 
 # Raise recursion limit to better support deep recursive Theta programs
@@ -698,6 +700,229 @@ SAFE_FUNCS['String'] = _cast_string
 SAFE_FUNCS['Bool'] = _cast_bool
 
 
+# Precompiled regex for dotted identifiers like `io.out` or `module.attr`.
+_RE_DOTTED_IDENT = re.compile(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$')
+
+
+# Cached transform helpers moved to module scope
+@lru_cache(maxsize=8192)
+def transform_blocks(s: str) -> str:
+    # Replace any brace-delimited block `{ ... }` outside quotes with
+    # a call to __BLOCK__('...') so the AST can parse it as a function call.
+    out_parts = []
+    i = 0
+    in_sq = False
+    in_dq = False
+    depth = 0
+    start_block = -1
+    while i < len(s):
+        ch = s[i]
+        if ch == "'" and not in_dq:
+            in_sq = not in_sq
+            out_parts.append(ch)
+            i += 1
+            continue
+        if ch == '"' and not in_sq:
+            in_dq = not in_dq
+            out_parts.append(ch)
+            i += 1
+            continue
+        if not in_sq and not in_dq:
+            if ch == '{':
+                if depth == 0:
+                    # flush content up to here (excluding '{')
+                    start_block = i
+                    # Move past '{' and capture body
+                    i += 1
+                    depth = 1
+                    # Capture until matching '}'
+                    body_buf = []
+                    in_sq2 = False
+                    in_dq2 = False
+                    while i < len(s):
+                        ch2 = s[i]
+                        if ch2 == "'" and not in_dq2:
+                            in_sq2 = not in_sq2
+                            body_buf.append(ch2)
+                            i += 1
+                            continue
+                        if ch2 == '"' and not in_sq2:
+                            in_dq2 = not in_dq2
+                            body_buf.append(ch2)
+                            i += 1
+                            continue
+                        if not in_sq2 and not in_dq2:
+                            if ch2 == '{':
+                                depth += 1
+                                body_buf.append(ch2)
+                                i += 1
+                                continue
+                            if ch2 == '}':
+                                depth -= 1
+                                if depth == 0:
+                                    i += 1
+                                    break
+                                body_buf.append(ch2)
+                                i += 1
+                                continue
+                        body_buf.append(ch2)
+                        i += 1
+                    body_str = ''.join(body_buf)
+                    # Emit __BLOCK__('...')
+                    out_parts.append(f"__BLOCK__({repr(body_str)})")
+                    continue
+                else:
+                    depth += 1
+                    out_parts.append(ch)
+                    i += 1
+                    continue
+            elif ch == '}':
+                depth = max(0, depth - 1)
+                out_parts.append(ch)
+                i += 1
+                continue
+        out_parts.append(ch)
+        i += 1
+    return ''.join(out_parts)
+
+
+@lru_cache(maxsize=8192)
+def transform_when_else(s: str) -> str:
+    # Transform occurrences of 'A when B else C' into 'A if B else C'.
+    out = s
+    while True:
+        idx_when = -1
+        # scan to find a ' when ' not inside quotes
+        depth = 0
+        in_sq = False
+        in_dq = False
+        i = 0
+        while i < len(out):
+            ch = out[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
+            elif not in_sq and not in_dq:
+                if ch in '([{':
+                    depth += 1
+                elif ch in ')]}':
+                    depth -= 1
+                # detect ' when ' at any nesting level (we'll match else at same level)
+                if out.startswith(' when ', i):
+                    idx_when = i
+                    break
+            i += 1
+        if idx_when == -1:
+            break
+
+        # find matching ' else ' after this ' when ' at the same nesting/quote level
+        j = idx_when + len(' when ')
+        depth = 0
+        in_sq = False
+        in_dq = False
+        idx_else = -1
+        while j < len(out):
+            ch = out[j]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
+            elif not in_sq and not in_dq:
+                if ch in '([{':
+                    depth += 1
+                elif ch in ')]}':
+                    depth -= 1
+                if depth == 0 and out.startswith(' else ', j):
+                    idx_else = j
+                    break
+            j += 1
+
+        if idx_else == -1:
+            raise SyntaxError("Malformed 'when' expression: missing corresponding 'else'")
+
+        left = out[:idx_when]
+        mid = out[idx_when + len(' when '):idx_else]
+        right = out[idx_else + len(' else '):]
+        # Replace this when/else with Python conditional expression and continue
+        new_expr = f"({left.strip()}) if ({mid.strip()}) else ({right.strip()})"
+        out = new_expr
+    return out
+
+
+@lru_cache(maxsize=8192)
+def transform_boolean_ops(s: str) -> str:
+    # Replace '||' with ' or ' and '&&' with ' and ' outside of quotes.
+    out = []
+    in_sq = False
+    in_dq = False
+    i = 0
+    while i < len(s):
+        ch = s[i]
+        if ch == "'" and not in_dq:
+            in_sq = not in_sq
+            out.append(ch)
+            i += 1
+            continue
+        if ch == '"' and not in_sq:
+            in_dq = not in_dq
+            out.append(ch)
+            i += 1
+            continue
+        if not in_sq and not in_dq:
+            if ch == '|' and i + 1 < len(s) and s[i+1] == '|':
+                out.append(' or ')
+                i += 2
+                continue
+            if ch == '&' and i + 1 < len(s) and s[i+1] == '&':
+                out.append(' and ')
+                i += 2
+                continue
+        out.append(ch)
+        i += 1
+    return ''.join(out)
+
+
+@lru_cache(maxsize=8192)
+def transform_not_operator(s: str) -> str:
+    # Replace unary '!' with ' not ' outside of quotes, but keep '!=' intact.
+    out = []
+    in_sq = False
+    in_dq = False
+    i = 0
+    while i < len(s):
+        ch = s[i]
+        if ch == "'" and not in_dq:
+            in_sq = not in_sq
+            out.append(ch)
+            i += 1
+            continue
+        if ch == '"' and not in_sq:
+            in_dq = not in_dq
+            out.append(ch)
+            i += 1
+            continue
+        if not in_sq and not in_dq and ch == '!':
+            # if next char is '=' then it's '!='; leave as is
+            if i + 1 < len(s) and s[i+1] == '=':
+                out.append('!')
+                i += 1
+                continue
+            # otherwise treat as unary not
+            out.append(' not ')
+            i += 1
+            continue
+        out.append(ch)
+        i += 1
+    return ''.join(out)
+
+
+@lru_cache(maxsize=2048)
+def parse_expr_cached(expr: str):
+    return ast.parse(expr, mode='eval')
+
+
+@lru_cache(maxsize=8192)
 def strip_comments(s: str) -> str:
     """Remove inline comments starting with '#' unless inside quotes.
 
@@ -723,6 +948,7 @@ def strip_comments(s: str) -> str:
     return ''.join(out).rstrip()
 
 
+@lru_cache(maxsize=8192)
 def split_top_level_semicolons(s: str):
     """Split string `s` on top-level semicolons (ignore semicolons inside brackets/quotes)."""
     parts = []
@@ -762,6 +988,7 @@ def split_top_level_semicolons(s: str):
     return parts
 
 
+@lru_cache(maxsize=8192)
 def transform_semicolons_in_brackets(s: str) -> str:
     """Convert semicolon-separated lists inside square brackets to comma-separated.
 
@@ -797,6 +1024,7 @@ def transform_semicolons_in_brackets(s: str) -> str:
     return ''.join(out)
 
 
+@lru_cache(maxsize=4096)
 def transform_matches(s: str) -> str:
     """Transform `A matches P return X else Y` into a call to the match blueprint.
 
@@ -985,6 +1213,7 @@ def transform_matches(s: str) -> str:
     return out
 
 
+@lru_cache(maxsize=8192)
 def balance_brackets(s: str) -> int:
     """Return total unclosed bracket depth (round + square + curly).
 
@@ -1224,219 +1453,12 @@ def evaluate_expression(expr, local_vars=None, visited=None):
     def __BLOCK__(body_str: str):
         return process_block(body_str, dict(merged_scope))
     local_vars['__BLOCK__'] = __BLOCK__
-
-    def transform_blocks(s: str) -> str:
-        # Replace any brace-delimited block `{ ... }` outside quotes with
-        # a call to __BLOCK__('...') so the AST can parse it as a function call.
-        out_parts = []
-        i = 0
-        in_sq = False
-        in_dq = False
-        depth = 0
-        start_block = -1
-        while i < len(s):
-            ch = s[i]
-            if ch == "'" and not in_dq:
-                in_sq = not in_sq
-                out_parts.append(ch)
-                i += 1
-                continue
-            if ch == '"' and not in_sq:
-                in_dq = not in_dq
-                out_parts.append(ch)
-                i += 1
-                continue
-            if not in_sq and not in_dq:
-                if ch == '{':
-                    if depth == 0:
-                        # flush content up to here (excluding '{')
-                        # We will capture the block body separately
-                        start_block = i
-                        # Move past '{' and capture body
-                        i += 1
-                        depth = 1
-                        # Capture until matching '}'
-                        body_buf = []
-                        in_sq2 = False
-                        in_dq2 = False
-                        while i < len(s):
-                            ch2 = s[i]
-                            if ch2 == "'" and not in_dq2:
-                                in_sq2 = not in_sq2
-                                body_buf.append(ch2)
-                                i += 1
-                                continue
-                            if ch2 == '"' and not in_sq2:
-                                in_dq2 = not in_dq2
-                                body_buf.append(ch2)
-                                i += 1
-                                continue
-                            if not in_sq2 and not in_dq2:
-                                if ch2 == '{':
-                                    depth += 1
-                                    body_buf.append(ch2)
-                                    i += 1
-                                    continue
-                                if ch2 == '}':
-                                    depth -= 1
-                                    if depth == 0:
-                                        i += 1
-                                        break
-                                    body_buf.append(ch2)
-                                    i += 1
-                                    continue
-                            body_buf.append(ch2)
-                            i += 1
-                        body_str = ''.join(body_buf)
-                        # Emit __BLOCK__('...')
-                        out_parts.append(f"__BLOCK__({repr(body_str)})")
-                        continue
-                    else:
-                        depth += 1
-                        out_parts.append(ch)
-                        i += 1
-                        continue
-                elif ch == '}':
-                    depth = max(0, depth - 1)
-                    out_parts.append(ch)
-                    i += 1
-                    continue
-            out_parts.append(ch)
-            i += 1
-        return ''.join(out_parts)
     # Transform OCaml-style semicolon-separated arrays into Python lists
     expr = transform_semicolons_in_brackets(expr)
-    # Support Theta's 'when' conditional syntax: 'A when B else C' -> 'A if B else C'
-    def transform_when_else(s: str) -> str:
-        # Transform occurrences of 'A when B else C' into 'A if B else C'.
-        # This implementation scans for ' when ' tokens outside of quoted
-        # strings and matches them to the nearest corresponding ' else '
-        # at the same nesting level (respecting parentheses/brackets/braces).
-        out = s
-        while True:
-            idx_when = -1
-            # scan to find a ' when ' not inside quotes
-            depth = 0
-            in_sq = False
-            in_dq = False
-            i = 0
-            while i < len(out):
-                ch = out[i]
-                if ch == "'" and not in_dq:
-                    in_sq = not in_sq
-                elif ch == '"' and not in_sq:
-                    in_dq = not in_dq
-                elif not in_sq and not in_dq:
-                    if ch in '([{':
-                        depth += 1
-                    elif ch in ')]}':
-                        depth -= 1
-                    # detect ' when ' at any nesting level (we'll match else at same level)
-                    if out.startswith(' when ', i):
-                        idx_when = i
-                        break
-                i += 1
-            if idx_when == -1:
-                break
-
-            # find matching ' else ' after this ' when ' at the same nesting/quote level
-            j = idx_when + len(' when ')
-            depth = 0
-            in_sq = False
-            in_dq = False
-            idx_else = -1
-            while j < len(out):
-                ch = out[j]
-                if ch == "'" and not in_dq:
-                    in_sq = not in_sq
-                elif ch == '"' and not in_sq:
-                    in_dq = not in_dq
-                elif not in_sq and not in_dq:
-                    if ch in '([{':
-                        depth += 1
-                    elif ch in ')]}':
-                        depth -= 1
-                    if depth == 0 and out.startswith(' else ', j):
-                        idx_else = j
-                        break
-                j += 1
-
-            if idx_else == -1:
-                raise SyntaxError("Malformed 'when' expression: missing corresponding 'else'")
-
-            left = out[:idx_when]
-            mid = out[idx_when + len(' when '):idx_else]
-            right = out[idx_else + len(' else '):]
-            # Replace this when/else with Python conditional expression and continue
-            new_expr = f"({left.strip()}) if ({mid.strip()}) else ({right.strip()})"
-            out = new_expr
-        return out
 
     # Rewrite reserved attribute calls: allow `.<in>(` by mapping to `.__in__(`
     expr = expr.replace('.in(', '.__in__(')
     # transform blocks, boolean operators, matches, and when/else constructs before parsing
-    def transform_boolean_ops(s: str) -> str:
-        # Replace '||' with ' or ' and '&&' with ' and ' outside of quotes.
-        out = []
-        in_sq = False
-        in_dq = False
-        i = 0
-        while i < len(s):
-            ch = s[i]
-            if ch == "'" and not in_dq:
-                in_sq = not in_sq
-                out.append(ch)
-                i += 1
-                continue
-            if ch == '"' and not in_sq:
-                in_dq = not in_dq
-                out.append(ch)
-                i += 1
-                continue
-            if not in_sq and not in_dq:
-                if ch == '|' and i + 1 < len(s) and s[i+1] == '|':
-                    out.append(' or ')
-                    i += 2
-                    continue
-                if ch == '&' and i + 1 < len(s) and s[i+1] == '&':
-                    out.append(' and ')
-                    i += 2
-                    continue
-            out.append(ch)
-            i += 1
-        return ''.join(out)
-
-    def transform_not_operator(s: str) -> str:
-        # Replace unary '!' with ' not ' outside of quotes, but keep '!=' intact.
-        out = []
-        in_sq = False
-        in_dq = False
-        i = 0
-        while i < len(s):
-            ch = s[i]
-            if ch == "'" and not in_dq:
-                in_sq = not in_sq
-                out.append(ch)
-                i += 1
-                continue
-            if ch == '"' and not in_sq:
-                in_dq = not in_dq
-                out.append(ch)
-                i += 1
-                continue
-            if not in_sq and not in_dq and ch == '!':
-                # if next char is '=' then it's '!='; leave as is
-                if i + 1 < len(s) and s[i+1] == '=':
-                    out.append('!')
-                    i += 1
-                    continue
-                # otherwise treat as unary not
-                out.append(' not ')
-                i += 1
-                continue
-            out.append(ch)
-            i += 1
-        return ''.join(out)
     expr = transform_blocks(expr)
     expr = transform_not_operator(expr)
     expr = transform_boolean_ops(expr)
@@ -1444,7 +1466,7 @@ def evaluate_expression(expr, local_vars=None, visited=None):
     expr2 = transform_when_else(expr)
     # Debug: show final expression string after transforms
     log(f"[evaluate_expression] expr2= {expr2}")
-    parsed = ast.parse(expr2, mode='eval')
+    parsed = parse_expr_cached(expr2)
     parsed_body = parsed.body
     double_brackets = False
     # If the original expression used the double-bracket array syntax
@@ -1609,8 +1631,7 @@ def handle_line(line, interactive=True):
         # portion before '(' is a valid identifier or dotted identifier like
         # `io.out` or `module.attr`. Otherwise fall through and evaluate the
         # whole line as an expression (covers cases like `... else ()`).
-        import re
-        if not re.match(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$', func_name):
+        if not _RE_DOTTED_IDENT.match(func_name):
             # Not a simple (possibly dotted) identifier: evaluate as expression
             try:
                 result = evaluate_expression(line, get_global_var_values())
@@ -1993,8 +2014,7 @@ def main():
             args = [arg.strip() for arg in args_raw.split(',')] if args_raw.strip() != '' else []
             try:
                         # If this is an attribute call (blueprint.method), evaluate as expression
-                        import re
-                        if not re.match(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$', func_name):
+                        if not _RE_DOTTED_IDENT.match(func_name):
                             # not a simple identifier/dotted name -> evaluate as expression
                             result = evaluate_expression(line, get_global_var_values())
                             if result is not None:

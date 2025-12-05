@@ -7,6 +7,7 @@ import traceback
 import re
 from functools import lru_cache
 import theta_types as tt
+from collections import ChainMap
 
 # Raise recursion limit to better support deep recursive Theta programs
 try:
@@ -123,6 +124,8 @@ class ThetaArray:
 # Simple in-memory function registry: name -> dict with keys:
 #   'params': [param names], 'body': body string, 'is_block': bool
 FUNCTIONS = {}
+# Cache for compiled ASTs of non-block function bodies: name -> (parsed_body, double_brackets)
+FUNC_AST_CACHE = {}
 # Immutable variables registry: name -> {'expr': str, 'value': evaluated_value}
 VARS = {}
 # Blueprints registry (struct-like objects with behavior / side effects)
@@ -384,6 +387,10 @@ class MatchBlueprint:
     merged into the provided `globals_map`.
     """
 
+    def __init__(self):
+        # Cache: pattern_str -> (pattern_repr, compiled_ops or None)
+        self._pattern_cache = {}
+
     def _pattern_from_ast(self, node):
         # Literals
         if isinstance(node, ast.Constant):
@@ -414,7 +421,7 @@ class MatchBlueprint:
             return ("list", [self._pattern_from_ast(e) for e in node.elts])
         raise SyntaxError(f"Unsupported pattern element: {type(node).__name__}")
 
-    def _match(self, value, pattern, bindings):
+    def _match_with_ops(self, value, pattern, bindings, ops_cached=None):
         kind = pattern[0]
         if kind == 'lit':
             return value == pattern[1]
@@ -429,47 +436,142 @@ class MatchBlueprint:
                 return False
             is_str = isinstance(value, str)
             seq = value if is_str else list(value)
-            idx = 0
+            # Use cached ops if provided; else build minimal ops for this value kind
             has_rest = bool(parts and parts[-1][0] == 'rest')
-            core_parts = parts[:-1] if has_rest else parts
-            # consume core parts sequentially
-            for p in core_parts:
-                # string chunk literal: consume multiple characters at once
-                if is_str and p[0] == 'lit' and isinstance(p[1], str):
-                    chunk = p[1]
-                    end = idx + len(chunk)
-                    if seq[idx:end] != chunk:
+            core = parts[:-1] if has_rest else parts
+            if ops_cached is not None:
+                ops = ops_cached
+            else:
+                ops = []
+                for p in core:
+                    if is_str and p[0] == 'lit' and isinstance(p[1], str):
+                        ops.append(('strlit', p[1]))
+                    elif p[0] == 'lit':
+                        ops.append(('lit', p[1]))
+                    elif p[0] == 'var':
+                        ops.append(('var', p[1]))
+                    elif p[0] == 'wild':
+                        ops.append(('wild', None))
+                    elif p[0] == 'list':
+                        ops.append(('sub', p))
+                    else:
+                        ops.append(('node', p))
+            # Fast path: try Cython helper when ops are simple (no nested sub/node)
+            can_cy = ops and all(op in ('strlit','lit','var','wild') for op, _ in ops)
+            idx = 0
+            n = len(seq)
+            if can_cy:
+                try:
+                    from fastpaths import cy_list_match_ops
+                    res = cy_list_match_ops(seq, ops, bindings, is_str)
+                    if res == -2:
+                        # fallback required
+                        raise RuntimeError('fallback')
+                    if res < 0:
                         return False
-                    idx = end
-                    continue
-                # otherwise consume a single element
-                if idx >= (len(seq)):
-                    return False
-                elem = seq[idx]
-                if not self._match(elem, p, bindings):
-                    return False
-                idx += 1
+                    idx = res
+                except Exception:
+                    # Fallback to Python loop
+                    idx = 0
+                    for op, arg in ops:
+                        if op == 'strlit':
+                            chunk = arg
+                            end = idx + len(chunk)
+                            if seq[idx:end] != chunk:
+                                return False
+                            idx = end
+                        elif op == 'lit':
+                            if idx >= n or seq[idx] != arg:
+                                return False
+                            idx += 1
+                        elif op == 'var':
+                            if idx >= n:
+                                return False
+                            bindings[arg] = seq[idx]
+                            idx += 1
+                        elif op == 'wild':
+                            if idx >= n:
+                                return False
+                            idx += 1
+            else:
+                for op, arg in ops:
+                    if op == 'strlit':
+                        chunk = arg
+                        end = idx + len(chunk)
+                        if seq[idx:end] != chunk:
+                            return False
+                        idx = end
+                    elif op == 'lit':
+                        if idx >= n or seq[idx] != arg:
+                            return False
+                        idx += 1
+                    elif op == 'var':
+                        if idx >= n:
+                            return False
+                        bindings[arg] = seq[idx]
+                        idx += 1
+                    elif op == 'wild':
+                        if idx >= n:
+                            return False
+                        idx += 1
+                    elif op == 'sub':
+                        if idx >= n:
+                            return False
+                        if not self._match(seq[idx], arg, bindings):
+                            return False
+                        idx += 1
+                    elif op == 'node':
+                        if idx >= n:
+                            return False
+                        if not self._match(seq[idx], arg, bindings):
+                            return False
+                        idx += 1
+
             if has_rest:
                 rest_name = parts[-1][1]
                 tail = seq[idx:]
                 bindings[rest_name] = tail if not is_str else tail
                 return True
             else:
-                # must consume all input
-                return idx == len(seq)
+                return idx == n
         return False
 
     def matches(self, subj, pattern_str, success_expr_str, else_expr_str, globals_map):
-        # Pre-process pattern string to convert semicolons and then parse AST
-        pat_s = transform_semicolons_in_brackets(pattern_str)
-        try:
-            pat_ast = ast.parse(pat_s, mode='eval').body
-        except Exception as e:
-            raise SyntaxError(f"Invalid pattern: {e}")
-        pattern = self._pattern_from_ast(pat_ast)
+        # Use cached parsed pattern representation and compiled ops for speed
+        cache_entry = self._pattern_cache.get(pattern_str)
+        if cache_entry is not None:
+            pattern, ops = cache_entry
+        else:
+            pat_s = transform_semicolons_in_brackets(pattern_str)
+            try:
+                pat_ast = ast.parse(pat_s, mode='eval').body
+            except Exception as e:
+                raise SyntaxError(f"Invalid pattern: {e}")
+            pattern = self._pattern_from_ast(pat_ast)
+            # Precompile ops for list patterns; others keep None
+            ops = None
+            if pattern[0] == 'list':
+                parts = pattern[1]
+                core = parts[:-1] if (parts and parts[-1][0] == 'rest') else parts
+                compiled = []
+                for p in core:
+                    if p[0] == 'lit' and isinstance(p[1], str):
+                        compiled.append(('strlit', p[1]))
+                    elif p[0] == 'lit':
+                        compiled.append(('lit', p[1]))
+                    elif p[0] == 'var':
+                        compiled.append(('var', p[1]))
+                    elif p[0] == 'wild':
+                        compiled.append(('wild', None))
+                    elif p[0] == 'list':
+                        compiled.append(('sub', p))
+                    else:
+                        compiled.append(('node', p))
+                ops = compiled
+            self._pattern_cache[pattern_str] = (pattern, ops)
 
         bindings = {}
-        ok = self._match(subj, pattern, bindings)
+        ok = self._match_with_ops(subj, pattern, bindings, ops)
         if ok:
             # Merge globals and bindings and evaluate the success expression string
             local = dict(globals_map or {})
@@ -481,6 +583,8 @@ class MatchBlueprint:
 
 
 register_blueprint('match', MatchBlueprint())
+
+    
 
 
 class PythonBlueprint:
@@ -574,6 +678,9 @@ def register_function(name, params, return_expr):
     is_block = return_expr.startswith('{') and return_expr.endswith('}')
     body = return_expr[1:-1].strip() if is_block else return_expr.strip()
     FUNCTIONS[name] = {'params': params, 'body': body, 'is_block': is_block}
+    # Invalidate cached AST for this function
+    if name in FUNC_AST_CACHE:
+        del FUNC_AST_CACHE[name]
 
 
 SAFE_FUNCS = {
@@ -921,6 +1028,105 @@ def transform_not_operator(s: str) -> str:
 def parse_expr_cached(expr: str):
     return ast.parse(expr, mode='eval')
 
+@lru_cache(maxsize=4096)
+def tokenize_and_transform(s: str) -> str:
+    # If Cython fastpaths are available, use them
+    try:
+        from fastpaths import cy_tokenize_and_transform
+        # The Cython path handles comments/blocks/operators fast.
+        # We still need to run complex transforms here.
+        t = cy_tokenize_and_transform(s)
+        try:
+            from fastpaths import cy_transform_matches
+            t = cy_transform_matches(t)
+        except Exception:
+            t = transform_matches(t)
+        try:
+            from fastpaths import cy_transform_when_else
+            t = cy_transform_when_else(t)
+        except Exception:
+            t = transform_when_else(t)
+        return t
+    except Exception:
+        pass
+    # Fallback to Python implementation
+    s = strip_comments(s)
+    s = transform_semicolons_in_brackets(s)
+    s = s.replace('.in(', '.__in__(')
+    s = transform_blocks(s)
+    out = []
+    in_sq = False
+    in_dq = False
+    depth_round = 0
+    depth_sq = 0
+    depth_curly = 0
+    i = 0
+    L = len(s)
+    while i < L:
+        ch = s[i]
+        if ch == "'" and not in_dq:
+            in_sq = not in_sq
+            out.append(ch)
+            i += 1
+            continue
+        if ch == '"' and not in_sq:
+            in_dq = not in_dq
+            out.append(ch)
+            i += 1
+            continue
+        if not in_sq and not in_dq:
+            if ch == '(':
+                depth_round += 1
+                out.append(ch)
+                i += 1
+                continue
+            if ch == ')':
+                depth_round -= 1
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '[':
+                depth_sq += 1
+                out.append(ch)
+                i += 1
+                continue
+            if ch == ']':
+                depth_sq -= 1
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '{':
+                depth_curly += 1
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '}':
+                depth_curly -= 1
+                out.append(ch)
+                i += 1
+                continue
+            if ch == '&' and i + 1 < L and s[i+1] == '&':
+                out.append(' and ')
+                i += 2
+                continue
+            if ch == '|' and i + 1 < L and s[i+1] == '|':
+                out.append(' or ')
+                i += 2
+                continue
+            if ch == '!':
+                if i + 1 < L and s[i+1] == '=':
+                    out.append('!')
+                    i += 1
+                    continue
+                out.append(' not ')
+                i += 1
+                continue
+        out.append(ch)
+        i += 1
+    s2 = ''.join(out)
+    s2 = transform_matches(s2)
+    s2 = transform_when_else(s2)
+    return s2
 
 @lru_cache(maxsize=8192)
 def strip_comments(s: str) -> str:
@@ -990,38 +1196,38 @@ def split_top_level_semicolons(s: str):
 
 @lru_cache(maxsize=8192)
 def transform_semicolons_in_brackets(s: str) -> str:
-    """Convert semicolon-separated lists inside square brackets to comma-separated.
-
-    Example: '[1;2;3]' -> '[1,2,3]'. Handles nested brackets and respects quotes.
-    """
-    out = []
-    depth = 0
-    in_sq = False
-    in_dq = False
-    i = 0
-    while i < len(s):
-        ch = s[i]
-        if ch == "'" and not in_dq:
-            in_sq = not in_sq
-            out.append(ch)
-        elif ch == '"' and not in_sq:
-            in_dq = not in_dq
-            out.append(ch)
-        elif not in_sq and not in_dq:
-            if ch == '[':
-                depth += 1
+    try:
+        from fastpaths import cy_transform_semicolons_in_brackets
+        return cy_transform_semicolons_in_brackets(s)
+    except Exception:
+        out = []
+        depth = 0
+        in_sq = False
+        in_dq = False
+        i = 0
+        while i < len(s):
+            ch = s[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
                 out.append(ch)
-            elif ch == ']':
-                depth -= 1
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
                 out.append(ch)
-            elif ch == ';' and depth > 0:
-                out.append(',')
+            elif not in_sq and not in_dq:
+                if ch == '[':
+                    depth += 1
+                    out.append(ch)
+                elif ch == ']':
+                    depth -= 1
+                    out.append(ch)
+                elif ch == ';' and depth > 0:
+                    out.append(',')
+                else:
+                    out.append(ch)
             else:
                 out.append(ch)
-        else:
-            out.append(ch)
-        i += 1
-    return ''.join(out)
+            i += 1
+        return ''.join(out)
 
 
 @lru_cache(maxsize=4096)
@@ -1219,33 +1425,37 @@ def balance_brackets(s: str) -> int:
 
     Positive means there are unclosed openings. Respects single/double quotes.
     """
-    depth_round = 0
-    depth_sq = 0
-    depth_curly = 0
-    in_sq = False
-    in_dq = False
-    i = 0
-    while i < len(s):
-        ch = s[i]
-        if ch == "'" and not in_dq:
-            in_sq = not in_sq
-        elif ch == '"' and not in_sq:
-            in_dq = not in_dq
-        elif not in_sq and not in_dq:
-            if ch == '(':
-                depth_round += 1
-            elif ch == ')':
-                depth_round -= 1
-            elif ch == '[':
-                depth_sq += 1
-            elif ch == ']':
-                depth_sq -= 1
-            elif ch == '{':
-                depth_curly += 1
-            elif ch == '}':
-                depth_curly -= 1
-        i += 1
-    return depth_round + depth_sq + depth_curly
+    try:
+        from fastpaths import cy_balance_brackets
+        return cy_balance_brackets(s)
+    except Exception:
+        depth_round = 0
+        depth_sq = 0
+        depth_curly = 0
+        in_sq = False
+        in_dq = False
+        i = 0
+        while i < len(s):
+            ch = s[i]
+            if ch == "'" and not in_dq:
+                in_sq = not in_sq
+            elif ch == '"' and not in_sq:
+                in_dq = not in_dq
+            elif not in_sq and not in_dq:
+                if ch == '(':
+                    depth_round += 1
+                elif ch == ')':
+                    depth_round -= 1
+                elif ch == '[':
+                    depth_sq += 1
+                elif ch == ']':
+                    depth_sq -= 1
+                elif ch == '{':
+                    depth_curly += 1
+                elif ch == '}':
+                    depth_curly -= 1
+            i += 1
+        return depth_round + depth_sq + depth_curly
 
 
 def _eval_ast(node, local_vars, visited=None):
@@ -1433,11 +1643,8 @@ def evaluate_expression(expr, local_vars=None, visited=None):
         global_snapshot = get_global_var_values()
     except Exception:
         global_snapshot = {}
-    merged_scope = dict(global_snapshot)
-    # merge current locals (excluding any pre-existing __GLOBALS__ to avoid cycles)
-    for k, v in list(local_vars.items()):
-        if k != '__GLOBALS__':
-            merged_scope[k] = v
+    # Layered scope using ChainMap: locals over globals, avoids dict copies
+    merged_scope = ChainMap(local_vars, global_snapshot)
     local_vars['__GLOBALS__'] = merged_scope
     # Strip inline comments from the expression first
     expr = strip_comments(expr)
@@ -1459,11 +1666,7 @@ def evaluate_expression(expr, local_vars=None, visited=None):
     # Rewrite reserved attribute calls: allow `.<in>(` by mapping to `.__in__(`
     expr = expr.replace('.in(', '.__in__(')
     # transform blocks, boolean operators, matches, and when/else constructs before parsing
-    expr = transform_blocks(expr)
-    expr = transform_not_operator(expr)
-    expr = transform_boolean_ops(expr)
-    expr = transform_matches(expr)
-    expr2 = transform_when_else(expr)
+    expr2 = tokenize_and_transform(expr)
     # Debug: show final expression string after transforms
     log(f"[evaluate_expression] expr2= {expr2}")
     parsed = parse_expr_cached(expr2)
@@ -1476,7 +1679,16 @@ def evaluate_expression(expr, local_vars=None, visited=None):
         parsed_body = parsed_body.elts[0]
         double_brackets = True
 
-    result = _eval_ast(parsed_body, local_vars, visited)
+    # Try bytecode VM fast path for simple expressions
+    try:
+        from fastpaths import vm_exec
+        opcodes, consts, names = ast_to_bytecode(parsed_body)
+        if opcodes is not None:
+            result = vm_exec(opcodes, consts, names, ChainMap(local_vars, {}))
+        else:
+            result = _eval_ast(parsed_body, local_vars, visited)
+    except Exception:
+        result = _eval_ast(parsed_body, local_vars, visited)
     if double_brackets:
         # Ensure the result is a ThetaArray and mark it for double-bracket display
         if isinstance(result, ThetaArray):
@@ -1485,26 +1697,237 @@ def evaluate_expression(expr, local_vars=None, visited=None):
             result = ThetaArray(result, double_brackets=True)
     return result
 
+def _compile_expression_to_ast(expr: str):
+    """Compile an expression string to AST body with Theta transforms.
+    Returns (parsed_body, double_brackets, expr2).
+    """
+    expr = strip_comments(expr)
+    expr = transform_semicolons_in_brackets(expr)
+    expr = expr.replace('.in(', '.__in__(')
+    expr2 = tokenize_and_transform(expr)
+    parsed = parse_expr_cached(expr2)
+    parsed_body = parsed.body
+    double_brackets = False
+    if isinstance(parsed_body, ast.List) and len(parsed_body.elts) == 1 and isinstance(parsed_body.elts[0], ast.List):
+        parsed_body = parsed_body.elts[0]
+        double_brackets = True
+    return parsed_body, double_brackets, expr2
+
+
+def ast_to_bytecode(node):
+    """Compile a limited AST to bytecode for vm_exec.
+    Supports: BinOp (+,-,*,/), Compare (==,!=,<,<=,>,>=), Name, Constant, List of simple elts.
+    Returns (opcodes,consts,names) or (None,None,None) if unsupported.
+    """
+    opcodes = []
+    consts = []
+    names = []
+
+    def const_index(val):
+        try:
+            return consts.index(val)
+        except ValueError:
+            consts.append(val); return len(consts)-1
+
+    def name_index(n):
+        try:
+            return names.index(n)
+        except ValueError:
+            names.append(n); return len(names)-1
+
+    def emit_expr(n):
+        # returns True if emitted; False if unsupported
+        import ast as _ast
+        if isinstance(n, _ast.Constant):
+            idx = const_index(n.value)
+            opcodes.extend([1, idx])  # OP_PUSH_CONST
+            return True
+        if isinstance(n, _ast.Name):
+            idx = name_index(n.id)
+            opcodes.extend([2, idx])  # OP_LOAD_NAME
+            return True
+        if isinstance(n, _ast.List):
+            count_before = 0
+            for elt in n.elts:
+                if not emit_expr(elt):
+                    return False
+                count_before += 1
+            opcodes.extend([14, count_before])  # OP_MAKE_LIST
+            return True
+        if isinstance(n, _ast.Tuple):
+            count_before = 0
+            for elt in n.elts:
+                if not emit_expr(elt):
+                    return False
+                count_before += 1
+            opcodes.extend([20, count_before])  # OP_MAKE_TUPLE
+            return True
+        if isinstance(n, _ast.BinOp):
+            if not (emit_expr(n.left) and emit_expr(n.right)):
+                return False
+            import ast as _ast2
+            table = {
+                _ast2.Add: 4, _ast2.Sub: 5, _ast2.Mult: 6, _ast2.Div: 7
+            }
+            for k, v in table.items():
+                if isinstance(n.op, k):
+                    opcodes.append(v)
+                    return True
+            return False
+        if isinstance(n, _ast.UnaryOp):
+            if not emit_expr(n.operand):
+                return False
+            import ast as _ast4
+            table = { _ast4.UAdd: 16, _ast4.USub: 15, _ast4.Not: 17 }
+            for k, v in table.items():
+                if isinstance(n.op, k):
+                    opcodes.append(v)
+                    return True
+            return False
+        if isinstance(n, _ast.BoolOp):
+            import ast as _ast5
+            if isinstance(n.op, _ast5.And):
+                # left-assoc chain: a and b and c -> compute pairwise
+                if not emit_expr(n.values[0]):
+                    return False
+                for v in n.values[1:]:
+                    if not emit_expr(v):
+                        return False
+                    opcodes.append(18)  # OP_AND
+                return True
+            if isinstance(n.op, _ast5.Or):
+                if not emit_expr(n.values[0]):
+                    return False
+                for v in n.values[1:]:
+                    if not emit_expr(v):
+                        return False
+                    opcodes.append(19)  # OP_OR
+                return True
+            return False
+        if isinstance(n, _ast.Compare) and len(n.ops) == 1 and len(n.comparators) == 1:
+            if not (emit_expr(n.left) and emit_expr(n.comparators[0])):
+                return False
+            import ast as _ast3
+            table = {
+                _ast3.Eq: 8, _ast3.NotEq: 9, _ast3.Lt: 10, _ast3.LtE: 11,
+                _ast3.Gt: 12, _ast3.GtE: 13
+            }
+            for k, v in table.items():
+                if isinstance(n.ops[0], k):
+                    opcodes.append(v)
+                    return True
+            return False
+        if isinstance(n, _ast.Subscript):
+            # value[index]
+            import ast as _ast6
+            if not emit_expr(n.value):
+                return False
+            idx_node = n.slice
+            # constant index fast path
+            if isinstance(idx_node, _ast.Constant):
+                ci = const_index(idx_node.value)
+                opcodes.extend([21, ci])  # OP_INDEX_CONST
+                return True
+            # slice or general index
+            if isinstance(idx_node, _ast6.Slice):
+                flags = 0
+                if idx_node.lower is not None:
+                    if not emit_expr(idx_node.lower):
+                        return False
+                    flags |= 1
+                if idx_node.upper is not None:
+                    if not emit_expr(idx_node.upper):
+                        return False
+                    flags |= 2
+                if idx_node.step is not None:
+                    if not emit_expr(idx_node.step):
+                        return False
+                    flags |= 4
+                opcodes.extend([26, flags])  # OP_SLICE
+                return True
+            else:
+                if emit_expr(idx_node):
+                    opcodes.append(22)  # OP_INDEX_STACK
+                    return True
+            return False
+        if isinstance(n, _ast.IfExp):
+            # Pattern: test; JIF to else; body; JMP to end; else
+            if not emit_expr(n.test):
+                return False
+            jif_pos = len(opcodes)
+            opcodes.extend([25, 0])  # OP_JMP_IF_FALSE, placeholder
+            # body
+            if not emit_expr(n.body):
+                return False
+            jmp_pos = len(opcodes)
+            opcodes.extend([27, 0])  # OP_JMP, placeholder to end
+            # else start: patch JIF to jump here
+            else_start = len(opcodes)
+            opcodes[jif_pos+1] = else_start - (jif_pos + 2)
+            # else branch
+            if not emit_expr(n.orelse):
+                return False
+            end_pos = len(opcodes)
+            opcodes[jmp_pos+1] = end_pos - (jmp_pos + 2)
+            return True
+        if isinstance(n, _ast.Call):
+            # Support calling by name and attribute
+            import ast as _ast7
+            argc = len(n.args)
+            # emit args first (left-to-right) so they appear in order on stack
+            for arg in n.args:
+                if not emit_expr(arg):
+                    return False
+            if isinstance(n.func, _ast7.Name):
+                idx = name_index(n.func.id)
+                opcodes.extend([23, idx, argc])  # OP_CALL_NAME
+                return True
+            if isinstance(n.func, _ast7.Attribute):
+                # emit object then call attribute
+                if not emit_expr(n.func.value):
+                    return False
+                idx = name_index(n.func.attr)
+                opcodes.extend([24, idx, argc])  # OP_CALL_ATTR
+                return True
+            return False
+        return False
+
+    if not emit_expr(node):
+        return None, None, None
+    return opcodes, consts, names
+
 
 def process_block(body_str, local_vars):
     # Split by semicolons; support assignments and 'return <expr>'
-    parts = split_top_level_semicolons(body_str)
+    try:
+        from fastpaths import cy_split_top_level_semicolons
+        parts = cy_split_top_level_semicolons(body_str)
+    except Exception:
+        parts = split_top_level_semicolons(body_str)
+    # Build layered scope once and update as we go
+    base_globals = get_global_var_values()
+    base = ChainMap(local_vars, base_globals)
     for part in parts:
         if part.startswith('return '):
             expr = part[len('return '):].strip()
-            base = get_global_var_values()
-            base.update(local_vars)
             # Support guarded return syntax: 'return <expr> when <cond>' (no else)
             # which should behave like:
             #   if <cond>: return <expr>
             # else continue to next statement.
             if ' when ' in expr and ' else ' not in expr:
-                # split only on the first top-level ' when '
-                # respect brackets/quotes is unnecessary here because
-                # split_top_level_semicolons already delivered a single statement
-                idx = expr.find(' when ')
-                left = expr[:idx].strip()
-                cond = expr[idx + len(' when '):].strip()
+                # Prefer Cython path to split at top-level ' when '
+                try:
+                    from fastpaths import cy_parse_guarded_return
+                    left, cond = cy_parse_guarded_return(expr)
+                    if left is None:
+                        # fallback to naive split
+                        idx = expr.find(' when ')
+                        left = expr[:idx].strip()
+                        cond = expr[idx + len(' when '):].strip()
+                except Exception:
+                    idx = expr.find(' when ')
+                    left = expr[:idx].strip()
+                    cond = expr[idx + len(' when '):].strip()
                 cond_val = evaluate_expression(cond, base)
                 if cond_val:
                     return evaluate_expression(left, base)
@@ -1518,15 +1941,11 @@ def process_block(body_str, local_vars):
             name = left.strip()
             if not name.isidentifier():
                 raise SyntaxError(f"Invalid assignment target '{name}'")
-            # Merge globals with current locals for evaluation
-            base = get_global_var_values()
-            base.update(local_vars)
             value = evaluate_expression(right.strip(), base)
             local_vars[name] = value
+            base.maps[0][name] = value
             continue
         # otherwise evaluate expression and ignore result
-        base = get_global_var_values()
-        base.update(local_vars)
         evaluate_expression(part, base)
     return None
 
@@ -1841,7 +2260,20 @@ def call_user_function(name, evaluated_args):
             raise
     else:
         try:
-            return evaluate_expression(info['body'], local_vars)
+            # Compile and cache non-block function body AST once; then evaluate.
+            if name not in FUNC_AST_CACHE:
+                # Reuse the same transforms but avoid full evaluate_expression
+                e_body = info['body']
+                parsed_body, double_brackets, _ = _compile_expression_to_ast(e_body)
+                FUNC_AST_CACHE[name] = (parsed_body, double_brackets)
+            parsed_body, double_brackets = FUNC_AST_CACHE[name]
+            result = _eval_ast(parsed_body, local_vars)
+            if double_brackets:
+                if isinstance(result, ThetaArray):
+                    result._double = True
+                elif isinstance(result, list):
+                    result = ThetaArray(result, double_brackets=True)
+            return result
         except Exception as e:
             report_error(e, context=f"in function '{name}'")
             raise

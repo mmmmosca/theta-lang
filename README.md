@@ -31,40 +31,63 @@ Requirements
 
 Run the REPL
 
+# Theta
+
+A tiny expression language with blocks, pattern matching, and blueprints.
+
+## Layout Update
+
+- Runtime sources have moved to `src/`:
+  - `src/theta.py`, `src/fastpaths.py`, `src/fastpaths_vm.pyx`, `src/theta_types.py`
+  - Tests and helper assets: `src/tests/`, `src/test_debug.py`
+  - Compiled extensions (Windows example): `src/fastpaths.cp313-win_amd64.pyd`, `src/fastpaths_vm.cp313-win_amd64.pyd`
+- Builders remain at the repo root: `build_exe.ps1`, `build_exe.sh`.
+- Docs and examples remain at the repo root: `docs/`, `examples/`.
+
+## Quick Start
+
+Interactive REPL:
+
 ```powershell
-python theta.py
-```
-
-Define a function and call it:
-
-```text
-theta> inc(x) -> x + 1
-theta> inc(5)
-6
-```
-
-Pattern matching (example)
-
-```
-doubleList(xs) -> xs matches [head; *rest] return [head * 2] + doubleList(rest) else []
-
-doubleList([1;2;3])  # -> [2;4;6]
-```
 
 Run a `.th` script
 Language Cheatsheet
 
+Run a `.th` file:
+
+```powershell
+
 - Arrays: `[1;2;3]`, indexing `a[0]`
+
+macOS/Linux:
+
+```bash
 - Functions: `foo(x,y) -> x + y` or block `{ ...; return v }`
 - Conditionals: `A when B else C`
+
+## Build One-Folder Executable
+
+Windows:
+
+```powershell
 - Pattern match: `xs matches [h; *t] return [h] + t else []`
 - Booleans: `true`, `false`; `and`, `or`, `not` (also `&&`, `||`, `!`)
 - Casting: `Int("123")`, `Float("3.14")`, `String([1;2])`, `Bool("true")`, `typeof(expr)`
+
+macOS/Linux:
+
+```bash
 - Blueprints: `io.out(x)`, `tm.run(...)`, `python.call("math.sqrt", 9)`
 
 
 ```powershell
 python .\theta.py .\examples\double_list.th
+
+Output: `dist/theta/`
+
+## Blueprints
+
+See `docs/03-blueprints.md` for defining and using blueprints.
 ```
 
 Booleans and casting (quick examples)

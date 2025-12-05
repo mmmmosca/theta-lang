@@ -5,8 +5,16 @@ Requirements
 
 Run the REPL
 
+Windows PowerShell:
+
 ```powershell
-python .\theta.py
+python .\src\theta.py
+```
+
+macOS/Linux:
+
+```bash
+python3 src/theta.py
 ```
 
 Defining variables with `let`
@@ -24,14 +32,30 @@ Notes:
 
 Run a `.th` script
 
+Windows PowerShell:
+
 ```powershell
-python .\theta.py tests\example.th
+python .\src\theta.py .\examples\factorial.th
+```
+
+macOS/Linux:
+
+```bash
+python3 src/theta.py examples/factorial.th
 ```
 
 Enable debug traces
 
+Windows PowerShell:
+
 ```powershell
-python .\theta.py --debug tests\tm_pure.th
+python .\src\theta.py --debug .\src\tests\tm_pure.th
+```
+
+macOS/Linux:
+
+```bash
+python3 src/theta.py --debug src/tests/tm_pure.th
 ```
 
 Common workflows

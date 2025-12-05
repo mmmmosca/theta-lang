@@ -1,5 +1,7 @@
 # Theta
-
+<div align="center">
+<img src="theta-logo.png" width="400" height="400">
+</div>
 
 Theta is a functional-expression language implemented in Python. It is expression-oriented (everything is an expression) and designed for readable, concise code. You can use it interactively from the REPL or run `.th` script files.
 
